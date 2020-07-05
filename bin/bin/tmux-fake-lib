@@ -1,0 +1,43 @@
+#!/bin/zsh
+
+SESSIONNAME="fake_lib"
+tmux has-session -t $SESSIONNAME &> /dev/null
+
+if [ $? != 0 ] 
+ then
+    tmux new-session -s $SESSIONNAME -n vsniffer -d
+    tmux new-window
+	tmux new-window
+	tmux new-window
+	tmux new-window
+	tmux select-window -t 0
+	tmux select-pane -t 0
+	tmux send-keys -t 0 "roscore" C-m
+	
+	sleep 2
+
+	tmux select-window -t 1
+	tmux split-window -v -t 0
+	tmux split-window -h -t 0
+	tmux split-window -h -t 2
+	tmux send-keys -t 0 "rosrun saut robot_sim.py" C-m
+	tmux send-keys -t 1 "rosrun saut tf_broadcaster.py" C-m
+	tmux send-keys -t 2 "j mcl" C-m
+	tmux send-keys -t 2 "rosrun saut mcl.py"
+	
+	tmux select-window -t 2
+	tmux send-keys "rviz" C-m
+
+	tmux select-window -t 3
+	tmux send-keys "j mcl" C-m
+	tmux split-window -v -t 0
+	tmux split-window -h -t 0
+	tmux split-window -h -t 2
+	
+	tmux select-window -t 4
+	tmux send-keys "j mcl" C-m
+
+	
+fi
+
+tmux attach -t $SESSIONNAME

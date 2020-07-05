@@ -1,0 +1,4 @@
+#!/bin/bash
+killall nm-applet 
+sleep 1 
+nm-applet & disown

@@ -1,0 +1,10 @@
+set editing-mode vi
+
+$if mode=vi
+	set keymap vi-command
+	"dw": kill-word
+	"dd": kill-whole-line
+	"db": backward-kill-word
+	"diw": "lbdw"
+	"ciw": "lbcw"
+$endif

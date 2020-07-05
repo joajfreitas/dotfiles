@@ -1,0 +1,19 @@
+#!/bin/bash
+# launcher and configuration for lemonbar
+
+# color definitions aarrggbb
+bg_color="#1e1e1e"
+
+# set location and dimensions for lemonbar
+w="1093"
+h="24"
+x="0"
+y="0"
+
+# set font for lemonbar
+font="dina:pixelsize=14:antialias=1"
+font1="FontAwesome:pixelsize=16"
+
+# what's supposed to be piped to the bar | lemonbar -f $FONT -g $WHXY -B $DBLUE -F $WHITE
+lbar-output | lemonbar -g ${w}x${h}+${x}+${y} \
+-f $font -f $font1 -p -B $bg_color

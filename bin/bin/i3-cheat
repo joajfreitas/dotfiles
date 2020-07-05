@@ -1,0 +1,265 @@
+#!/usr/bin/env python3
+
+import json
+import os
+import re
+import socket
+import struct
+from collections import namedtuple
+
+import gi
+gi.require_version('Gtk', '3.0')
+gi.require_version('Gdk', '3.0')
+from gi.repository import Gdk, Gio, GLib, Gtk
+
+def get_sock_path():
+    '''Get the socket path for i3 (or sway)'''
+    path = os.environ.get('I3SOCK')
+    if not path:
+        path = os.environ.get('SWAYSOCK')
+    if not path:
+        import subprocess
+        path = subprocess.check_output(['i3', '--get-socketpath']).strip().decode()
+    return path
+
+
+GET_CONFIG = 9
+MAGIC = b'i3-ipc'
+MAGIC_LEN = len(MAGIC)
+def get_config():
+    '''Get the configuration for the running i3 (or sway)'''
+    socket_path = get_sock_path()
+    sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    sock.settimeout(0.25)
+    sock.connect(socket_path)
+    sock.send(MAGIC + struct.pack('II', 0, GET_CONFIG))
+    try:
+        header = sock.recv(MAGIC_LEN + 8)
+    except socket.timeout:
+        from pathlib import Path
+        # older versions of i3 don't have a GET_CONFIG ipc function
+        # fall back to reading directly from config
+        return Path('~/.config/i3/config').expanduser().read_text()
+    assert header[0:MAGIC_LEN] == MAGIC, "Unexpected magic number"
+    (size, typ) = struct.unpack('II', header[MAGIC_LEN:])
+    assert typ == GET_CONFIG, "Unexpected response type"
+    config = sock.recv(size)
+    sock.close()
+
+    return json.loads(config)['config']
+
+class Mode:
+    '''A key binding mode'''
+    def __init__(self, name, pango):
+        self.name = name
+        self.pango = bool(pango)
+        self._bindings = []
+
+    def add_binding(self, binding):
+        '''Add a binding to the mode'''
+        self._bindings.append(binding)
+
+    def bindings(self):
+        '''Get an iterator over the bindings'''
+        return iter(self._bindings)
+
+Binding = namedtuple('Binding', ['key', 'command', 'kind', 'release_key'])
+
+def config_lines(content):
+    buf = None
+    for line in content.splitlines():
+        if buf is None:
+            if line.startswith('#'):
+                continue
+            elif line.endswith('\\'):
+                buf = line[:-1]
+            else:
+                yield line
+        else:
+            if line.endswith('\\'):
+                buf += line[:-1]
+            else:
+                yield buf + line
+                buf = None
+
+def parse_config(config):
+    '''Parse the configuration to get the bindings.'''
+    default_mode = Mode('default', False)
+    modes = [default_mode]
+    mode = default_mode
+
+    bind_re = re.compile(r'\s*bind(sym|code) +(--release +)?(\S+) +(.+)')
+    mode_re = re.compile(r'\s*mode +(--pango_markup +)?(.+?) +?\{$')
+    set_re = re.compile(r'\s*set (\$\S+)\s+(.+)')
+    mode_end_re = re.compile(r'\s*\}')
+    variables = dict()
+
+    def do_replacements(line):
+      for name, value in variables.items():
+        line = line.replace(name, value)
+      return line
+
+    for line in config_lines(config):
+        line = do_replacements(line)
+        match = bind_re.match(line)
+        if match:
+            mode.add_binding(Binding(match.group(3), match.group(4), match.group(1), bool(match.group(2))))
+            continue
+        match = set_re.match(line)
+        if match:
+          variables[match.group(1)] = match.group(2)
+          continue
+        match = mode_re.match(line)
+        if match:
+            mode = Mode(match.group(2).strip('"'), bool(match.group(1)))
+            modes.append(mode)
+        elif mode != default_mode and mode_end_re.match(line):
+            mode = default_mode
+
+    return modes
+
+def get_bindings():
+    '''Get the bindings from the active config'''
+    return parse_config(get_config())
+
+
+def print_bindings(modes):
+    '''Print an output of the bindings in i3'''
+    for mode in modes:
+        print("{}:".format(mode.name))
+
+        width = max(len(b.key) for b in mode.bindings())
+
+        for binding in mode.bindings():
+            print("\t{:<{width}}\t{}".format(binding.key, binding.command, width=width))
+
+
+def mode_label(mode):
+    'Create a GTK label for mode'''
+    label = Gtk.Label()
+    if mode.pango:
+        label.set_markup(mode.name)
+    else:
+        label.set_text(mode.name)
+    return label
+
+class I3CheatWindow(Gtk.ApplicationWindow):
+    def __init__(self, modes, **kwargs):
+        '''Create an I3Cheat instance'''
+        super().__init__(**kwargs)
+
+        self._tab_lookup = dict()
+        self.set_default_size(-1, 740)
+
+        accel_group = Gtk.AccelGroup()
+        accel_group.connect(Gdk.KEY_h, 0, 0, self.prev_mode)
+        accel_group.connect(Gdk.KEY_l, 0, 0, self.next_mode)
+        accel_group.connect(Gdk.KEY_q, 0, 0, self._quit)
+        accel_group.connect(Gdk.KEY_Escape, 0, 0, self._quit)
+        self.add_accel_group(accel_group)
+
+        self.set_type_hint(Gdk.WindowTypeHint.DIALOG)
+
+        self.notebook = Gtk.Notebook(scrollable=True)
+        for mode in modes:
+            self._init_mode(mode)
+
+
+        self.add(self.notebook)
+        self.current_page().grab_focus()
+
+        style = Gtk.CssProvider()
+        style.load_from_data(I3Cheat.CSS)
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            style,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+
+    def current_page(self):
+        return self.notebook.get_nth_page(self.notebook.get_current_page())
+
+    def test(self, *args):
+        print(args)
+
+    def _init_mode(self, mode):
+        store = Gtk.ListStore(str, str)
+        for binding in mode.bindings():
+            key = binding.key
+            if binding.kind == 'code':
+                key = 'Code: ' + key
+            store.append([key, binding.command])
+
+        tree = Gtk.TreeView(model=store, headers_visible=False, enable_search=False, search_column=1)
+        tree.get_selection().set_mode(Gtk.SelectionMode.BROWSE)
+        tree.set_cursor(Gtk.TreePath(0), None, False)
+        key_column = Gtk.TreeViewColumn("Binding", Gtk.CellRendererText(), text=0)
+        key_column.set_spacing(140)
+        tree.append_column(key_column)
+        command_column = Gtk.TreeViewColumn("Command", Gtk.CellRendererText(), text=1)
+        command_column.set_spacing(140)
+        tree.append_column(command_column)
+
+        scrolled = Gtk.ScrolledWindow()
+        scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        scrolled.add(tree)
+
+        self._tab_lookup[mode.name] = self.notebook.get_n_pages()
+        self.notebook.append_page(scrolled, mode_label(mode))
+
+
+    def focus_mode(self, mode):
+        'Focus on a mode by its name'
+        idx = self._tab_lookup.get(mode, 0)
+        self.notebook.set_current_page(idx)
+
+    def next_mode(self, *args):
+        'move focus to the next mode'
+        self.notebook.next_page()
+    def prev_mode(self, *args):
+        self.notebook.prev_page()
+    def _quit(self, *args):
+        self.close()
+
+class I3Cheat(Gtk.Application):
+    CSS = b"""
+        * {
+            font-size: 16px;
+        }
+        @binding-set test {
+            bind "slash" { "start-interactive-search" () };
+            bind "j" { "move-cursor" (display-lines, 1) };
+            bind "k" { "move-cursor" (display-lines, -1) };
+        }
+        GtkTreeView, treeview {
+            gtk-key-bindings: test;
+        }
+    """
+
+    def __init__(self):
+        super().__init__(application_id="com.github.tmccombs.i3-cheat", flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE)
+        self.add_main_option('mode', ord('m'), 0, GLib.OptionArg.STRING, "Mode tab to open", "MODE")
+        self.window = None
+
+    def do_command_line(self, cl):
+        if not self.window:
+            win = I3CheatWindow(self.modes, application=self, title="I3 Cheatsheet")
+            win.show_all()
+
+        mode = cl.get_options_dict().lookup_value('mode')
+        if mode:
+            mode = mode.get_string()
+            win.focus_mode(mode)
+        win.present()
+
+    def do_startup(self):
+        Gtk.Application.do_startup(self)
+        self.modes = get_bindings()
+
+if __name__ == '__main__':
+    import sys
+    import signal
+    app = I3Cheat()
+    # so ctrl+c still works
+    GLib.unix_signal_add(GLib.PRIORITY_DEFAULT, signal.SIGINT, app.quit)
+    app.run(sys.argv)

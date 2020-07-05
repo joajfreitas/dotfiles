@@ -1,0 +1,215 @@
+# vim: filetype=sh
+
+#egse
+
+alias egse_tunnel='ssh -NTL 6969:localhost:6969 egse'
+alias safesat_tunnel='ssh -NTL 6969:localhost:6969 safe_mode'
+
+alias pacman-news='informant'
+
+alias tmux="TERM=screen-256color-bce tmux"
+
+alias ssh_sat='ssh pi@caronte.tecnico.ulisboa.pt -p 2000'
+
+alias radio0='mpv http://stream.radiozero.pt/zero128.mp3'
+
+alias journal='vim ~/projects/notes'
+#ti
+#alias uniflash='/home/joaj/ti/uniflash_4.3.0/node-webkit/nw'
+#alias ccs='/home/joaj/ti/ccsv8/eclipse/ccstudio'
+alias drive='chromium --app="https://drive.google.com/drive/u/1/my-drive?ogss=1"'
+alias slack='chromium --app="https://fstlisboa.slack.com"'
+alias ct='ctags -R --c-kinds=+p --fields=+S'
+alias mpv='mpv --save-position-on-quit'
+alias getpage='wget -E -H -k -p'
+alias qutebrowser='qutebrowser --backend webengine'
+
+alias us='setxkbmap us; setxkbmap -option "caps:swapescape"'
+alias pt='setxkbmap pt; setxkbmap -option "caps:swapescape"'
+alias mit='rlwrap mit-scheme'
+
+alias tmux='tmux -2'
+
+alias tw='task'
+
+alias pspice='wine ~/.wine/drive_c/Program\ Files/OrCAD_Demo/PSpice/psched.exe'
+
+alias mypy='python -m mypy'
+alias py='python'
+alias weather='curl wttr.in | tac | tac | head -n 7'
+
+#alias l='log_wiki.py'
+
+alias bat='bat --theme=gruvbox'
+
+function compress_pdf ()
+{
+	for i in $(ls); do
+        echo $i;
+        gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/default -dNOPAUSE -dQUIET -dBATCH -sOutputFile=compressed/$i $i;
+	done
+}
+#alias vim='echo "running clean vimrc"; sleep 0.2; vim -u ~/.vim/empty.vim'
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    LS_COLORS='di=33:fi=31:ln=34:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
+    export LS_COLORS
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+alias ls='ls -1 --color=auto'
+alias mv='mv -i'
+alias rm='rm -i'
+alias cp='cp -i'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+#alias l='ls -CF'
+
+#git
+#alias gl='git log'
+#alias gc='git commit'
+#alias gpush='git push'
+#alias gpull='git pull'
+#alias ga='git add'
+#alias gall='git add .'
+#alias gs='git status'
+#alias gcheck='git checkout'
+#alias gb='git branch'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+#Tecnico sigma
+alias sigma="ssh ist425393@sigma.tecnico.ulisboa.pt"
+alias sigmafs="sshfs ist425393@sigma.tecnico.ulisboa.pt:/afs/.ist.utl.pt/users/9/3/ist425393 sigma"
+
+#i3
+alias i3bar="nohup i3bar --bar_id bar-0 &"
+
+alias nose='nosetests'
+alias rusti='rustup run nightly-2016-08-01 /usr/bin/rusti'
+alias update='newsbeuter && sudo pacman -Syu'
+
+# ----------------------
+# Git Aliases
+# ----------------------
+alias ga='git add'
+alias gaa='git add .'
+alias gaaa='git add --all'
+alias gau='git add --update'
+alias gb='git branch'
+alias gbd='git branch --delete '
+alias gc='git commit'
+alias gcm='git commit --message'
+alias gcf='git commit --fixup'
+alias gco='git checkout'
+alias gcob='git checkout -b'
+alias gcom='git checkout master'
+alias gcos='git checkout staging'
+alias gcod='git checkout develop'
+alias gd='git diff'
+alias gda='git diff HEAD'
+alias gi='git init'
+alias glg='git log --graph --oneline --decorate --all'
+alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
+alias gm='git merge --no-ff'
+alias gma='git merge --abort'
+alias gmc='git merge --continue'
+alias gp='git pull'
+alias gpr='git pull --rebase'
+alias gr='git rebase'
+alias gs='git status'
+alias gss='git status --short'
+alias gst='git stash'
+alias gsta='git stash apply'
+alias gstd='git stash drop'
+alias gstl='git stash list'
+alias gstp='git stash pop'
+alias gsts='git stash save'
+
+# ----------------------
+# Git Functions
+# ----------------------
+# Git log find by commit message
+function glf() { git log --all --grep="$1"; }
+
+function youtube-dl-user ()
+{
+	youtube-dl ytuser:$1
+}
+
+# ex - archive extractor
+# usage: ex <file>
+function ex ()
+{
+	if [ -f $1 ] ; then
+		case $1 in
+			*.tar)		tar -xf $1    	;;
+			*.tar.xz)	tar -xJf $1   	;;
+			*.txz)		tar -xJf $1   	;;
+			*.tar.bz2)	tar -xjf $1   	;;
+			*.tbz2)		tar -xjf $1   	;;
+			*.tar.gz)	tar -xzf $1   	;;
+			*.tgz)		tar -xzf $1   	;;
+			*.tar.pixz)	tar -Ipixz -xf $1;;
+			*.tpxz)		tar -Ipixz -xf $1;;
+			*.xz)		xz -d $1   		;;
+			*.pixz)		pixz -d $1		;;
+			*.gz)		gunzip $1    	;;
+			*.bz2)		bunzip2 $1   	;;
+			*.rar)		unrar e $1		;;
+			*.zip)		unzip $1     	;;
+			*.Z)		uncompress $1	;;
+			*.7z)		7z -x $1      	;;
+			*)			echo "'$1' cannot be extracted via ex()" ;;
+		esac
+	else
+		echo "'$1' is not a valid file"
+	fi
+}
+
+function login ()
+{
+    i3bar
+    source .profile
+    xmodmap .Xmodmap
+}
+
+
+function cs () {
+    cd "$@" && ls
+}
+
+function up()
+{
+    LIMIT=$1
+    P=$PWD
+    for ((i=1; i <= LIMIT; i++)) do
+        P=$P/..
+    done
+    cd $P
+    export MPWD=$P
+}
+
+function mm() {
+    mpv --no-video --ytdl-format=bestaudio ytdl://ytsearch10:"$@"
+}
+
+
+# source ~/.secret_alias
+export PYTHONSTARTUP=/home/joaj/.pythonrc
+
+export PATH=$PATH:/home/joaj/.local/bin
+export PATH=$PATH:/home/joaj/.emacs.d/bin
+export PATH=$PATH:/home/joaj/.cargo/bin

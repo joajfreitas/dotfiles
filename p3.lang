@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Authors: João Matos, Marcos Henrich
+ Copyright (C) 2009 João Matos <ripzonetriton@gmail.com>
+ Copyright (C) 2009 Marcos Henrich <marcoshenrich@hotmail.com>
+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Library General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later version.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Library General Public License for more details.
+
+ You should have received a copy of the GNU Library General Public
+ License along with this library; if not, write to the
+ Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ Boston, MA 02111-1307, USA.
+
+-->
+<language id="p3" _name="P3" version="2.0" _section="Sources">
+    <metadata>
+      <property name="mimetypes">text/x-p3</property>
+      <property name="globs">*.as</property>
+      <property name="line-comment-start">;</property>
+    </metadata>
+
+    <styles>
+        <style id="comment"           _name="Comment"             map-to="def:comment"/>
+        <style id="string"            _name="String"              map-to="def:string"/>
+        <style id="preprocessor"      _name="Pseudo-instructions" map-to="def:keyword"/>
+        <style id="opcodes"           _name="Opcodes"             map-to="def:keyword"/>
+        <style id="decimal"           _name="Decimal number"      map-to="def:decimal"/>
+        <style id="hexadecimal"       _name="Hexadecimal number"  map-to="def:base-n-integer"/>
+        <style id="octal"             _name="Octal number" 	      map-to="def:base-n-integer"/>
+        <style id="type"              _name="Data Type"           map-to="def:type"/>
+        <style id="constant"          _name="Constant Type"       map-to="def:constant"/>
+        <style id="identifier"        _name="Identifier"          map-to="def:identifier"/>
+    </styles>
+
+    <definitions>
+        <context id="p3">        
+            <include>            
+                <!-- Comments -->
+                <context id="comment" style-ref="comment" end-at-line-end="true">
+                    <start>;</start>
+                    <include>
+                    	<context ref="def:in-line-comment"/>
+                    </include>
+                </context>
+
+                <context id="string" style-ref="string" end-at-line-end="true">
+                    <start>'</start>
+                    <end>'</end>
+                </context>
+
+                <context id="hexadecimal" style-ref="hexadecimal" extend-parent="false">
+                    <match extended="true">                        
+                        [a-fA-F0-9]+[Hh]                        
+                    </match>
+                </context>
+
+                <context id="octal" style-ref="octal" extend-parent="false">
+                    <match extended="true">                        
+                        [0-7]+[Oo]                        
+                    </match>
+                </context>
+
+                <context id="binary" style-ref="octal" extend-parent="false">
+                    <match extended="true">                        
+                        [0-1]+[Bb]                        
+                    </match>
+                </context>
+
+                <context id="decimal" style-ref="decimal" extend-parent="false">
+                    <match extended="true">                        
+                        [0-9]+[Dd]?                        
+                    </match>
+                </context>                 
+                
+                <!-- Pseudo-instructions -->
+                <context id="pseudo" style-ref="preprocessor">
+                    <keyword>ORIG</keyword>
+                    <keyword>EQU</keyword>
+                    <keyword>WORD</keyword>
+                    <keyword>STR</keyword>
+                    <keyword>TAB</keyword>                    
+                </context>                
+                                
+                <context id="registers" style-ref="type">
+                    <keyword>R0</keyword>
+                    <keyword>R1</keyword>
+                    <keyword>R2</keyword>
+                    <keyword>R3</keyword>
+                    <keyword>R4</keyword>
+                    <keyword>R5</keyword>
+                    <keyword>R6</keyword>
+                    <keyword>R7</keyword>
+                    <keyword>PC</keyword>
+                    <keyword>SP</keyword>                                                           
+                </context>          
+                
+                <context id="memory-brackets" style-ref="opcodes">
+					<match extended="true">
+						M\[|\]
+					</match>   				                                                     
+                </context>                                 
+                
+                <context id="memory" >
+                	<start>M\[</start>
+                    <end>\]</end>
+					<include>
+						<context ref="hexadecimal"/>
+						<context ref="decimal"/>
+						<context ref="octal"/>
+						<context ref="registers"/>
+						<context ref="identifier"/>
+                    </include>
+				</context>
+				
+                <context id="br-extended" style-ref="opcodes">
+					<match extended="true">					
+						BR\.(NC|NN|NO|NZ|NI|NP|C|N|O|Z|I|P)					
+					</match>
+                </context>
+                
+                <context id="jmp-extended" style-ref="opcodes">
+					<match extended="true">
+						JMP\.(NC|NN|NO|NZ|NI|NP|C|N|O|Z|I|P)					
+					</match>
+                </context>
+                
+                <context id="call-extended" style-ref="opcodes">
+                	<match extended="true">					
+						CALL\.(NC|NN|NO|NZ|NI|NP|C|N|O|Z|I|P)					
+					</match>
+                </context>                                               
+
+                <!-- Opcodes -->
+                <context id="opcodes" style-ref="opcodes">
+                    <keyword>NOP</keyword>
+                    <keyword>ENI</keyword>
+                    <keyword>DSI</keyword>
+                    <keyword>STC</keyword>
+                    <keyword>CLC</keyword>
+                    <keyword>CMC</keyword>
+                    <keyword>RET</keyword>
+                    <keyword>RTI</keyword>
+                    <keyword>INT</keyword>
+                    <keyword>RETN</keyword>
+                    <keyword>NEG</keyword>
+                    <keyword>INC</keyword>
+                    <keyword>DEC</keyword>
+                    <keyword>COM</keyword>
+                    <keyword>PUSH</keyword>
+                    <keyword>POP</keyword>
+                    <keyword>SHR</keyword>
+                    <keyword>SHL</keyword>
+                    <keyword>SHRA</keyword>
+                    <keyword>SHLA</keyword>
+                    <keyword>ROR</keyword>
+                    <keyword>ROL</keyword>
+                    <keyword>RORC</keyword>
+                    <keyword>ROLC</keyword>
+                    <keyword>CMP</keyword>
+                    <keyword>ADD</keyword>
+                    <keyword>ADDC</keyword>
+                    <keyword>SUB</keyword>
+                    <keyword>SUBB</keyword>
+                    <keyword>MUL</keyword>
+                    <keyword>DIV</keyword>
+                    <keyword>TEST</keyword>
+                    <keyword>AND</keyword>                                                            
+                    <keyword>OR</keyword>
+                    <keyword>XOR</keyword>
+                    <keyword>MOV</keyword>
+                    <keyword>MVBH</keyword>
+                    <keyword>MVBL</keyword>
+                    <keyword>XCH</keyword>
+                    <keyword>JMP</keyword>
+                    <keyword>CALL</keyword>                                                                       
+                    <keyword>BR</keyword>
+                </context>
+                
+                <context id="identifier" style-ref="identifier" extend-parent="false">
+                    <match extended="true">						
+                        [A-Za-z][A-Za-z0-9_]*
+                    </match>
+                </context>                                 
+                
+            </include>
+        </context>
+    </definitions>
+</language>

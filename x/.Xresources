@@ -1,0 +1,192 @@
+!! -----------------------------------------------------------------------------2
+
+! SOlarized color scheme fot the X window System
+!
+! http://ethanschoonover.com/solarized
+
+
+
+! Common
+
+!#define S_yellow        #b58900
+!#define S_orange        #cb4b16
+!#define S_red           #dc322f
+!#define S_magenta       #d33682
+!#define S_violet        #6c71c4
+!#define S_blue          #268bd2
+!#define S_cyan          #2aa198
+!#define S_green         #859900
+!
+!
+!! Dark
+!
+!#define S_base03        #002b36
+!#define S_base02        #073642
+!#define S_base01        #586e75
+!#define S_base00        #657b83
+!#define S_base0         #eeeeee
+!#define S_base1         #93a1a1
+!#define S_base2         #eee8d5
+!#define S_base3         #fdf6e3
+
+
+! Light
+
+! #define S_base03        #fdf6e3
+! #define S_base02        #eee8d5
+! #define S_base01        #93a1a1
+! #define S_base00        #839496
+! #define S_base0         #657b83
+! #define S_base1         #586e75
+! #define S_base2         #073642
+! #define S_base3         #002b36
+
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintslight
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+!Xft.dpi: 96
+
+!! URxvt
+URxvt*font: xft:Fira Code:pixelsize=12:antialias=true:hinting=true
+URxvt*boldFont: xft:Fira Code:bold:pixelsize=12:antialias=true:hinting=true
+xterm*faceName: xft:FiraCode:size=13:antialias=true
+URxvt*letterSpace: -1
+
+! To only apply colors to your terminal, for example, prefix
+! the color assignment statement with its name. Example:
+!
+! URxvt*background:            S_base03
+
+xterm*font: xft:Fira Mono:pixelsize=12:antialias=true:hinting=true
+XTerm*faceName: DejaVu Sans Mono for Powerline 
+!XTerm*faceName: Fira Mono for Powerline 
+xterm*locale: true
+xterm*saveLines: 10000
+!xterm*faceName: xft:Monospace:size=10:antialias=true
+xterm*faceName: xft:FiraMono:size=9:antialias=true
+
+urxvt*borderLess: false
+urxvt*internalborder: 0
+urxvt*externalborder: 0
+URxvt*scrollBar: False
+URxvt*scrollTtyOutput: False
+URxvt*scrollWithBuffer: False
+URxvt*scrollTtyKeypress: True
+URxvt*saveLines: 10000
+! URxvt.perl-ext: default,matcher,clipboard
+URxvt.perl-ext-common: default,clipboard,url-select
+URxvt.url-select.launcher: firefox
+URxvt.url-select.underline: true
+URxvt.keysym.M-C-o: perl:url-select:select_next
+URxvt.keysym.M-C-c: perl:clipboard:copy
+URxvt.keysym.M-C-v: perl:clipboard:paste
+URxvt*iso14755: False
+URxvt*iso14755_52: False
+URxvt*geometry: 111x29
+!URxvt*font: xft:droid sans mono:pixelsize=10:antialias=true:hinting=true
+!URxvt*boldFont: xft:droid sans mono:bold:pixelsize=10:antialias=true:hinting=true
+
+Rxvt*font: xft: Font Aawesome: size=5, xft: Liberation Mono:pixelsize=14,xft: DejaVu Sans Mono,xft: Symbola:size=5,xft: Unifont
+
+
+! -----------------------------------------------------------------------------
+! File: gruvbox-dark.xresources
+! Description: Retro groove colorscheme generalized
+! Author: morhetz <morhetz@gmail.com>
+! Source: https://github.com/morhetz/gruvbox-generalized
+! Last Modified: 6 Sep 2014
+! -----------------------------------------------------------------------------
+
+! hard contrast: *background: #1d2021
+*background: #282828
+! soft contrast: *background: #32302f
+*foreground: #ebdbb2
+! Black + DarkGrey
+*color0:  #282828
+*color8:  #928374
+! DarkRed + Red
+*color1:  #cc241d
+*color9:  #fb4934
+! DarkGreen + Green
+*color2:  #98971a
+*color10: #b8bb26
+! DarkYellow + Yellow
+*color3:  #d79921
+*color11: #fabd2f
+! DarkBlue + Blue
+*color4:  #458588
+*color12: #83a598
+! DarkMagenta + Magenta
+*color5:  #b16286
+*color13: #d3869b
+! DarkCyan + Cyan
+*color6:  #689d6a
+*color14: #8ec07c
+! LightGrey + White
+*color7:  #a89984
+*color15: #ebdbb2
+
+! -----------------------------------------------------------------------------
+! File: gruvbox-light.xresources
+! Description: Retro groove colorscheme generalized
+! Author: morhetz <morhetz@gmail.com>
+! Source: https://github.com/morhetz/gruvbox-generalized
+! Last Modified: 6 Sep 2014
+! -----------------------------------------------------------------------------
+
+!! hard contrast: *background: #f9f5d7
+!*background: #fbf1c7
+!! soft contrast: *background: #f2e5bc
+!*foreground: #3c3836
+!! Black + DarkGrey
+!*color0:  #fdf4c1
+!*color8:  #928374
+!! DarkRed + Red
+!*color1:  #cc241d
+!*color9:  #9d0006
+!! DarkGreen + Green
+!*color2:  #98971a
+!*color10: #79740e
+!! DarkYellow + Yellow
+!*color3:  #d79921
+!*color11: #b57614
+!! DarkBlue + Blue
+!*color4:  #458588
+!*color12: #076678
+!! DarkMagenta + Magenta
+!*color5:  #b16286
+!*color13: #8f3f71
+!! DarkCyan + Cyan
+!*color6:  #689d6a
+!*color14: #427b58
+!! LightGrey + White
+!*color7:  #7c6f64
+!*color15: #3c3836
+
+
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+! Use extended color scheme
+rofi.color-enabled:                  true
+! Color scheme for normal row
+rofi.color-normal:                   #ffffff,#525d76,#f5f5f5,#5294e2,#ffffff
+! Color scheme for urgent row
+rofi.color-urgent:                   #ffffff,#dc322f,#f5f5f5,#5294e2,#dc322f
+! Color scheme for active row
+rofi.color-active:                   #ffffff,#c2cad0,#f5f5f5,#5294e2,#c2cad0
+! Color scheme window
+rofi.color-window:                   #ffffff,#f5f5f5
+! Separator style (none, dash, solid)
+rofi.separator-style:                solid
+rofi.font:                           FiraMono 15
+rofi.width: 80
+rofi.fake-transparency: true
+
+rofi.show-icons:					 true
+
+! Very important Meta stuff
+XTerm*metaSendsEscape: true

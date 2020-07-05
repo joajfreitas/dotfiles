@@ -1,0 +1,46 @@
+#!/bin/bash
+
+    ## requires surfraw, add below to your .bashrc
+    ## PATH=/usr/lib/surfraw:${PATH}
+    ## default script uses rofi, if you use dmenu just replace "rofi -dmenu" with "dmenu", you can simply mask that line and unmask the next line with dmenu
+    ## put your browser command in BROWSER=<-->, defaults to chromium
+    ## put your bookmarks & history file in appropriate place, defaults to w3m bookmarks and history file
+    ## EXAMPLE
+    ## "youtube movie trailers" to search movie trailers ay youtube.com
+    ## "youtube.com" to open default youtube page
+    ## similarly "google world war 2" , "wiki world war", "aur telegram-bin", "awiki mutt", "pubmed giant cell tumor" etc.
+
+    BROWSER=chromium
+    BOOKMARKS=~/.w3m/bookmark.html
+    HISTORY=~/.w3m/history
+    
+    grep -o 'http[^"]*' $BOOKMARKS > /tmp/bookmarks
+    grep -o 'http[^"]*' $HISTORY >> /tmp/bookmarks
+    #cat /tmp/bookmarks | rofi -dmenu -location 6 -lines 10 -width 100 -p $BROWSER: > /tmp/x
+    cat /tmp/bookmarks | dmenu -p $BROWSER: > /tmp/x
+    
+    check=$(wc -l < /tmp/x)
+    (( check == 0)) && exit
+
+    awk '{ print $1 }' /tmp/x > /tmp/y
+    awk '{ print $2, $3, $4, $5, $6, $7, $8 }' /tmp/x > /tmp/z
+    
+    grep -o http /tmp/x && $BROWSER  $(cat /tmp/x) && exit
+    grep -o "www\." /tmp/x && $BROWSER $(cat /tmp/x) && exit
+    grep -o "\.com" /tmp/x && $BROWSER $(cat /tmp/x) && exit
+    grep -o "\.in" /tmp/x && $BROWSER $(cat /tmp/x) && exit
+    grep -o "\.org" /tmp/x && $BROWSER $(cat /tmp/x) && exit
+
+    grep -o awiki /tmp/y && archwiki -browser=$BROWSER $(< /tmp/z) && exit
+    grep -o wiki /tmp/y && wikipedia -browser=$BROWSER  $(< /tmp/z) && exit
+    grep -o imdb /tmp/y && imdb -browser=$BROWSER $(< /tmp/z) && exit
+    grep -o aur /tmp/y && aur -browser=$BROWSER $(< /tmp/z) && exit
+    grep -o pkg /tmp/y && archpkg -browser=$BROWSER $(< /tmp/z) && exit
+    grep -o google /tmp/y && google -browser=$BROWSER $(< /tmp/z) && exit
+    grep -o dict /tmp/y && webster -browser=$BROWSER $(< /tmp/z) && exit
+    grep -o dictu /tmp/y && urban -browser=$BROWSER $(< /tmp/z) && exit
+    grep -o torrent /tmp/y && piratebay -browser=$BROWSER $(< /tmp/z) && exit
+    grep -o pubmed /tmp/y && pubmed -browser=$BROWSER $(< /tmp/z) && exit
+    grep -o youtube /tmp/y && youtube -browser=$BROWSER $(< /tmp/z) && exit
+
+    S -browser=$BROWSER $(cat /tmp/x)

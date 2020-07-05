@@ -1,0 +1,21 @@
+#!/bin/bash
+
+arg="$1"
+rm ~/.config/i3/config
+case $arg in
+    "light") 
+        echo light
+        ln -s ~/.config/i3/configs/light_config ~/.config/i3/config
+        xrdb ~/.Xresources_light
+        ;;
+    "dark")
+        echo dark
+        ln -s ~/.config/i3/configs/dark_config ~/.config/i3/config
+        xrdb ~/.Xresources
+        ;;
+	*) echo "Usage: toggle_theme [dark, light], defaulting to dark"
+        ln -s ~/.config/i3/configs/dark_config ~/.config/i3/config
+        xrdb ~/.Xresources
+        ;;
+esac
+i3-msg restart

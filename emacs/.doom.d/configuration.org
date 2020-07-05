@@ -1,0 +1,171 @@
+#+TITLE: Emacs Configuration
+
+* Set Personal Information
+** Who am I? Where am I?
+Missing GPG information
+
+#+begin_src emacs-lisp
+  (setq user-full-name "João M. Freitas"
+        user-mail-address "joaj.freitas@gmail.com"
+        calendar-latitude 38.7426654
+        calendar-longitude -9.1315425
+        calendar-location-name "Lisbon, PT")
+#+end_src
+
+#+RESULTS:
+: Lisbon, PT
+
+* DOOM Configurations
+** DOOM theme
++Like =Fira Mono= I've been using =gruvbox= for some time. The DOOM =gruvbox= is quite different from VIM.+
+
+Lets try something new.
+#+begin_src emacs-lisp
+(setq doom-theme 'doom-gruvbox)
+
+#+end_src
+
+#+RESULTS:
+: doom-gruvbox
+
+* Cosmetic Preferences
+** Fonts
+Been using =Fira Code= for a long time now.
+#+begin_src emacs-lisp
+(setq doom-font (font-spec :family "Fira Code" :size 12))
+#+end_src
+
+#+RESULTS:
+: #<font-spec nil nil Fira\ Code nil nil nil nil nil 11 nil nil nil nil>
+
+** Line Number
+Display line numbers
+#+begin_src emacs-lisp
+(setq display-line-numbers-type t)
+#+end_src
+
+#+RESULTS:
+: t
+
+** Search
+
+#+begin_src emacs-lisp
+;; isearch lazy cleanup
+(setq lazy-highlight-cleanup nil)
+(setq lazy-highlight-max-at-a-time nil)
+(setq lazy-highlight-initial-delay 0)
+#+end_src
+
+** Transparency
+A bit of transparency. Currently using Compton for this.
+#+begin_src emacs-lisp
+;;(set-frame-parameter (selected-frame) 'alpha '(92 . 90))
+;;(add-to-list 'default-frame-alist '(alpha . (92 . 90)))
+ #+end_src
+
+ #+RESULTS:
+ : dwc-smart-transparent-frame
+
+* Project Management
+** Projectile
+
+#+begin_src emacs-lisp
+(projectile-add-known-project "~/fst/software10e")
+(projectile-add-known-project "~/ist/a5s2/CPD/project")
+(projectile-add-known-project "~/projects/learn/rust/variables")
+#+end_src
+
+#+RESULTS:
+| ~/projects/learn/rust/variables/ | ~/ist/a5s2/CPD/project/ | ~/fst/software10e/ | ~/org-wiki/ | ~/.emacs.d/ | ~/vimwiki/ | ~/fst/ |
+
+* Org Mode
+** Org folder
+
+https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
+#+begin_src emacs-lisp
+(setq org-directory "~/org-wiki/")
+
+(setq org-publish-project-alist
+      '(
+        ("org-wiki"
+        :base-directory "~/org-wiki/"
+        :base-extension "org"
+        :publishing-directory "~/public_html/"
+        :recursive t
+        :publishing-function org-html-publish-to-html
+        :headline-levels 4             ; Just the default for this project.
+        :auto-preamble t
+        :style "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://gongzhitaao.org/orgcss/org.css\"/>"
+        )
+
+        ("org-static"
+        :base-directory "~/org/"
+        :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+        :publishing-directory "~/public_html/"
+        :recursive t
+        :publishing-function org-publish-attachment
+        )
+        ("org" :components ("org-wiki" "org-static"))
+
+      ))
+#+end_src
+
+#+RESULTS:
+| org-wiki   | :base-directory | ~/org-wiki/           | :base-extension | org  | :publishing-directory | ~/public_html/ | :recursive | t    | :publishing-function | org-html-publish-to-html | :headline-levels |   4 | :auto-preamble        | t              | :style     | <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/> |                      |                        |
+| org-static | :base-directory | ~/org/                | :base-extension | css\ | js\                   | png\           | jpg\       | gif\ | pdf\                 | mp3\                     | ogg\             | swf | :publishing-directory | ~/public_html/ | :recursive | t                                                                                      | :publishing-function | org-publish-attachment |
+| org        | :components     | (org-wiki org-static) |                 |      |                       |                |            |      |                      |                          |                  |     |                       |                |            |                                                                                        |                      |                        |
+
+** Display Preferences
+
+
+#+begin_src emacs-lisp
+(setq org-ellipsis "⤵")
+#+end_src
+
+** Markdown to Org
+#+begin_src emacs-lisp
+(defun org-convert-markdown ()
+    "Convert the current buffer's content from markdown to orgmode format and save it with the current buffer's file name but with .org extension."
+    (interactive)
+    (shell-command-on-region (point-min) (point-max)
+                             (format "pandoc -f markdown -t org -o %s"
+                                     (concat (file-name-sans-extension (buffer-file-name)) ".org"))))
+#+end_src
+
+#+RESULTS:
+: org-convert-markdown
+
+** Roam
+Roam note taking system using org.
+
+#+begin_src emacs-lisp
+(setq org-roam-directory "~/org-wiki")
+#+end_src
+
+
+#+begin_src emacs-lisp
+(require 'org-roam-protocol)
+
+(use-package! org-roam
+  :commands (org-roam-insert org-roam-find-file org-roam org-roam-show-graph)
+  :init
+  (setq org-roam-directory org-directory)
+  (setq org-roam-graph-viewer "/usr/bin/brave")
+  (map! :leader
+      :prefix "n"
+      :desc "Org-Roam-Insert" "i" #'org-roam-insert
+      :desc "Org-Roam-Find"   "/" #'org-roam-find-file
+      :desc "Org-Roam-Buffer" "r" #'org-roam
+      :desc "Org-Roam-Show-Graph" "g" #'org-roam-show-graph)
+  :config
+  (org-roam-mode +1)
+  (require 'org-roam-protocol)) ;; require org-roam-protocol here
+#+end_src
+
+#+RESULTS:
+: t
+
+
+*** Useful links:
+- https://org-roam.readthedocs.io/en/master/notetaking_workflow/
+- https://org-roam.readthedocs.io/en/master/configuration/
