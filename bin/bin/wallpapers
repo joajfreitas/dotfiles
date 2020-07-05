@@ -1,0 +1,11 @@
+#!/bin/bash
+
+wallpaper_dir=$HOME/media/rotation
+cd $wallpaper_dir
+
+while [ 1 ]; do
+    for wallpaper in "$wallpaper_dir"/*; do
+		feh --bg-fill ${wallpaper}
+		sleep 900
+    done
+done

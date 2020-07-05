@@ -1,0 +1,6 @@
+#!/bin/bash
+
+scrot -e 'mv $f ~/pictures/screenshots/current.png'
+blur_image ~/pictures/screenshots/current.png -o ~/pictures/screenshots/blurred.png
+i3lock -i ~/pictures/screenshots/blurred.png
+

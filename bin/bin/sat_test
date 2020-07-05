@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+cd ~/sat/Software
+find  ~/sat/Software/src | grep py | entr -s 'pytest ~/sat/Software/src/python-tests'

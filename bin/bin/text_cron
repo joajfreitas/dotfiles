@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+
+import datetime
+with open("/home/joaj/logs/memes.txt", "a") as log:
+	log.write(str(datetime.datetime.today()) + '\n')
+	

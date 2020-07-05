@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xterm -title hotkeys -geometry 120x40 -e "help"

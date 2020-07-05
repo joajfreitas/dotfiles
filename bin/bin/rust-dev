@@ -1,0 +1,4 @@
+#!/bin/bash
+
+xfce4-terminal -e "/home/joaj/projects/Code/rust"
+qutebrowser "http://rust-lang.github.io/book/second-edition"

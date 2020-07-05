@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+
+with open("classes/buffer", "r") as f:
+	print(f.read())
+

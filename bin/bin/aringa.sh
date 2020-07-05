@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# Arin.Ga - Pastebin
+
+# This script sends a POST request with curl
+# The url is printed to stdout and copied to the clipboard
+# More info at https://arin.ga/000002
+
+usage () {
+	echo "\
+Usage: aringa [-e expire_date] [file...]
+If no file is supplied or when file is - , it reads from stdin
+
+Options
+-h   display usage
+-e   set expire time  (examples: '42 seconds' or '1234 hours' or '1 week 2 days 3 hours')"
+}
+
+IFS=" " expand=cat
+while getopts :he: opt; do
+	case $opt in
+		h) usage; exit;;
+		e) expire=expire=$OPTARG;;
+		*) usage >&2; exit 1
+	esac
+done
+shift "$((OPTIND - 1))"
+
+if ! command -v curl > /dev/null 2>&1; then
+	printf "%s: Upload failure: %s\n" "$0" "curl is not installed" >&2
+	exit 1
+fi
+
+[ "$#" = 0 ] && set -- -
+for file do
+	if ! url=$("$expand" -- "$file" | curl -sF "aringa=<-" ${expire+-F "$expire"} https://arin.ga); then
+		printf "%s: Upload failure: %s\n" "$0" "$file" >&2
+	else
+		printf "%s\n" "$url"
+		clipboard="$clipboard $url"
+	fi
+done
+
+if command -v pbcopy > /dev/null 2>&1; then xclip () { pbcopy; }
+elif command -v xsel > /dev/null 2>&1; then xclip () { xsel; }
+fi
+if command -v xclip > /dev/null; then printf %s "${clipboard# }" | xclip; fi

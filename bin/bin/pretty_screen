@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+convert $1 \( +clone  -alpha extract \
+        -draw 'fill black polygon 0,0 0,8 8,0 fill white circle 8,8 8,0' \
+        \( +clone -flip \) -compose Multiply -composite \
+        \( +clone -flop \) -compose Multiply -composite \
+     \) -alpha off -compose CopyOpacity -composite tmp.png
+
+convert tmp.png \( +clone  -background black -shadow 60x9+3+12 \) +swap -background none -layers merge +repage $2
+#rm tmp.png

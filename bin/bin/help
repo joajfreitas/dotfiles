@@ -1,0 +1,2 @@
+#!/bin/bash
+keybindings.py ~/.config/i3/config | less -r && exit

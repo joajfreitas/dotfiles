@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+
+import tarfile
+import os
+from datetime import datetime
+import paramiko
+import subprocess
+
+folders = ["/home/joaj/bin", "/home/joaj/archive", "/home/joaj/projects"]
+target = "/home/joaj/archive/" + str(datetime.today()) + ".tar.gz"
+with tarfile.open( target, "w:gz" ) as tar:
+    for folder in folders:
+        tar.add(folder)
+
+os.system(f'scp -P 39901 "{target}" joaj@joajfreitas.ddns.net:/home/joaj/backup ')
+
+os.remove(target)
+
+def main():
+    hostname = 'joajfreitas.ddns.net' 
+    myuser = 'joaj'
+    mySSHK = '/home/joaj/.ssh/id_rsa.pub'
+    client = paramiko.SSHClient()  # will create the object
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())# no known_hosts error
+    client.connect(hostname, username=myuser, key_filename=mySSHK, port=39901) # no passwd needed
+
+    command = "ls ~/backup"
+    stdin, stdout, stderr = client.exec_command(command)
+    lines = [line for line in stdout]
+    lines = [line[:-1] for line in lines]
+    for line in lines[:-2]:
+        stdin, stdout, stderr = client.exec_command(f'rm -rf "/home/joaj/backup/{line}"')
+    print(stderr)
+    client.close()
+
+#os.remove(target)
+
+if __name__ == "__main__":
+    main()

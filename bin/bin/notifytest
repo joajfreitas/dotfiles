@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+notify-send "Lorem Ipsum" "Voluptatem tempore necessitatibus dolor"

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+feh -B white -g 820x640 ~/pictures/refcard-1.png
