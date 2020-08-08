@@ -25,7 +25,11 @@ def loop(args, files):
 
 def cmd_handler(args, files):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind(("127.0.0.1", port))
+    try:
+        sock.bind(("127.0.0.1", port))
+    except Exception as e:
+        return
+
     while True:
         msg, addr = sock.recvfrom(1024)
         msg = json.loads(msg)

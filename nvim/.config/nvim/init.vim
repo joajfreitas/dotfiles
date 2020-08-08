@@ -1,7 +1,8 @@
 "sane defaults
-" map <Space> <Leader>
-"nnoremap <SPACE> <Nop>
-"let mapleader=" "
+ map <Space> <Leader>
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+"
 
 set showcmd
 set completeopt+=noinsert
@@ -40,18 +41,18 @@ set tabstop=4
 set colorcolumn=80
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " {{{
-  nnoremap <leader>se :UltiSnipsEdit<CR>
+nnoremap <leader>se :UltiSnipsEdit<CR>
 
-  let g:UltiSnipsSnippetsDir = '~/.local/share/nvim/plugged/vim-snippets/snippets'
-  let g:UltiSnipsEditSplit = 'horizontal'
-  let g:UltiSnipsListSnippets = '<nop>'
-  let g:UltiSnipsExpandTrigger = '<c-l>'
-  let g:UltiSnipsJumpForwardTrigger = '<c-l>'
-  let g:UltiSnipsJumpBackwardTrigger = '<c-b>'
-  let g:ulti_expand_or_jump_res = 0
-" }}}
+let g:UltiSnipsSnippetsDir = '~/.local/share/nvim/plugged/vim-snippets/snippets'
+let g:UltiSnipsEditSplit = 'horizontal'
+let g:UltiSnipsListSnippets = '<nop>'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<c-l>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-b>'
+let g:ulti_expand_or_jump_res = 0
+"}}}
 "
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -136,12 +137,34 @@ if executable('pyls')
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 
-
+Plug 'ihsanturk/neuron.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Remap for do codeAction of selected region
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap  <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
@@ -265,7 +288,8 @@ let g:vimwiki_folding='expr'
 au FileType vimwiki set filetype=vimwiki.markdown
 
 Plug 'mzlogin/vim-markdown-toc'
-
+Plug 'samgriesemer/vim-roam'
+Plug 'mhinz/vim-startify'
 call plug#end()
 
 "status line
@@ -313,5 +337,8 @@ endif
 
 let g:fzf_layout = { 'up': '~50%' }
 nnoremap <Leader>f :Rg<CR>
+
+let g:python3_host_prog='/usr/bin/python3'
+let g:python_host_prog='/usr/bin/python2'
 
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
