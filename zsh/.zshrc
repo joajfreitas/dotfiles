@@ -174,3 +174,4 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=7'
 
 #source ~/bin/mouse.zsh
 #zle-toggle-mouse
+if [ -e /home/joaj/.nix-profile/etc/profile.d/nix.sh ]; then . /home/joaj/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
