@@ -1,25 +1,4 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block, everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-
 # User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# #export LANG=en_US.UTF-8
-
-
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -84,7 +63,7 @@ promptinit
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
-setopt autocd beep extendedglob nomatch notify
+setopt extendedglob nomatch notify
 # End of lines configured by zsh-newuser-install
 
 RPROMPT='%?'
@@ -92,7 +71,7 @@ RPROMPT='%?'
 autoload -Uz run-help
 alias help=run-help
 
-source /usr/share/doc/pkgfile/command-not-found.zsh
+#source /usr/share/doc/pkgfile/command-not-found.zsh
 
 #export KEYTIMEOUT=1
 
@@ -121,7 +100,7 @@ function zle-line-init zle-keymap-select {
     #PROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/[INSERT]} %? $EPS1"
     zle reset-prompt
 }
-PROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} %? $EPS1"
+#PROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} %? $EPS1"
 
 PROMPT=$'[%F{red}%n@%M%F{white}] [%F{green}%T%F{white}] [%F{yellow}%~%F{white}] ${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/[INSERT]} %? $EPS1
  %F{white}->%F{014} %{\e[0m%}'
@@ -151,7 +130,7 @@ source /home/joaj/sources/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-source /etc/profile.d/autojump.zsh
+#source /etc/profile.d/autojump.zsh
 
 #export PATH=/home/joaj/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/opt/microchip/xc16/v1.33/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/joaj/go/bin:/home/joaj/.gem/ruby/2.4.0/bin:/home/joaj/bin:/home/joaj/.gem/ruby/2.6.0/bin:/opt/ros/kinetic/bin:/home/joaj/sat/Software/src/scripts:/opt/ti/ccs910/ccs/tools/compiler/msp430-gcc-8.2.0.52_linux64/bin
 #
@@ -175,3 +154,59 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=7'
 #source ~/bin/mouse.zsh
 #zle-toggle-mouse
 if [ -e /home/joaj/.nix-profile/etc/profile.d/nix.sh ]; then . /home/joaj/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+
+
+_z_cd() {
+    cd "$@" || return "$?"
+
+    if [ "$_ZO_ECHO" = "1" ]; then
+        echo "$PWD"
+    fi
+}
+
+z() {
+    if [ "$#" -eq 0 ]; then
+        _z_cd ~
+    elif [ "$#" -eq 1 ] && [ "$1" = '-' ]; then
+        if [ -n "$OLDPWD" ]; then
+            _z_cd "$OLDPWD"
+        else
+            echo 'zoxide: $OLDPWD is not set'
+            return 1
+        fi
+    else
+        _zoxide_result="$(zoxide query -- "$@")" && _z_cd "$_zoxide_result"
+    fi
+}
+
+zi() {
+    _zoxide_result="$(zoxide query -i -- "$@")" && _z_cd "$_zoxide_result"
+}
+
+
+alias za='zoxide add'
+
+alias zq='zoxide query'
+alias zqi='zoxide query -i'
+
+alias zr='zoxide remove'
+zri() {
+    _zoxide_result="$(zoxide query -i -- "$@")" && zoxide remove "$_zoxide_result"
+}
+
+
+_zoxide_hook() {
+    zoxide add "$(pwd -L)"
+}
+
+chpwd_functions=(${chpwd_functions[@]} "_zoxide_hook")
+
+set_title()
+{
+    echo -n "\033]0;$1\007"
+}
+
+set_title "uxterm"
+#eval "$(starship init zsh)"
+
