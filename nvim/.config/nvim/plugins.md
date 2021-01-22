@@ -342,7 +342,7 @@ Plug 'lepture/vim-jinja'
 "Plug 'StanAngeloff/php.vim'
 "Plug 'shmup/vim-sql-syntax'
 "Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'file:///home/joaj/projects/f-lang/mal/impls/flang/mal-plugin'
+"Plug 'file:///home/joaj/projects/f-lang/mal/impls/flang/mal-plugin'
 Plug 'sheerun/vim-polyglot'
 Plug 'nightsense/cosmic_latte'
 ```
