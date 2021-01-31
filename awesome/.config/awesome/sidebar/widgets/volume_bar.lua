@@ -13,8 +13,10 @@ local volume_bar = wibox.widget{
     value         = 50,
     forced_height = dpi(10),
     margins       = {
-        top = dpi(8),
+        top    = dpi(8),
         bottom = dpi(8),
+        left   = dpi(8),
+        right  = dpi(8),
     },
     forced_width  = dpi(200),
     shape         = gears.shape.rounded_bar,
@@ -24,6 +26,25 @@ local volume_bar = wibox.widget{
     border_width  = 0,
     border_color  = beautiful.border_color,
     widget        = wibox.widget.progressbar,
+}
+
+local volume_text = wibox.widget {
+	text = "ola",
+	widget = wibox.widget.textbox,
+	align = "center",
+	color = "#FFFFFF",
+	font = sidebar_font,
+}
+
+
+local volume_widget = wibox.widget{
+	{
+		widget = volume_bar
+	},
+	{
+		widget = volume_text
+	},
+	layout = wibox.layout.stack,
 }
 
 awesome.connect_signal("evil::volume", function(volume, muted)
@@ -38,6 +59,7 @@ awesome.connect_signal("evil::volume", function(volume, muted)
     volume_bar.value = volume
     volume_bar.color = fill_color
     volume_bar.background_color = bg_color
+	volume_text.text = tostring(volume)
 end)
 
-return volume_bar
+return volume_widget

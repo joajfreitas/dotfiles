@@ -24,8 +24,28 @@ local battery_bar = wibox.widget{
   widget        = wibox.widget.progressbar,
 }
 
+local battery_text = wibox.widget {
+	text = "ola",
+	widget = wibox.widget.textbox,
+	align = "center",
+	color = "#FFFFFF",
+	font = sidebar_font,
+}
+
+
+local battery_widget = wibox.widget{
+	{
+		widget = battery_bar
+	},
+	{
+		widget = battery_text
+	},
+	layout = wibox.layout.stack,
+}
+
 awesome.connect_signal("evil::battery", function(value)
     battery_bar.value = value
+	battery_text.text = tostring(value)
 end)
 
-return battery_bar
+return battery_widget

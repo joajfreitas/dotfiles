@@ -12,14 +12,14 @@ local spotify_widget = wibox.widget {
     {
         align = "center",
         text = "---",
-        font = "sans 14",
+        font = sidebar_font,
         widget = spotify_title
     },
     -- Artist widget
     {
         align = "center",
         text = "---",
-        font = "sans 10",
+        font = sidebar_font,
         widget = spotify_artist
     },
     spacing = 2,

@@ -42,6 +42,34 @@ function helpers.volume_control(step)
     awful.spawn.with_shell(cmd)
 end
 
+
+
+function helpers.run_or_raise(match, move, spawn_cmd, spawn_args)
+    local matcher = function (c)
+        return awful.rules.match(c, match)
+    end
+
+    -- Find and raise
+    local found = false
+    for c in awful.client.iterate(matcher) do
+        found = true
+        c.minimized = false
+        if move then
+            c:move_to_tag(mouse.screen.selected_tag)
+            client.focus = c
+        else
+            c:jump_to()
+        end
+        break
+    end
+
+    -- Spawn if not found
+    if not found then
+        awful.spawn(spawn_cmd, spawn_args)
+    end
+end
+
+
 helpers.prrect = function(radius, tl, tr, br, bl)
     return function(cr, width, height)
         gears.shape.partially_rounded_rect(cr, width, height, tl, tr, br, bl, radius)
@@ -100,6 +128,5 @@ function helpers.remote_watch(command, interval, output_file, callback)
 end
 
 return helpers
-
 
 

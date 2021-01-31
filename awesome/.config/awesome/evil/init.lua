@@ -7,10 +7,10 @@ require("evil.disk")
 
 -- User controlled
 require("evil.volume")
-require("evil.mpd")
+--require("evil.mpd")
 require("evil.brightness")
 require("evil.cpu")
--- require("evil.spotify")
+require("evil.spotify")
 
 -- Internet access required
 -- Note: These daemons use a temp file to store the retrieved values in order
