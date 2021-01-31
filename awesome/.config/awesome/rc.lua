@@ -25,6 +25,46 @@ local math = require("math")
 local spotify_widget = require("awesome-wm-widgets.spotify-widget.spotify")
 local common = require("awful.widget.common")
 
+require("awful.remote")
+require("screenful")
+
+
+-- Theme handling library
+local beautiful = require("beautiful")
+local xrdb = beautiful.xresources.get_current_theme()
+-- Make dpi function global
+dpi = beautiful.xresources.apply_dpi
+-- Make xresources colors global
+x = {
+    --           xrdb variable
+    background = xrdb.background,
+    foreground = xrdb.foreground,
+    color0     = xrdb.color0,
+    color1     = xrdb.color1,
+    color2     = xrdb.color2,
+    color3     = xrdb.color3,
+    color4     = xrdb.color4,
+    color5     = xrdb.color5,
+    color6     = xrdb.color6,
+    color7     = xrdb.color7,
+    color8     = xrdb.color8,
+    color9     = xrdb.color9,
+    color10    = xrdb.color10,
+    color11    = xrdb.color11,
+    color12    = xrdb.color12,
+    color13    = xrdb.color13,
+    color14    = xrdb.color14,
+    color15    = xrdb.color15,
+}
+-- Affects which icon theme will be used by widgets that display image icons.
+local icon_themes = {
+    "linebit",        -- 1 -- Neon + outline
+    "drops",          -- 2 -- Pastel + filled
+}
+local icon_theme = icon_themes[1]
+
+local icons = require("icons")
+icons.init(icon_theme)
 
 
 -- User variables and preferences
@@ -64,14 +104,6 @@ user = {
         show_on_mouse_screen_edge = true,
     },
 
-    -- >> Lock screen <<
-    -- This password will ONLY be used if you have not installed
-    -- https://github.com/RMTT/lua-pam
-    -- as described in the README instructions
-    -- Leave it empty in order to unlock with just the Enter key.
-    -- lock_screen_custom_password = "",
-    lock_screen_custom_password = "awesome",
-
     -- >> Battery <<
     -- You will receive notifications when your battery reaches these
     -- levels.
@@ -86,6 +118,9 @@ user = {
     openweathermap_city_id = "2267057",
     -- > Use "metric" for Celcius, "imperial" for Fahrenheit
     weather_units = "metric",
+	
+	lock = "i3lock",
+	
 }
 
 require("evil")
@@ -114,7 +149,8 @@ x = {
     color15    = xrdb.color15,
 }
 
-require("sidebar")
+require("sidebar/sidebar")
+--require("dashboard/dashboard")
 --require("lock_screen")
 require("exit_screen")
 
@@ -195,10 +231,10 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    awful.layout.suit.floating,
+    awful.layout.suit.tile.top,
     --awful.layout.suit.tile.left,
     --awful.layout.suit.tile.bottom,
-    --awful.layout.suit.tile.top,
+    awful.layout.suit.floating,
     --awful.layout.suit.fair,
     --awful.layout.suit.fair.horizontal,
     --awful.layout.suit.spiral,
@@ -228,6 +264,13 @@ globalkeys = gears.table.join(
 			  {description = "go back", group = "tag"}),
 	awful.key({ modkey,			  }, "e",      revelation,
 			  {description = "revelation", group = "tag"}),
+
+    -- Dashboard
+    awful.key({ modkey }, "F1", function()
+        if dashboard_show then
+            dashboard_show()
+        end
+    end, {description = "dashboard", group = "custom"}),
 
 	awful.key({ modkey,           }, "j",
 		function ()
@@ -274,7 +317,7 @@ globalkeys = gears.table.join(
 	awful.key({ modkey, "Shift"   }, "q", awesome.quit,
 			  {description = "quit awesome", group = "awesome"}),
 
-	awful.key({modkey,			  }, "d", function () awful.spawn("rofi -modi drun -show drun") end,
+	awful.key({modkey,			  }, "d", function () awful.spawn("rofi -show run") end,
 			  {description = "launch rofi", group = "awesome"}),
 
 	awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
@@ -400,17 +443,17 @@ clientkeys = gears.table.join(
 	awful.key({modkey, }, "t", toggle_sidebar,
 		{description = "toggle visible sidebar", group = "layout"}),
 
+	--awful.key({ modkey }, "b",
+	--	function ()
+	--	  myscreen = awful.screen.focused()
+	--	  myscreen.mywibox.visible = not myscreen.mywibox.visible
+	--	end,
+	--	{description = "toggle statusbar"})
 	awful.key({ modkey }, "b",
 		function ()
-		  myscreen = awful.screen.focused()
-		  myscreen.mywibox.visible = not myscreen.mywibox.visible
+			awful.spawn.with_shell("marcador rofi")
 		end,
-		{description = "toggle statusbar"})
-	-- awful.key({ modkey }, "b",
-	-- 	function ()
-	-- 		awful.spawn.with_shell("marcador rofi ~/Documents/books")
-	-- 	end,
-	-- 	{description = "launch bookmarks"})
+		{description = "launch bookmarks"})
 )
 
 -- Bind all key numbers to tags.
@@ -504,7 +547,7 @@ mymainmenu = awful.menu(
 			{ "awesome", myawesomemenu, beautiful.awesome_icon },
 			{ "terminal", terminal },
 			{ "thunar", function() awful.spawn("thunar") end},
-			{ "brave", function() awful.spawn("brave") end},
+			{ "firefox", function() awful.spawn("firefox") end},
 			{ "thunderbird", function() awful.spawn("thunderbird") end},
 			{ "arandr", function() awful.spawn("arandr") end},
 		}
@@ -791,12 +834,15 @@ awful.rules.rules = {
           "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
           "Wpa_gui",
           "veromix",
-          "xtightvncviewer"},
+          "xtightvncviewer",
+		  "mpv"},
 
         -- Note that the name property shown in xprop might be set slightly after creation of the client
         -- and the name shown there might not match defined rules here.
         name = {
           "Event Tester",  -- xev.
+		  "Connection List",
+		  "Form"
         },
         role = {
           "AlarmWindow",  -- Thunderbird's calendar.

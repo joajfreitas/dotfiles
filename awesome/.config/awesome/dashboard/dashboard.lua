@@ -54,7 +54,7 @@ local function create_boxed_widget(widget_to_be_boxed, width, height, bg_color)
     box_container.bg = bg_color
     box_container.forced_height = height
     box_container.forced_width = width
-    box_container.shape = helpers.rrect(box_radius)
+    -- box_container.shape = helpers.rrect(box_radius)
     -- box_container.shape = helpers.prrect(20, true, true, true, true)
     -- box_container.shape = helpers.prrect(30, true, true, false, true)
 
@@ -94,7 +94,7 @@ user_picture_container.shape = gears.shape.circle
 user_picture_container.forced_height = dpi(140)
 user_picture_container.forced_width = dpi(140)
 local user_picture = wibox.widget {
-    wibox.widget.imagebox(user.profile_picture),
+    --wibox.widget.imagebox(user.profile_picture),
     widget = user_picture_container
 }
 local username = os.getenv("USER")
@@ -223,7 +223,7 @@ local function create_bookmark(name, path)
         bookmark.markup = helpers.colorize_text(name, original_color)
     end)
 
-    helpers.add_hover_cursor(bookmark, "hand1")
+    --helpers.add_hover_cursor(bookmark, "hand1")
 
     return bookmark
 end
@@ -273,7 +273,7 @@ local function create_url(name, path)
         url.markup = helpers.colorize_text(name, original_color)
     end)
 
-    helpers.add_hover_cursor(url, "hand1")
+    --helpers.add_hover_cursor(url, "hand1")
 
     return url
 end
@@ -327,7 +327,7 @@ fortune_box:buttons(gears.table.join(
         end)
     end)
 ))
-helpers.add_hover_cursor(fortune_box, "hand1")
+--helpers.add_hover_cursor(fortune_box, "hand1")
 
 local icon_size = dpi(40)
 
@@ -386,7 +386,7 @@ brightness_box:buttons(
         end)
 ))
 
-helpers.add_hover_cursor(brightness_box, "hand1")
+--helpers.add_hover_cursor(brightness_box, "hand1")
 
 local notification_state = wibox.widget.imagebox(icons.image.alarm)
 notification_state.resize = true
@@ -411,7 +411,7 @@ notification_state_box:buttons(gears.table.join(
     end)
 ))
 
-helpers.add_hover_cursor(notification_state_box, "hand1")
+--helpers.add_hover_cursor(notification_state_box, "hand1")
 
 local screenshot = wibox.widget.imagebox(icons.image.screenshot)
 screenshot.resize = true
@@ -432,7 +432,7 @@ screenshot_box:buttons(gears.table.join(
     end)
 ))
 
-helpers.add_hover_cursor(screenshot_box, "hand1")
+--helpers.add_hover_cursor(screenshot_box, "hand1")
 
 -- Item placement
 dashboard:setup {

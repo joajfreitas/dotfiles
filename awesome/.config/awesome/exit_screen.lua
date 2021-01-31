@@ -24,15 +24,16 @@ local reboot_command = function()
 end
 local suspend_command = function()
     exit_screen_hide()
-    lock_screen_show()
+    --lock_screen_show()
     awful.spawn.with_shell("systemctl suspend")
 end
 local exit_command = function()
     awesome.quit()
 end
 local lock_command = function()
-    lock_screen_show()
     exit_screen_hide()
+    --lock_screen_show()
+	awful.spawn.with_shell(user.lock)
 end
 
 local username = os.getenv("USER")

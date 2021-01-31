@@ -12,4 +12,4 @@ run conky
 run compton -f
 run wallpapers.py
 run blueman-applet
-run /home/joaj/bin/layout.sh
+run /home/joaj/.screenlayout/layout.sh
