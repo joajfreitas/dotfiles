@@ -214,3 +214,4 @@ export PATH=$PATH:/home/joaj/.local/bin
 export PATH=$PATH:/home/joaj/.emacs.d/bin
 export PATH=$PATH:/home/joaj/.cargo/bin
 export PATH=$PATH:/home/joaj/.local/share/gem/ruby/2.7.0/bin
+export MANPAGER="nvim -c 'set ft=man' -"
