@@ -59,7 +59,7 @@ xrandr --output LVDS-1 --primary --mode 1366x768 --pos 1280x256 --rotate normal 
 #qmenu_registrar &
 clipmenud &
 /home/joaj/bin/layout.sh
-exec awesome
+exec awesome > awesome.log 2>&1
 function i3 {
 	exec i3
 }

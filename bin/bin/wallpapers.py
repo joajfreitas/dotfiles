@@ -37,7 +37,7 @@ def cmd_handler(args, files):
             print(msg)
             args['counter']  = (args['counter'] + (msg.get('skip') or 1)) % len(files)
             os.system(f'feh --bg-fill {files[args["counter"]]}')
-        
+
 
 def main():
     q = Queue()
@@ -55,7 +55,7 @@ def main():
 
 
     cmd_handler_thread.join()
-    loop.join()
+    loop_thread.join()
 
 if __name__ == '__main__':
     main()
