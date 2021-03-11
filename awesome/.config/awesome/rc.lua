@@ -17,7 +17,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local revelation=require("revelation")
 local vicious = require("vicious")
 local lain = require("lain")
-local brightness = require("brightness")
+--local brightness = require("brightness")
 local battery_widget = require("battery-widget")
 -- load the widget code
 local volume_control = require("volume-control")
@@ -84,7 +84,7 @@ user = {
     -- web_search_cmd = "xdg-open https://www.google.com/search?q=",
 
     -- >> User profile <<
-    profile_picture = os.getenv("HOME").."/.config/awesome/profile.png",
+    profile_picture = os.getenv("HOME").."/.config/awesome/profile.jpeg",
 
     -- Directories with fallback values
     dirs = {
@@ -155,12 +155,13 @@ require("sidebar/sidebar")
 require("exit_screen")
 
 -- define your volume control, using default settings:
-volumecfg = volume_control({
-	widget_text = {
-		on = ' V: % 3d%% ',
-		off = ' V: % 3dM',
-	}
-})
+volumecfg = volume_control({device="pulse"})
+
+
+	--widget_text = {
+	--	on = ' V: % 3d%% ',
+	--	off = ' V: % 3dM',
+	--}
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -194,23 +195,13 @@ end
 -- }}}
 
 -- {{{ Variable definitions
--- Themes define colours, icons, font and wallpapers.
-local themes = {
-    "blackburn",       -- 1
-    "copland",         -- 2
-    "dremora",         -- 3
-    "holo",            -- 4
-    "multicolor",      -- 5
-    "powerarrow",      -- 6
-    "powerarrow-dark", -- 7
-    "rainbow",         -- 8
-    "steamburn",       -- 9
-    "vertex",          -- 10
-	"default",         -- 11
-}
 
 local chosen_theme = "f_theme" --themes[5]
-beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme))
+
+local file = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
+awful.spawn.with_shell(string.format("notify-send %s", file))
+awful.spawn.with_shell("notify-send ola")
+beautiful.init(file)
 -- beautiful.init(awful.util.getdir("config")  .. "/themes/default/theme.lua")
 revelation.init()
 -- beautiful.useless_gap = 5

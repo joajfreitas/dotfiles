@@ -8,8 +8,8 @@ function run {
 }
 
 run nm-applet
-run conky
-run compton -f
+#run conky
+#run picom -f
 run wallpapers.py
 run blueman-applet
 run /home/joaj/.screenlayout/layout.sh
