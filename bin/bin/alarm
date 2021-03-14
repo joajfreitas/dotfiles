@@ -36,4 +36,4 @@ for i in range(10):
     time.sleep(step)
 
 os.system("playerctl pause")
-os.system("mpv -no-resume-playback ~/media/music/Chuck_Track21_TimJones.webm")
+os.system("mplayer ~/media/music/alarm.m4a")

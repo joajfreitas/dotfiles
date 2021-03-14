@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =0
+let g:netrw_dirhist_0='/home/joaj/fst/software10e/lib/hal/lib_pic33e_linux'
+let g:netrw_dirhist_9='/home/joaj/fst/software10e/ccu/apps/left'
+let g:netrw_dirhist_8='/home/joaj/fst/software10e/dcu/src'
+let g:netrw_dirhist_7='/home/joaj/fst/software10e/lib/shared/hk/timer'
+let g:netrw_dirhist_6='/home/joaj/fst/software10e/lib/shared/watchdog'
+let g:netrw_dirhist_5='/home/joaj/fst/software10e/lib/shared/hk'
+let g:netrw_dirhist_4='/home/joaj/fst/software10e/lib/shared'
+let g:netrw_dirhist_3='/home/joaj/fst/software10e/lib/shared/watchdog'
+let g:netrw_dirhist_2='/home/joaj/fst/fcp-core/fcp/specs'
+let g:netrw_dirhist_1='/home/joaj/fst/fcp-core/fcp/tests'
