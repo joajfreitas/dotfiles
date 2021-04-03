@@ -1,0 +1,26 @@
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="highlight.css">
+<h1>Nerdtree</h1>
+<h2>Configuration</h2>
+<div class="codehilite"><pre><span></span><code>  <span class="nv">let</span> <span class="nv">g</span>:<span class="nv">NERDTreeMinimalUI</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="nv">let</span> <span class="nv">g</span>:<span class="nv">NERDTreeHijackNetrw</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="nv">let</span> <span class="nv">g</span>:<span class="nv">NERDTreeWinSize</span> <span class="o">=</span> <span class="mi">31</span>
+  <span class="nv">let</span> <span class="nv">g</span>:<span class="nv">NERDTreeChDirMode</span> <span class="o">=</span> <span class="mi">2</span>
+  <span class="nv">let</span> <span class="nv">g</span>:<span class="nv">NERDTreeAutoDeleteBuffer</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="nv">let</span> <span class="nv">g</span>:<span class="nv">NERDTreeShowBookmarks</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="nv">let</span> <span class="nv">g</span>:<span class="nv">NERDTreeCascadeOpenSingleChildDir</span> <span class="o">=</span> <span class="mi">1</span>
+
+  <span class="nv">map</span> <span class="o">&lt;</span><span class="nv">F1</span><span class="o">&gt;</span> :<span class="k">call</span> <span class="nl">NERDTreeToggleAndFind</span><span class="ss">()</span><span class="o">&lt;</span><span class="nv">cr</span><span class="o">&gt;</span>
+  <span class="nv">map</span> <span class="o">&lt;</span><span class="nv">F2</span><span class="o">&gt;</span> :<span class="nv">NERDTreeToggle</span><span class="o">&lt;</span><span class="nv">CR</span><span class="o">&gt;</span>
+
+  <span class="nv">function</span><span class="o">!</span> <span class="nv">NERDTreeToggleAndFind</span><span class="ss">()</span>
+    <span class="k">if</span> <span class="ss">(</span><span class="nv">exists</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">t:NERDTreeBufName</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="o">&amp;&amp;</span> <span class="nv">bufwinnr</span><span class="ss">(</span><span class="nv">t</span>:<span class="nv">NERDTreeBufName</span><span class="ss">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="ss">)</span>
+      <span class="nv">execute</span> <span class="s1">&#39;</span><span class="s">:NERDTreeClose</span><span class="s1">&#39;</span>
+    <span class="k">else</span>
+      <span class="nv">execute</span> <span class="s1">&#39;</span><span class="s">:NERDTreeFind</span><span class="s1">&#39;</span>
+    <span class="k">endif</span>
+  <span class="nv">endfunction</span>
+</code></pre></div>
+
+<!-- vim: set ft=vim: set conceallevel=0-->

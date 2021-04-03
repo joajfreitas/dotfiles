@@ -1,0 +1,28 @@
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="highlight.css">
+<h1>Statusline</h1>
+<div class="codehilite"><pre><span></span><code>&quot;status line
+&quot;set laststatus=2
+&quot;
+&quot;set statusline=%F                          &quot;full path to file in the buffer
+&quot;set statusline+=%m                          &quot;rodified flag in square brackets
+&quot;set statusline+=%r                         &quot;readonly flag in square brackets
+&quot;set statusline+=%h                          &quot;help flag in square brackets
+&quot;set statusline+=%w                          &quot;preview flag in square brackets
+&quot;set statusline+=%=                          &quot;split justification
+&quot;set statusline+=%&lt;[                         &quot;truncation point
+&quot;set statusline+=%{&amp;ff}]                     &quot;current fileformat
+&quot;set statusline+=%y[                         &quot;current syntax
+&quot;set statusline+=%p][                        &quot;current % into file
+&quot;set statusline+=%00l/                       &quot;current line
+&quot;set statusline+=%L,                         &quot;number of lines
+&quot;set statusline+=%00v]                       &quot;current column
+&quot;
+&quot;set foldenable
+&quot;&quot;set foldmethod=indent   &quot; fold based on indent level
+&quot;set foldlevelstart=10   &quot; open most folds by default
+&quot;set foldnestmax=10      &quot; 10 nested fold max
+</code></pre></div>
+
+<!-- vim: set ft=vim: set conceallevel=0 -->

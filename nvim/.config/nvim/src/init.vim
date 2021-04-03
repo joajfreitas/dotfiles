@@ -1,32 +1,50 @@
----
-title: Plugins
----
+map <Space> <Leader>
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+set showcmd
+set completeopt+=noinsert
+set completeopt+=preview
 
-[vimrc.md](vimrc.md)
+set hidden
+set nu
+let &clipboard = has('unnamedplus') ? 'unnamedplus' : 'unnamed'
 
+"activate mouse
+set mouse=a
 
-## Plugin configuration
-Vim configuration using <https://github.com/junegunn/vim-plug>.
+" move vertically by visual line
+nnoremap j gj
+nnoremap k gk
 
-	call plug#begin()
+" search settings
+set incsearch        " find the next match as we type the search
+set hlsearch         " hilight searches by default
 
-### Ultisnips
+" keep the cursor visible within 5 lines when scrolling
+set scrolloff=5
 
-```viml
+"highlight matching [{()}C9]
+set showmatch
+
+" indentation
+set autoindent      " autoindent based on line above, works most of the time
+set smartindent     " smarter indent for C-like languages
+set shiftwidth=4    " when reading, tabs are 4 spaces
+set softtabstop=4   " in insert mode, tabs are 4 spaces
+set tabstop=4
+
+set colorcolumn=80
+call plug#begin()
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 nnoremap <leader>se :UltiSnipsEdit<CR>
 
 "let g:UltiSnipsSnippetsDir = '~/.local/share/nvim/plugged/vim-snippets/snippets'
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsListSnippets = '<nop>'
-let g:UltiSnipsExpandTrigger = '<tab>'
+"let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<c-l>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-b>'
 let g:ulti_expand_or_jump_res = 0
-```
-
-### fzf setup
-```viml
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
@@ -98,119 +116,9 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
 
 imap <C-f> <esc>:FZF<cr>
 nmap <C-f> :FZF<cr>
-```
-
-```viml
 Plug 'prabirshrestha/async.vim'
 Plug 'ihsanturk/neuron.vim'
 Plug 'christoomey/vim-tmux-navigator'
-```
-
-### Coc Setup
-
-```viml
-autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-let g:coc_global_extensions = ['coc-python', 'coc-rome']
-
-" Remap for do codeAction of selected region
-function! s:cocActionsOpenFromSelected(type) abort
-  execute 'CocCommand actions.open ' . a:type
-endfunction
-xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-nmap  <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
-
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
-
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
-
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
-
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-nmap <leader>rn <Plug>(coc-rename)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-
-" Give more space for displaying messages.
-set cmdheight=2
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-"set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
-```
-
-```viml
 Plug 'junegunn/vim-easy-align'
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -239,11 +147,6 @@ let g:vimwiki_global_ext = 0
 nnoremap <Leader>wn :! lj diary-note<CR> :e ~/vimwiki/diary/diary.md<CR>
 
 command Wiki Goyo | Limelight | VimwikiDiaryIndex
-```
-
-### Nerdtree setup
-
-```viml
 Plug 'scrooloose/nerdtree'
   let g:NERDTreeMinimalUI = 1
   let g:NERDTreeHijackNetrw = 0
@@ -263,15 +166,7 @@ Plug 'scrooloose/nerdtree'
       execute ':NERDTreeFind'
     endif
   endfunction
-```
-
-```viml
 Plug 'morhetz/gruvbox'
-```
-
-### Latex setup
-
-```viml
 Plug 'lervag/vimtex'
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
@@ -291,9 +186,6 @@ let g:vimtex_compiler_latexmk = {
 	\   '-e "$pdflatex=q/pdflatex %O -pdf -f -interaction=nonstopmode %S/"',
 	\ ],
 	\}
-```
-
-```viml
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 let g:mkdp_auto_close = 0
 nnoremap <Leader>m :MarkdownPreview<CR>
@@ -328,10 +220,6 @@ au FileType vimwiki set filetype=vimwiki.markdown
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'mhinz/vim-startify'
 Plug 'vim-scripts/Conque-GDB'
-```
-
-### Syntax plugins
-```viml
 Plug 'hjson/vim-hjson'
 Plug 'tpope/vim-commentary'
 Plug 'stephpy/vim-yaml'
@@ -345,8 +233,66 @@ Plug 'lepture/vim-jinja'
 "Plug 'file:///home/joaj/projects/f-lang/mal/impls/flang/mal-plugin'
 Plug 'sheerun/vim-polyglot'
 Plug 'nightsense/cosmic_latte'
-```
+Plug 'rust-lang/rust.vim'
+call plug#end()
+"status line
+"set laststatus=2
+"
+"set statusline=%F							"full path to file in the buffer
+"set statusline+=%m                          "rodified flag in square brackets
+"set statusline+=%r							"readonly flag in square brackets
+"set statusline+=%h                          "help flag in square brackets
+"set statusline+=%w                          "preview flag in square brackets
+"set statusline+=%=                          "split justification
+"set statusline+=%<[                         "truncation point
+"set statusline+=%{&ff}]                     "current fileformat
+"set statusline+=%y[                         "current syntax
+"set statusline+=%p][                        "current % into file
+"set statusline+=%00l/                       "current line
+"set statusline+=%L,                         "number of lines
+"set statusline+=%00v]                       "current column
+"
+"set foldenable
+""set foldmethod=indent   " fold based on indent level
+"set foldlevelstart=10   " open most folds by default
+"set foldnestmax=10      " 10 nested fold max
+set spell
+set spelllang=pt_pt,en
+hi SpellBad cterm=underline
 
-	call plug#end()
+"colors
+"colors gruvbox
+if strftime('%H') >= 7 && strftime('%H') < 17
+  set background=light
+else
+  set background=dark
+endif
 
-<!-- vim: set ft=vim: -->
+colorscheme cosmic_latte
+
+set background=dark
+set t_Co=256
+let g:gruvbox_termcolors=16
+
+"set complete+=kspell
+
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
+
+let g:fzf_layout = { 'up': '~50%' }
+nnoremap <Leader>f :Rg<CR>
+
+let g:python3_host_prog='/usr/bin/python3'
+let g:python_host_prog='/usr/bin/python2'
+
+autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab smarttab
+autocmd FileType vue setlocal ts=2 sts=2 sw=2 expandtab smarttab
+autocmd FileType js setlocal ts=2 sts=2 sw=2 expandtab smarttab
+
+"execute literatevim#load("/home/joaj/.config/nvim/init.md")
+
+" vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:

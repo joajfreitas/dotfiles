@@ -1,0 +1,23 @@
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="highlight.css">
+<h1>Vimwiki</h1>
+<h2>Configuration</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">let</span><span class="w"> </span><span class="n">wiki_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{}</span><span class="w"></span>
+<span class="n">let</span><span class="w"> </span><span class="n">wiki_1</span><span class="p">.</span><span class="k">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;~/vimwiki/&#39;</span><span class="w"></span>
+<span class="n">let</span><span class="w"> </span><span class="n">wiki_1</span><span class="p">.</span><span class="n">syntax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;markdown&#39;</span><span class="w"></span>
+<span class="n">let</span><span class="w"> </span><span class="n">wiki_1</span><span class="p">.</span><span class="n">ext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;.md&#39;</span><span class="w"></span>
+
+<span class="n">let</span><span class="w"> </span><span class="nl">g</span><span class="p">:</span><span class="n">vimwiki_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">wiki_1</span><span class="o">]</span><span class="w"></span>
+<span class="n">let</span><span class="w"> </span><span class="nl">g</span><span class="p">:</span><span class="n">vimwiki_ext2syntax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="s1">&#39;.md&#39;</span><span class="err">:</span><span class="w"> </span><span class="s1">&#39;markdown&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;.markdown&#39;</span><span class="err">:</span><span class="w"> </span><span class="s1">&#39;markdown&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;.mdown&#39;</span><span class="err">:</span><span class="w"> </span><span class="s1">&#39;markdown&#39;</span><span class="err">}</span><span class="w"></span>
+<span class="n">let</span><span class="w"> </span><span class="nl">g</span><span class="p">:</span><span class="n">vimwiki_global_ext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+
+<span class="n">nnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">wn</span><span class="w"> </span><span class="err">:!</span><span class="w"> </span><span class="n">lj</span><span class="w"> </span><span class="n">diary</span><span class="o">-</span><span class="n">note</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span><span class="w"> </span><span class="err">:</span><span class="n">e</span><span class="w"> </span><span class="o">~/</span><span class="n">vimwiki</span><span class="o">/</span><span class="n">diary</span><span class="o">/</span><span class="n">diary</span><span class="p">.</span><span class="n">md</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span><span class="w"></span>
+
+<span class="n">command</span><span class="w"> </span><span class="n">Wiki</span><span class="w"> </span><span class="n">Goyo</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Limelight</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">VimwikiDiaryIndex</span><span class="w"></span>
+
+<span class="n">let</span><span class="w"> </span><span class="nl">g</span><span class="p">:</span><span class="n">vimwiki_folding</span><span class="o">=</span><span class="s1">&#39;expr&#39;</span><span class="w"></span>
+<span class="n">au</span><span class="w"> </span><span class="n">FileType</span><span class="w"> </span><span class="n">vimwiki</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">filetype</span><span class="o">=</span><span class="n">vimwiki</span><span class="p">.</span><span class="n">markdown</span><span class="w"></span>
+</code></pre></div>
+
+<!-- vim: set ft=vim: set conceallevel=0-->
