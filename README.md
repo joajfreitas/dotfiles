@@ -1,5 +1,9 @@
 # README
 
+## Vim configuration
+
+[https://joajfreitas.gitlab.io/dotfiles/vimrc.html](https://joajfreitas.gitlab.io/dotfiles/vimrc.html)
+
 ## Account recovery
 
 Recover gpg key
