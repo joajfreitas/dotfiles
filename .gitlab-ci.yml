@@ -9,7 +9,7 @@ pages:
     - yes | pip3 install loguru || true
   script:
     - mkdir public
-    - ./nvim/.config/nvim/lit.py ./nvim/.config/nvim/src public
+    - ./nvim/.config/nvim/lit.py web ./nvim/.config/nvim/src public
   artifacts:
     paths:
     - public
