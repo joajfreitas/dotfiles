@@ -46,10 +46,8 @@ let mapleader=&quot; &quot;
 </code></pre></div>
 
 <h2>Colorscheme</h2>
-<div class="codehilite"><pre><span></span><code><span class="s2">&quot;</span><span class="s">colors</span>
-<span class="s2">&quot;</span><span class="s">colorscheme gruvbox</span>
-
-<span class="k">if</span> <span class="nv">strftime</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">%H</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="o">&gt;=</span> <span class="mi">8</span> <span class="o">&amp;&amp;</span> <span class="nv">strftime</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">%H</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="o">&lt;</span> <span class="mi">17</span>
+<p>Light theme in the morning, dark theme at night.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="nv">strftime</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">%H</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="o">&gt;=</span> <span class="mi">8</span> <span class="o">&amp;&amp;</span> <span class="nv">strftime</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">%H</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="o">&lt;</span> <span class="mi">17</span>
   <span class="nv">colorscheme</span> <span class="nv">gruvbox</span> 
   <span class="nv">set</span> <span class="nv">background</span><span class="o">=</span><span class="nv">light</span>
 <span class="k">else</span>

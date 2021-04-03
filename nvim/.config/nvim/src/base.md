@@ -49,11 +49,9 @@ set colorcolumn=80
 ```
 
 ## Colorscheme
+Light theme in the morning, dark theme at night.
 
 ```viml
-"colors
-"colorscheme gruvbox
-
 if strftime('%H') >= 8 && strftime('%H') < 17
   colorscheme gruvbox 
   set background=light

@@ -4,6 +4,8 @@
 <h1>vimrc</h1>
 <h2>Intro</h2>
 <p>This is my neovim configuration.</p>
+<p>The configuration is exported with <a href="https://gitlab.com/joajfreitas/dotfiles/-/blob/master/nvim/.config/nvim/lit.py">lit.py</a>. It exports both the <a href="https://joajfreitas.gitlab.io/dotfiles/vimrc.html">html</a> and the <a href="https://gitlab.com/joajfreitas/dotfiles/-/blob/master/nvim/.config/nvim/init.vim">init.vim</a>.</p>
+<p>The configuration is divided in plugins, base, statusline and languages. Links can be found below.</p>
 <ul>
 <li><a href="plugins.md">Plugins</a></li>
 <li><a href="base.md">Base</a></li>
