@@ -10,7 +10,7 @@ pages:
   script:
     - mkdir public
     - ./nvim/.config/nvim/lit.py web ./nvim/.config/nvim/src public
-    - cp nvim/.config/nvim/public/*.css public
+    - cp nvim/.config/nvim/html/*.css public
   artifacts:
     paths:
     - public
