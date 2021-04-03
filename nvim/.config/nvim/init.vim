@@ -344,9 +344,6 @@ set softtabstop=4   " in insert mode, tabs are 4 spaces
 set tabstop=4
 
 set colorcolumn=80
-"colors
-"colorscheme gruvbox
-
 if strftime('%H') >= 8 && strftime('%H') < 17
   colorscheme gruvbox 
   set background=light
