@@ -1,0 +1,17 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+pages:
+  type: deploy
+  stage: deploy
+  image: joajfreitas/arch-python
+  before_script:
+    - pacman -Syu --noconfirm
+    - yes | pip3 install markdown || true
+  script:
+    - mkdir public
+    - ./nvim/.config/nvim/lit.py ./nvim/.config/nvim/src public
+  artifacts:
+    paths:
+    - public
+    expire_in: 1 week
