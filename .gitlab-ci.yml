@@ -6,6 +6,7 @@ pages:
     - pacman -Syu --noconfirm
     - yes | pip3 install markdown || true
     - yes | pip3 install click || true
+    - yes | pip3 install loguru || true
   script:
     - mkdir public
     - ./nvim/.config/nvim/lit.py ./nvim/.config/nvim/src public
