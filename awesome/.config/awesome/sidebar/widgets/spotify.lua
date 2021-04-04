@@ -2,6 +2,9 @@ local wibox = require("wibox")
 local awful = require("awful")
 local naughty = require("naughty")
 
+local beautiful = require("beautiful")
+local dpi = beautiful.xresources.apply_dpi
+
 -- Declare widgets
 local spotify_artist = wibox.widget.textbox()
 local spotify_title = wibox.widget.textbox()

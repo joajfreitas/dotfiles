@@ -4,6 +4,9 @@ local awful = require("awful")
 local wibox = require("wibox")
 local helpers = require("helpers")
 
+local beautiful = require("beautiful")
+local dpi = beautiful.xresources.apply_dpi
+
 local mpd_prev_symbol = wibox.widget.textbox()
 mpd_prev_symbol.markup = helpers.colorize_text("", x.foreground)
 mpd_prev_symbol.font = "Material Icons Bold 18"

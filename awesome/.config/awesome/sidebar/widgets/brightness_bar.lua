@@ -1,6 +1,7 @@
 local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local dpi = beautiful.xresources.apply_dpi
 
 -- Set colors
 local active_color = beautiful.brightness_bar_active_color or "#5AA3CC"
