@@ -151,7 +151,7 @@ end
 -- Set all the icon variables
 function icons.init(theme_name)
     -- Set the path to image icons
-    p = gears.filesystem.get_configuration_dir().."icons/".."linebit".."/"
+    p = gears.filesystem.get_configuration_dir().. "src/" .. "icons/".."linebit".."/"
 
     for i = 1, #image_icon_names do
         set_image_icon(image_icon_names[i])

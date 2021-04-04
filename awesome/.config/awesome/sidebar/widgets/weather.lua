@@ -4,7 +4,7 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 local naughty = require("naughty")
-local icons = require("icons")
+local icons = require("src/icons")
 
 local weather_temperature_symbol
 if user.weather_units == "metric" then

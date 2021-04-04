@@ -8,7 +8,7 @@ local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 local apps = require("apps")
 local cairo = require("lgi").cairo
-local icons = require("icons")
+local icons = require("src/icons")
 local class_icons = icons.text.by_class
 
 -- TODO: These variables (and more) should ideally be retrieved through `beautiful`
