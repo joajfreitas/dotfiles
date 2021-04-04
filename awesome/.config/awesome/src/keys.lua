@@ -1,7 +1,7 @@
 local gears = require("gears")
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
-local helpers = require("helpers")
+local helpers = require("src/helpers")
 local menubar = require("menubar")
 
 local globalkeys = gears.table.join(

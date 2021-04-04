@@ -25,15 +25,15 @@ local spotify_widget = require("awesome-wm-widgets.spotify-widget.spotify")
 -- https://github.com/dluksza/screenful
 -- automatic handle of multiple monitors
 require("awful.remote")
-require("screenful")
+require(src .. "screenful")
 
 -- Make xresources colors global
 x = require(src .. 'x_colors')
 
-local icons = require("icons")
+local icons = require("src/icons")
 icons.init("linebit")
 
-user = require('user')
+user = require(src .. 'user')
 
 -- Custom configuration
 -- mostly taken from https://github.com/elenapan/dotfiles
@@ -42,7 +42,7 @@ require("sidebar/sidebar")
 --dpi = beautiful.xresources.apply_dpi
 --require("dashboard/dashboard")
 --require("lock_screen")
-require("exit_screen")
+require(src .. "exit_screen")
 
 -- define your volume control, using default settings:
 volumecfg = volume_control({device="pulse"})
@@ -50,7 +50,7 @@ volumecfg = volume_control({device="pulse"})
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
-local helpers = require("helpers")
+local helpers = require(src .. "helpers")
 -- }}}
 -- {{{  Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -93,7 +93,7 @@ editor_cmd = terminal .. " -e " .. editor
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.layouts = require('layouts')
+awful.layout.layouts = require(src .. 'layouts')
 -- }}}
 -- {{{ Menu
 -- Create a launcher widget and a main menu

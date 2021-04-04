@@ -4,7 +4,7 @@
 --      description (string)
 --      icon_code (string)
 local awful = require("awful")
-local helpers = require("helpers")
+local helpers = require("src/helpers")
 
 -- Configuration
 local key = user.openweathermap_key

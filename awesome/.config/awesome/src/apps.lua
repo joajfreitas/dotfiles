@@ -3,8 +3,8 @@ local awful = require("awful")
 local wibox = require("wibox")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
-local helpers = require("helpers")
-local icons = require("icons")
+local helpers = require("src/helpers")
+local icons = require("src/icons")
 local notifications = require("notifications")
 
 local apps = {}
