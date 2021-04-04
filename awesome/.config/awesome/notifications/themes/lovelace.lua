@@ -3,7 +3,7 @@ local wibox = require("wibox")
 local gears = require("gears")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
-local helpers = require("helpers")
+local helpers = require("src/helpers")
 
 
 if beautiful.notification_border_radius > 0 then

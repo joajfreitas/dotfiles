@@ -4,13 +4,13 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
 
-local helpers = require("helpers")
+local helpers = require("src/helpers")
 
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
-local icons = require("icons")
-local apps = require("apps")
+local icons = require("src/icons")
+local apps = require("src/apps")
 
 local icon_size = dpi(36)
 

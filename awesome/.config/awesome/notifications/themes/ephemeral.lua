@@ -4,7 +4,7 @@ local gears = require("gears")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
 
-local helpers = require("helpers")
+local helpers = require("src/helpers")
 
 -- Note: This theme does not show image notification icons
 

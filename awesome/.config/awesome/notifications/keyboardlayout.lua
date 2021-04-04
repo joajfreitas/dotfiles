@@ -1,6 +1,6 @@
 local awful = require("awful")
 local naughty = require("naughty")
-local helpers = require("helpers")
+local helpers = require("src/helpers")
 local icons = require("icons")
 local notifications = require("notifications")
 

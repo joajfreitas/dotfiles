@@ -10,11 +10,11 @@ local screen = require("awful.screen")
 local io = require("io")
 local os = require("os")
 local awesome = awesome
-require('screens_db')
+require("src/" .. 'screens_db')
 
 local card = 'card0'
 local dev = '/sys/class/drm/'
-local configPath = awful.util.getdir("config") .. "/screens_db.lua"
+local configPath = awful.util.getdir("config") .. "/src" .. "/screens_db.lua"
 
 local function log(text)
 	naughty.notify({

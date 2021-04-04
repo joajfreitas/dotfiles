@@ -5,10 +5,8 @@ local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
-local icons = require("icons")
--- local naughty = require("naughty")
-
-local helpers = require("helpers")
+local icons = require("src/icons")
+local helpers = require("src/helpers")
 
 --require("lock_screen")
 
