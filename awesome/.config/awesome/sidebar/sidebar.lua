@@ -143,19 +143,19 @@ exit:buttons(gears.table.join(
 
 
 -- Weather widget with text icons
-local weather_widget = require("sidebar.widgets.text_weather")
-local weather_widget_icon = weather_widget:get_all_children()[1]
-weather_widget_icon.font = "Typicons 25"
-local weather_widget_text = weather_widget:get_all_children()[2]
-weather_widget_text.font = "Fira Mono 14"
-
-local weather = wibox.widget{
-    nil,
-    weather_widget,
-    nil,
-    layout = wibox.layout.align.horizontal,
-    expand = "none"
-}
+--local weather_widget = require("sidebar.widgets.text_weather")
+--local weather_widget_icon = weather_widget:get_all_children()[1]
+--weather_widget_icon.font = "Typicons 25"
+--local weather_widget_text = weather_widget:get_all_children()[2]
+--weather_widget_text.font = "Fira Mono 14"
+--
+--local weather = wibox.widget{
+--    nil,
+--    weather_widget,
+--    nil,
+--    layout = wibox.layout.align.horizontal,
+--    expand = "none"
+--}
 
 local disk_space = require("sidebar.widgets.disk")
 disk_space.font = "Fira Mono 14"
@@ -255,7 +255,7 @@ sidebar:setup {
 		date,
 		spacing = dpi(20),
 		spotify,
-		weather,
+		--weather,
 		volume,
 		brightness,
 		temperature,

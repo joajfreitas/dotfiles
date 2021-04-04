@@ -5,6 +5,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local helpers = require("helpers")
 local beautiful = require("beautiful")
+local dpi = beautiful.xresources.apply_dpi
 local apps = require("apps")
 local cairo = require("lgi").cairo
 local icons = require("icons")

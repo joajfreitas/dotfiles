@@ -1,7 +1,10 @@
+-- @module exit_screen
+
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local dpi = beautiful.xresources.apply_dpi
 local icons = require("icons")
 -- local naughty = require("naughty")
 
@@ -230,6 +233,7 @@ local keybinds = {
     end
 }
 
+--- Show exit screen.
 function exit_screen_show()
     -- naughty.notify({text = "starting the keygrabber"})
     exit_screen_grabber = awful.keygrabber.run(function(_, key, event)

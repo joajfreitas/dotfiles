@@ -1,6 +1,7 @@
 local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local dpi = beautiful.xresources.apply_dpi
 
 -- Set colors
 local title_color =  beautiful.mpd_song_title_color or beautiful.wibar_fg
