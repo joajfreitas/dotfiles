@@ -69,7 +69,7 @@ local globalkeys = gears.table.join(
 		{description = "quit awesome", group = "awesome"}),
 
 	awful.key({modkey,}, "d",
-		function () awful.spawn("rofi -show run") end,
+		function () awful.spawn("rofi -show drun -show-icons") end,
 		{description = "launch rofi", group = "awesome"}),
 
 	awful.key({ modkey,}, "l",

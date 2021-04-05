@@ -141,8 +141,8 @@ local image_icon_names = {
 -- Path to icons
 local p
 
--- Assumes all the icon files end in .png
--- TODO maybe automatically detect icons in icon theme directory
+--- Assumes all the icon files end in .png
+--- TODO maybe automatically detect icons in icon theme directory
 local function set_image_icon(icon_name)
     local i = p..icon_name..".png"
     icons.image[icon_name] = i
