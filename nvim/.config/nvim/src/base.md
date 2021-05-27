@@ -68,7 +68,9 @@ set t_Co=256
 Spell check configuration.
 
 ```viml
-set spell
+" TODO: https://github.com/nvim-treesitter/nvim-treesitter/issues/698
+" enable spell checking again when this issue is solved
+"set spell
 set spelllang=pt_pt,en
 hi SpellBad cterm=underline
 ```
@@ -90,6 +92,15 @@ endif
 Enable folds
 
 ```viml
+set foldmethod=syntax
+set foldnestmax=10
+set foldlevel=0
+" auto-save fold views
+"augroup AutoSaveFolds
+"autocmd!
+"autocmd BufWinLeave ?* mkview
+"autocmd BufWinEnter ?* silent loadview
+"augroup END
 set foldenable
 ```
 

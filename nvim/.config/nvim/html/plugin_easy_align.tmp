@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="highlight.css">
 <h1>Vim Easy Align</h1>
 <p><a href="plugins.md">Plugins</a></p>
+<p><a href="https://github.com/junegunn/vim-easy-align">https://github.com/junegunn/vim-easy-align</a>.</p>
 <h2>Configuration</h2>
 <div class="codehilite"><pre><span></span><code><span class="s2">&quot;</span><span class="s"> Start interactive EasyAlign in visual mode (e.g. vipga)</span>
 <span class="nv">xmap</span> <span class="nv">ga</span> <span class="o">&lt;</span><span class="nv">Plug</span><span class="o">&gt;</span><span class="ss">(</span><span class="nv">EasyAlign</span><span class="ss">)</span>

@@ -1,10 +1,26 @@
 {
 "languageserver": {
-	  "clangd": {
-		"command": "clangd",
-		"rootPatterns": ["compile_flags.txt", "compile_commands.json"],
-		"filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
-	  },
+	 "ccls": {
+            "command": "ccls",
+            "filetypes": [
+                "c",
+                "cpp",
+                "objc",
+                "objcpp"
+            ],
+            "rootPatterns": [
+                ".ccls",
+                "compile_commands.json",
+                ".vim/",
+                ".git/",
+                ".hg/"
+            ],
+            "initializationOptions": {
+                "cache": {
+                    "directory": "/tmp/ccls"
+                }
+            }
+        },
     "golang": {
       "command": "go-langserver",
       "filetypes": ["go"],
@@ -100,5 +116,18 @@
 		}
 	  }
 	}
-}
+  },
+  "rust-analyzer" : {
+	  "enable": true,
+      "updates": {
+	    "channel": "stable"
+	   },
+	   "lens": {
+			"enable": true,
+		   "run": true
+		},
+		"inlayHints": {
+			"enable": true
+		}
+  }
 }

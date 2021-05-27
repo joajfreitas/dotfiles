@@ -126,7 +126,7 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
 /home/joaj/bin/gruvbox
-source /home/joaj/sources/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -209,4 +209,3 @@ set_title()
 
 set_title "uxterm"
 #eval "$(starship init zsh)"
-

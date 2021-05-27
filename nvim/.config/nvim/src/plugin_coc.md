@@ -9,27 +9,27 @@ Recommended configuration from
 
 Some servers have issues with backup files, see #649.
 
-```viml
+```lua
 set nobackup
 set nowritebackup
 ```
 
 Give more space for displaying messages.
 
-```viml
+```lua
 set cmdheight=2
 ```
 
 Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 delays and poor user experience.
 
-```viml
+```lua
 set updatetime=300
 ```
 
 Don't pass messages to |ins-completion-menu|.
 
-```viml
+```lua
 set shortmess+=c
 ```
 
@@ -37,7 +37,7 @@ Use tab for trigger completion with characters ahead and navigate.
 NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 other plugin before putting this into your config.
 
-```viml
+```lua
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -53,7 +53,7 @@ endfunction
 Always show the signcolumn, otherwise it would shift the text each time
 diagnostics appear/become resolved.
 
-```viml
+```lua
 if has("patch-8.1.1564")
   " Recently vim can merge signcolumn and number column into one
   set signcolumn=number
@@ -63,7 +63,7 @@ endif
 ```
 
 Use <c-space> to trigger completion.
-```viml
+```lua
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
@@ -73,7 +73,7 @@ endif
 
 Make <CR> auto-select the first completion item and notify coc.nvim to
 format on enter, <cr> could be remapped by other vim plugin
-```viml
+```lua
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 ```
@@ -81,13 +81,13 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 Use `[g` and `]g` to navigate diagnostics
 Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 
-```viml
+```lua
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 ```
 
 GoTo code navigation.
-```viml
+```lua
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -95,7 +95,7 @@ nmap <silent> gr <Plug>(coc-references)
 ```
 
 Use K to show documentation in preview window.
-```viml
+```lua
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
@@ -110,18 +110,18 @@ endfunction
 ```
 
 Highlight the symbol and its references when holding the cursor.
-```viml
+```lua
 autocmd CursorHold * silent call CocActionAsync('highlight')
 ```
 
 Symbol renaming.
-```viml
+```lua
 nmap <leader>rn <Plug>(coc-rename)
 ```
 
 Formatting selected code.
 
-```viml
+```lua
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
@@ -136,24 +136,24 @@ augroup end
 
 Applying codeAction to the selected region.
 Example: `<leader>aap` for current paragraph
-```viml
+```lua
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 ```
 
 Remap keys for applying codeAction to the current buffer.
-```viml
+```lua
 nmap <leader>ac  <Plug>(coc-codeaction-cursor)
 ```
 Apply AutoFix to problem on the current line.
-```viml
+```lua
 nmap <leader>qf  <Plug>(coc-fix-current)
 ```
 
 Map function and class text objects
 NOTE: Requires 'textDocument.documentSymbol' support from the language server.
 
-```viml
+```lua
 xmap if <Plug>(coc-funcobj-i)
 omap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -165,7 +165,7 @@ omap ac <Plug>(coc-classobj-a)
 ```
 
 Remap <C-f> and <C-b> for scroll float windows/popups.
-```viml
+```lua
 "if has('nvim-0.4.0') || has('patch-8.2.0750')
 "  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 "  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
@@ -178,34 +178,34 @@ Remap <C-f> and <C-b> for scroll float windows/popups.
 
 Use CTRL-S for selections ranges.
 Requires 'textDocument/selectionRange' support of language server.
-```viml
+```lua
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 ```
 
 Add `:Format` command to format current buffer.
-```viml
+```lua
 command! -nargs=0 Format :call CocAction('format')
 ```
 
 Add `:Fold` command to fold current buffer.
-```viml
+```lua
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 ```
 
 Add `:OR` command for organize imports of the current buffer.
-```viml
+```lua
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 ```
 
 Add NeoVim's native statusline support.
 NOTE: Please see `:h coc-status` for integrations with external plugins that
 provide custom statusline: lightline.vim, vim-airline.
-```viml
+```lua
 "set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 ```
 
-```viml
+```lua
 " Mappings for CoCList
 " Show all diagnostics.
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
@@ -228,7 +228,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 ## Old custom configuration
 
 ### Snippets
-```viml
+```lua
 " Use <C-l> for triggering snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)
 
@@ -245,7 +245,7 @@ let g:coc_snippet_prev = '<c-k>'
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 ```
 
-```viml
+```lua
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 "let g:coc_global_extensions = ['coc-python', 'coc-rome']

@@ -1,0 +1,82 @@
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="highlight.css">
+<h1>FZF</h1>
+<p><a href="plugins.md">Plugins</a></p>
+<h2>Plugin</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">let</span> <span class="n">g:fzf_nvim_statusline</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="s">&quot;This is the default extra key bindings</span>
+<span class="s">let g:fzf_action = {</span>
+<span class="s">  \ &#39;ctrl-t&#39;: &#39;tab split&#39;,</span>
+<span class="s">  \ &#39;ctrl-x&#39;: &#39;split&#39;,</span>
+<span class="s">  \ &#39;ctrl-v&#39;: &#39;vsplit&#39; }</span>
+
+<span class="s">&quot;</span><span class="n">Default</span> <span class="n">fzf</span> <span class="n">layout</span>
+<span class="s">&quot;down / up / left / right</span>
+<span class="s">let g:fzf_layout = { &#39;down&#39;: &#39;~40%&#39; }</span>
+
+<span class="s">&quot;</span><span class="n">In</span> <span class="n">Neovim</span><span class="p">,</span> <span class="n">you</span> <span class="n">can</span> <span class="n">set</span> <span class="n">up</span> <span class="n">fzf</span> <span class="n">window</span> <span class="n">using</span> <span class="n">a</span> <span class="n">Vim</span> <span class="n">command</span>
+<span class="n">let</span> <span class="n">g:fzf_layout</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;window&#39;</span><span class="p">:</span> <span class="s">&#39;enew&#39;</span> <span class="p">}</span>
+<span class="n">let</span> <span class="n">g:fzf_layout</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;window&#39;</span><span class="p">:</span> <span class="s">&#39;-tabnew&#39;</span> <span class="p">}</span>
+<span class="n">let</span> <span class="n">g:fzf_layout</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;window&#39;</span><span class="p">:</span> <span class="s">&#39;10new&#39;</span> <span class="p">}</span>
+
+<span class="s">&quot;Customize fzf colors to match your color scheme</span>
+<span class="s">let g:fzf_colors =</span>
+<span class="s">\ { &#39;fg&#39;:      [&#39;fg&#39;, &#39;Normal&#39;],</span>
+<span class="s">  \ &#39;bg&#39;:      [&#39;bg&#39;, &#39;Normal&#39;],</span>
+<span class="s">  \ &#39;hl&#39;:      [&#39;fg&#39;, &#39;Comment&#39;],</span>
+<span class="s">  \ &#39;fg+&#39;:     [&#39;fg&#39;, &#39;CursorLine&#39;, &#39;CursorColumn&#39;, &#39;Normal&#39;],</span>
+<span class="s">  \ &#39;bg+&#39;:     [&#39;bg&#39;, &#39;CursorLine&#39;, &#39;CursorColumn&#39;],</span>
+<span class="s">  \ &#39;hl+&#39;:     [&#39;fg&#39;, &#39;Statement&#39;],</span>
+<span class="s">  \ &#39;info&#39;:    [&#39;fg&#39;, &#39;PreProc&#39;],</span>
+<span class="s">  \ &#39;border&#39;:  [&#39;fg&#39;, &#39;Ignore&#39;],</span>
+<span class="s">  \ &#39;prompt&#39;:  [&#39;fg&#39;, &#39;Conditional&#39;],</span>
+<span class="s">  \ &#39;pointer&#39;: [&#39;fg&#39;, &#39;Exception&#39;],</span>
+<span class="s">  \ &#39;marker&#39;:  [&#39;fg&#39;, &#39;Keyword&#39;],</span>
+<span class="s">  \ &#39;spinner&#39;: [&#39;fg&#39;, &#39;Label&#39;],</span>
+<span class="s">  \ &#39;header&#39;:  [&#39;fg&#39;, &#39;Comment&#39;] }</span>
+
+<span class="s">&quot;</span><span class="n">Enable</span> <span class="n">per</span><span class="o">-</span><span class="n">command</span> <span class="n">history</span><span class="o">.</span>
+<span class="s">&quot;CTRL-N and CTRL-P will be automatically bound to next-history and</span>
+<span class="s">&quot;</span><span class="n">previous</span><span class="o">-</span><span class="n">history</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">down</span> <span class="ow">and</span> <span class="n">up</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">don</span><span class="s">&#39;t like the change,</span>
+<span class="s">&quot;explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.</span>
+<span class="s">let g:fzf_history_dir = &#39;</span><span class="o">~</span><span class="sr">/.local/s</span><span class="n">hare</span><span class="o">/</span><span class="n">fzf</span><span class="o">-</span><span class="n">history</span><span class="s">&#39;</span>
+
+<span class="s">&quot;[Buffers] Jump to the existing window if possible</span>
+<span class="s">let g:fzf_buffers_jump = 1</span>
+
+<span class="s">&quot;[[B]Commits] Customize the options used by &#39;</span><span class="n">git</span> <span class="nb">log</span><span class="s">&#39;:</span>
+<span class="s">let g:fzf_commits_log_options = &#39;</span><span class="o">--</span><span class="n">graph</span> <span class="o">--</span><span class="n">color</span><span class="o">=</span><span class="n">always</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="s">&quot;%C(auto)%h%d %s %C(black)%C(bold)%cr&quot;&#39;</span>
+
+<span class="s">&quot;[Tags] Command to generate tags file</span>
+<span class="s">let g:fzf_tags_command = &#39;</span><span class="n">ctags</span> <span class="o">-</span><span class="n">R</span><span class="s">&#39;</span>
+
+<span class="s">&quot;[Commands] --expect expression for directly executing the command</span>
+<span class="s">let g:fzf_commands_expect = &#39;</span><span class="n">alt</span><span class="o">-</span><span class="n">enter</span><span class="p">,</span><span class="n">ctrl</span><span class="o">-</span><span class="n">x</span><span class="s">&#39;</span>
+
+<span class="s">&quot; Mapping selecting mappings</span>
+<span class="s">nmap &lt;leader&gt;&lt;tab&gt; &lt;plug&gt;(fzf-maps-n)</span>
+<span class="s">xmap &lt;leader&gt;&lt;tab&gt; &lt;plug&gt;(fzf-maps-x)</span>
+<span class="s">omap &lt;leader&gt;&lt;tab&gt; &lt;plug&gt;(fzf-maps-o)</span>
+<span class="s">&quot; Insert mode completion</span>
+<span class="s">imap &lt;c-x&gt;&lt;c-k&gt; &lt;plug&gt;(fzf-complete-word)</span>
+<span class="s">imap &lt;c-x&gt;&lt;c-f&gt; &lt;plug&gt;(fzf-complete-path)</span>
+<span class="s">imap &lt;c-x&gt;&lt;c-j&gt; &lt;plug&gt;(fzf-complete-file-ag)</span>
+<span class="s">imap &lt;c-x&gt;&lt;c-l&gt; &lt;plug&gt;(fzf-complete-line)</span>
+
+<span class="s">&quot; Advanced customization using autoload functions</span>
+<span class="s">inoremap &lt;expr&gt; &lt;c-x&gt;&lt;c-k&gt; fzf#vim#complete#word({&#39;</span><span class="n">left</span><span class="s">&#39;: &#39;</span><span class="mi">14</span><span class="nv">%</span><span class="err">&#39;}</span><span class="p">)</span>
+<span class="err">&quot;</span> <span class="n">Replace</span> <span class="n">the</span> <span class="n">default</span> <span class="n">dictionary</span> <span class="n">completion</span> <span class="n">with</span> <span class="n">fzf</span><span class="o">-</span><span class="n">based</span> <span class="n">fuzzy</span> <span class="n">completion</span>
+<span class="n">inoremap</span> <span class="sr">&lt;expr&gt;</span> <span class="sr">&lt;c-x&gt;&lt;c-k&gt;</span> <span class="n">fzf</span><span class="c1">#vim#complete(&#39;cat /usr/share/dict/words&#39;)</span>
+
+<span class="n">imap</span> <span class="sr">&lt;C-f&gt;</span> <span class="sr">&lt;esc&gt;</span><span class="p">:</span><span class="n">FZF</span><span class="sr">&lt;cr&gt;</span>
+<span class="n">nmap</span> <span class="sr">&lt;C-f&gt;</span> <span class="p">:</span><span class="n">FZF</span><span class="sr">&lt;cr&gt;</span>
+</code></pre></div>
+
+<h2>Configuration</h2>
+<div class="codehilite"><pre><span></span><code>let g:fzf_layout = { &#39;up&#39;: &#39;~50%&#39; }
+nnoremap &lt;Leader&gt;f :Rg&lt;CR&gt;
+</code></pre></div>
+
+<!-- vim: set ft=vim: set conceallevel=0 -->
