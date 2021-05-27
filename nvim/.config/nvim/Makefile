@@ -1,3 +1,3 @@
 make:
-	python literate-vim.py web . web
-	python literate-vim.py weave .
+	literate_vim web src out
+	literate_vim weave src .

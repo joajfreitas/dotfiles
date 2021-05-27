@@ -2,6 +2,8 @@
 
 [Plugins](plugins.md)
 
+[https://github.com/junegunn/vim-easy-align](https://github.com/junegunn/vim-easy-align).
+
 ## Configuration
 ```viml
 " Start interactive EasyAlign in visual mode (e.g. vipga)

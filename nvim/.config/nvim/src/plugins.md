@@ -41,10 +41,14 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'lepture/vim-jinja'
 Plug 'sheerun/vim-polyglot'
 Plug 'rust-lang/rust.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
+Plug 'dubek/vim-mal'
+Plug 'joajfreitas/fcp.vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-compe'
 call plug#end()
 ```
 
@@ -59,5 +63,8 @@ call plug#end()
 * [Latex](plugin_latex.md)
 * [Pandoc](plugin_pandoc.md)
 * [Markdown Preview](plugin_markdown_preview.md)
+* [Tree Sitter](plugin_tree_sitter.md)
+* [LSP Config](plugin_lsp_config.md)
+* [Compe](plugin_compe.md)
 
 <!-- vim: set ft=vim: set conceallevel=0-->

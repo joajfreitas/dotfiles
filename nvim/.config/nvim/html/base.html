@@ -76,7 +76,16 @@ reopening a file.</p>
 
 <h2>Folds</h2>
 <p>Enable folds</p>
-<div class="codehilite"><pre><span></span><code>set foldenable
+<div class="codehilite"><pre><span></span><code><span class="n">set</span> <span class="n">foldmethod</span><span class="o">=</span><span class="n">syntax</span>
+<span class="n">set</span> <span class="n">foldnestmax</span><span class="o">=</span><span class="mi">10</span>
+<span class="n">set</span> <span class="n">foldlevel</span><span class="o">=</span><span class="mi">0</span>
+<span class="s2">&quot; auto-save fold views</span>
+<span class="n">augroup</span> <span class="n">AutoSaveFolds</span>
+<span class="n">auto.html</span><span class="o">!</span>
+<span class="n">auto.html</span> <span class="n">BufWinLeave</span> <span class="err">?</span><span class="o">*</span> <span class="n">mkview</span>
+<span class="n">auto.html</span> <span class="n">BufWinEnter</span> <span class="err">?</span><span class="o">*</span> <span class="n">silent</span> <span class="n">loadview</span>
+<span class="n">augroup</span> <span class="n">END</span>
+<span class="n">set</span> <span class="n">foldenable</span>
 </code></pre></div>
 
 <!-- vim: set ft=vim: set conceallevel=0-->

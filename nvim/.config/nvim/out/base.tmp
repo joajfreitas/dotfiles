@@ -60,7 +60,9 @@ let mapleader=&quot; &quot;
 
 <h2>Spellchecking</h2>
 <p>Spell check configuration.</p>
-<div class="codehilite"><pre><span></span><code>set spell
+<div class="codehilite"><pre><span></span><code>&quot; TODO: https://github.com/nvim-treesitter/nvim-treesitter/issues/698
+&quot; enable spell checking again when this issue is solved
+&quot;set spell
 set spelllang=pt_pt,en
 hi SpellBad cterm=underline
 </code></pre></div>
@@ -80,11 +82,11 @@ reopening a file.</p>
 <span class="n">set</span> <span class="n">foldnestmax</span><span class="o">=</span><span class="mi">10</span>
 <span class="n">set</span> <span class="n">foldlevel</span><span class="o">=</span><span class="mi">0</span>
 <span class="s2">&quot; auto-save fold views</span>
-<span class="n">augroup</span> <span class="n">AutoSaveFolds</span>
-<span class="n">autocmd</span><span class="o">!</span>
-<span class="n">autocmd</span> <span class="n">BufWinLeave</span> <span class="err">?</span><span class="o">*</span> <span class="n">mkview</span>
-<span class="n">autocmd</span> <span class="n">BufWinEnter</span> <span class="err">?</span><span class="o">*</span> <span class="n">silent</span> <span class="n">loadview</span>
-<span class="n">augroup</span> <span class="n">END</span>
+<span class="s2">&quot;augroup AutoSaveFolds</span>
+<span class="s2">&quot;autocmd!</span>
+<span class="s2">&quot;autocmd BufWinLeave ?* mkview</span>
+<span class="s2">&quot;autocmd BufWinEnter ?* silent loadview</span>
+<span class="s2">&quot;augroup END</span>
 <span class="n">set</span> <span class="n">foldenable</span>
 </code></pre></div>
 

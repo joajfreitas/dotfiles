@@ -1,0 +1,219 @@
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="highlight.css">
+<h1>Coc Setup</h1>
+<p><a href="plugins.html">Plugins</a></p>
+<h2>Base config</h2>
+<p>Recommended configuration from
+<a href="https://github.com/neoclide/coc.nvim#example-vim-configuration">https://github.com/neoclide/coc.nvim#example-vim-configuration</a>.</p>
+<p>Some servers have issues with backup files, see #649.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">set</span> <span class="n">nobackup</span>
+<span class="n">set</span> <span class="n">nowritebackup</span>
+</code></pre></div>
+
+<p>Give more space for displaying messages.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">set</span> <span class="n">.htmlheight</span><span class="o">=</span><span class="mi">2</span>
+</code></pre></div>
+
+<p>Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+delays and poor user experience.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">set</span> <span class="n">updatetime</span><span class="o">=</span><span class="mi">300</span>
+</code></pre></div>
+
+<p>Don't pass messages to |ins-completion-menu|.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">set</span> <span class="n">shortmess</span><span class="o">+=</span><span class="n">c</span>
+</code></pre></div>
+
+<p>Use tab for trigger completion with characters ahead and navigate.
+NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+other plugin before putting this into your config.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">inoremap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;&lt;</span><span class="n">expr</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">TAB</span><span class="o">&gt;</span>
+      <span class="err">\</span> <span class="n">pumvisible</span><span class="p">()</span> <span class="err">?</span> <span class="s2">&quot;</span><span class="err">\</span><span class="s2">&lt;C-n&gt;&quot;</span> <span class="p">:</span>
+      <span class="err">\</span> <span class="o">&lt;</span><span class="n">SID</span><span class="o">&gt;</span><span class="n">check_back_space</span><span class="p">()</span> <span class="err">?</span> <span class="s2">&quot;</span><span class="err">\</span><span class="s2">&lt;TAB&gt;&quot;</span> <span class="p">:</span>
+      <span class="err">\</span> <span class="n">coc</span><span class="o">#</span><span class="n">refresh</span><span class="p">()</span>
+<span class="n">inoremap</span> <span class="o">&lt;</span><span class="n">expr</span><span class="o">&gt;&lt;</span><span class="n">S</span><span class="o">-</span><span class="n">TAB</span><span class="o">&gt;</span> <span class="n">pumvisible</span><span class="p">()</span> <span class="err">?</span> <span class="s2">&quot;</span><span class="err">\</span><span class="s2">&lt;C-p&gt;&quot;</span> <span class="p">:</span> <span class="s2">&quot;</span><span class="err">\</span><span class="s2">&lt;C-h&gt;&quot;</span>
+
+<span class="kr">function</span><span class="err">!</span> <span class="nc">s</span><span class="p">:</span><span class="nf">check_back_space</span><span class="p">()</span> <span class="n">abort</span>
+  <span class="n">let</span> <span class="n">col</span> <span class="o">=</span> <span class="n">col</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+  <span class="kr">return</span> <span class="err">!</span><span class="n">col</span> <span class="o">||</span> <span class="n">getline</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="n">col</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>  <span class="o">=~#</span> <span class="s1">&#39;</span><span class="err">\</span><span class="s1">s&#39;</span>
+<span class="n">endfunction</span>
+</code></pre></div>
+
+<p>Always show the signcolumn, otherwise it would shift the text each time
+diagnostics appear/become resolved.</p>
+<div class="codehilite"><pre><span></span><code><span class="kr">if</span> <span class="n">has</span><span class="p">(</span><span class="s2">&quot;patch-8.1.1564&quot;</span><span class="p">)</span>
+  <span class="s2">&quot; Recently vim can merge signcolumn and number column into one</span>
+<span class="s2">  set signcolumn=number</span>
+<span class="s2">else</span>
+<span class="s2">  set signcolumn=yes</span>
+<span class="s2">endif</span>
+</code></pre></div>
+
+<p>Use <c-space> to trigger completion.</p>
+<div class="codehilite"><pre><span></span><code><span class="kr">if</span> <span class="n">has</span><span class="p">(</span><span class="s1">&#39;nvim&#39;</span><span class="p">)</span>
+  <span class="n">inoremap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;&lt;</span><span class="n">expr</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">c</span><span class="o">-</span><span class="n">space</span><span class="o">&gt;</span> <span class="n">coc</span><span class="o">#</span><span class="n">refresh</span><span class="p">()</span>
+<span class="kr">else</span>
+  <span class="n">inoremap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;&lt;</span><span class="n">expr</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">c</span><span class="o">-</span><span class="err">@</span><span class="o">&gt;</span> <span class="n">coc</span><span class="o">#</span><span class="n">refresh</span><span class="p">()</span>
+<span class="n">endif</span>
+</code></pre></div>
+
+<p>Make <CR> auto-select the first completion item and notify coc.nvim to
+format on enter, <cr> could be remapped by other vim plugin</p>
+<div class="codehilite"><pre><span></span><code><span class="n">inoremap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;&lt;</span><span class="n">expr</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span> <span class="n">pumvisible</span><span class="p">()</span> <span class="err">?</span> <span class="n">coc</span><span class="o">#</span><span class="n">_select_confirm</span><span class="p">()</span>
+                              <span class="err">\</span><span class="p">:</span> <span class="s2">&quot;</span><span class="err">\</span><span class="s2">&lt;C-g&gt;u</span><span class="err">\</span><span class="s2">&lt;CR&gt;</span><span class="err">\</span><span class="s2">&lt;c-r&gt;=coc#on_enter()</span><span class="err">\</span><span class="s2">&lt;CR&gt;&quot;</span>
+</code></pre></div>
+
+<p>Use <code>[g</code> and <code>]g</code> to navigate diagnostics
+Use <code>:CocDiagnostics</code> to get all diagnostics of current buffer in location list.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">nmap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">g</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">diagnostic</span><span class="o">-</span><span class="n">prev</span><span class="p">)</span>
+<span class="n">nmap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span> <span class="p">]</span><span class="n">g</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">diagnostic</span><span class="o">-</span><span class="nb">next</span><span class="p">)</span>
+</code></pre></div>
+
+<p>GoTo code navigation.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">nmap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span> <span class="n">gd</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">definition</span><span class="p">)</span>
+<span class="n">nmap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span> <span class="n">gy</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="nb">type</span><span class="o">-</span><span class="n">definition</span><span class="p">)</span>
+<span class="n">nmap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span> <span class="n">gi</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">implementation</span><span class="p">)</span>
+<span class="n">nmap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span> <span class="n">gr</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">references</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Use K to show documentation in preview window.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span> <span class="n">K</span> <span class="p">:</span><span class="n">call</span> <span class="o">&lt;</span><span class="n">SID</span><span class="o">&gt;</span><span class="n">show_documentation</span><span class="p">()</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+
+<span class="kr">function</span><span class="err">!</span> <span class="nc">s</span><span class="p">:</span><span class="nf">show_documentation</span><span class="p">()</span>
+  <span class="kr">if</span> <span class="p">(</span><span class="n">index</span><span class="p">([</span><span class="s1">&#39;vim&#39;</span><span class="p">,</span><span class="s1">&#39;help&#39;</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">filetype</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">execute</span> <span class="s1">&#39;h &#39;</span><span class="p">.</span><span class="n">expand</span><span class="p">(</span><span class="s1">&#39;&lt;cword&gt;&#39;</span><span class="p">)</span>
+  <span class="kr">elseif</span> <span class="p">(</span><span class="n">coc</span><span class="o">#</span><span class="n">rpc</span><span class="o">#</span><span class="n">ready</span><span class="p">())</span>
+    <span class="n">call</span> <span class="n">CocActionAsync</span><span class="p">(</span><span class="s1">&#39;doHover&#39;</span><span class="p">)</span>
+  <span class="kr">else</span>
+    <span class="n">execute</span> <span class="s1">&#39;!&#39;</span> <span class="p">.</span> <span class="o">&amp;</span><span class="n">keywordprg</span> <span class="p">.</span> <span class="s2">&quot; &quot;</span> <span class="p">.</span> <span class="n">expand</span><span class="p">(</span><span class="s1">&#39;&lt;cword&gt;&#39;</span><span class="p">)</span>
+  <span class="n">endif</span>
+<span class="n">endfunction</span>
+</code></pre></div>
+
+<p>Highlight the symbol and its references when holding the cursor.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">auto.html</span> <span class="n">CursorHold</span> <span class="o">*</span> <span class="n">silent</span> <span class="n">call</span> <span class="n">CocActionAsync</span><span class="p">(</span><span class="s1">&#39;highlight&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Symbol renaming.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">nmap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">rn</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">rename</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Formatting selected code.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">xmap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">f</span>  <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">format</span><span class="o">-</span><span class="n">selected</span><span class="p">)</span>
+<span class="n">nmap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">f</span>  <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">format</span><span class="o">-</span><span class="n">selected</span><span class="p">)</span>
+
+<span class="n">augroup</span> <span class="n">mygroup</span>
+  <span class="n">auto.html</span><span class="err">!</span>
+  <span class="s2">&quot; Setup formatexpr specified filetype(s).</span>
+<span class="s2">  auto.html FileType typescript,json setl formatexpr=CocAction(&#39;formatSelected&#39;)</span>
+<span class="s2">  &quot;</span> <span class="n">Update</span> <span class="n">signature</span> <span class="n">help</span> <span class="n">on</span> <span class="n">jump</span> <span class="n">placeholder</span><span class="p">.</span>
+  <span class="n">auto.html</span> <span class="n">User</span> <span class="n">CocJumpPlaceholder</span> <span class="n">call</span> <span class="n">CocActionAsync</span><span class="p">(</span><span class="s1">&#39;showSignatureHelp&#39;</span><span class="p">)</span>
+<span class="n">augroup</span> <span class="kr">end</span>
+</code></pre></div>
+
+<p>Applying codeAction to the selected region.
+Example: <code>&lt;leader&gt;aap</code> for current paragraph</p>
+<div class="codehilite"><pre><span></span><code><span class="n">xmap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">a</span>  <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">codeaction</span><span class="o">-</span><span class="n">selected</span><span class="p">)</span>
+<span class="n">nmap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">a</span>  <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">codeaction</span><span class="o">-</span><span class="n">selected</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Remap keys for applying codeAction to the current buffer.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">nmap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">ac</span>  <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">codeaction</span><span class="o">-</span><span class="n">cursor</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Apply AutoFix to problem on the current line.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">nmap</span> <span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">qf</span>  <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">fix</span><span class="o">-</span><span class="n">current</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Map function and class text objects
+NOTE: Requires 'textDocument.documentSymbol' support from the language server.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">xmap</span> <span class="kr">if</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">funcobj</span><span class="o">-</span><span class="n">i</span><span class="p">)</span>
+<span class="n">omap</span> <span class="kr">if</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">funcobj</span><span class="o">-</span><span class="n">i</span><span class="p">)</span>
+<span class="n">xmap</span> <span class="n">af</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">funcobj</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+<span class="n">omap</span> <span class="n">af</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">funcobj</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+<span class="n">xmap</span> <span class="n">ic</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">classobj</span><span class="o">-</span><span class="n">i</span><span class="p">)</span>
+<span class="n">omap</span> <span class="n">ic</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">classobj</span><span class="o">-</span><span class="n">i</span><span class="p">)</span>
+<span class="n">xmap</span> <span class="n">ac</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">classobj</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+<span class="n">omap</span> <span class="n">ac</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">classobj</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Remap <C-f> and <C-b> for scroll float windows/popups.</p>
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;if has(&#39;nvim-0.4.0&#39;) || has(&#39;patch-8.2.0750&#39;)</span>
+<span class="s2">&quot;</span>  <span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;&lt;</span><span class="n">nowait</span><span class="o">&gt;&lt;</span><span class="n">expr</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">f</span><span class="o">&gt;</span> <span class="n">coc</span><span class="o">#</span><span class="n">float</span><span class="o">#</span><span class="n">has_scroll</span><span class="p">()</span> <span class="err">?</span> <span class="n">coc</span><span class="o">#</span><span class="n">float</span><span class="o">#</span><span class="n">scroll</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">:</span> <span class="s2">&quot;</span><span class="err">\</span><span class="s2">&lt;C-f&gt;&quot;</span>
+<span class="s2">&quot;  nnoremap &lt;silent&gt;&lt;nowait&gt;&lt;expr&gt; &lt;C-b&gt; coc#float#has_scroll() ? coc#float#scroll(0) : &quot;</span><span class="err">\</span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">b</span><span class="o">&gt;</span><span class="s2">&quot;</span>
+<span class="s2">&quot;</span>  <span class="n">inoremap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;&lt;</span><span class="n">nowait</span><span class="o">&gt;&lt;</span><span class="n">expr</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">f</span><span class="o">&gt;</span> <span class="n">coc</span><span class="o">#</span><span class="n">float</span><span class="o">#</span><span class="n">has_scroll</span><span class="p">()</span> <span class="err">?</span> <span class="s2">&quot;</span><span class="err">\</span><span class="s2">&lt;c-r&gt;=coc#float#scroll(1)</span><span class="err">\</span><span class="s2">&lt;cr&gt;&quot;</span> <span class="p">:</span> <span class="s2">&quot;</span><span class="err">\</span><span class="s2">&lt;Right&gt;&quot;</span>
+<span class="s2">&quot;  inoremap &lt;silent&gt;&lt;nowait&gt;&lt;expr&gt; &lt;C-b&gt; coc#float#has_scroll() ? &quot;</span><span class="err">\</span><span class="o">&lt;</span><span class="n">c</span><span class="o">-</span><span class="n">r</span><span class="o">&gt;=</span><span class="n">coc</span><span class="o">#</span><span class="n">float</span><span class="o">#</span><span class="n">scroll</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="err">\</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span><span class="s2">&quot; : &quot;</span><span class="err">\</span><span class="o">&lt;</span><span class="n">Left</span><span class="o">&gt;</span><span class="s2">&quot;</span>
+<span class="s2">&quot;</span>  <span class="n">vnoremap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;&lt;</span><span class="n">nowait</span><span class="o">&gt;&lt;</span><span class="n">expr</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">f</span><span class="o">&gt;</span> <span class="n">coc</span><span class="o">#</span><span class="n">float</span><span class="o">#</span><span class="n">has_scroll</span><span class="p">()</span> <span class="err">?</span> <span class="n">coc</span><span class="o">#</span><span class="n">float</span><span class="o">#</span><span class="n">scroll</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">:</span> <span class="s2">&quot;</span><span class="err">\</span><span class="s2">&lt;C-f&gt;&quot;</span>
+<span class="s2">&quot;  vnoremap &lt;silent&gt;&lt;nowait&gt;&lt;expr&gt; &lt;C-b&gt; coc#float#has_scroll() ? coc#float#scroll(0) : &quot;</span><span class="err">\</span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">b</span><span class="o">&gt;</span><span class="s2">&quot;</span>
+<span class="s2">&quot;</span><span class="n">endif</span>
+</code></pre></div>
+
+<p>Use CTRL-S for selections ranges.
+Requires 'textDocument/selectionRange' support of language server.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">nmap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">s</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">range</span><span class="o">-</span><span class="nb">select</span><span class="p">)</span>
+<span class="n">xmap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">s</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">range</span><span class="o">-</span><span class="nb">select</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Add <code>:Format</code> command to format current buffer.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">command</span><span class="err">!</span> <span class="o">-</span><span class="n">nargs</span><span class="o">=</span><span class="mi">0</span> <span class="n">Format</span> <span class="p">:</span><span class="n">call</span> <span class="n">CocAction</span><span class="p">(</span><span class="s1">&#39;format&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Add <code>:Fold</code> command to fold current buffer.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">command</span><span class="err">!</span> <span class="o">-</span><span class="n">nargs</span><span class="o">=</span><span class="err">?</span> <span class="n">Fold</span> <span class="p">:</span><span class="n">call</span>     <span class="n">CocAction</span><span class="p">(</span><span class="s1">&#39;fold&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">f</span><span class="o">-</span><span class="n">args</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Add <code>:OR</code> command for organize imports of the current buffer.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">command</span><span class="err">!</span> <span class="o">-</span><span class="n">nargs</span><span class="o">=</span><span class="mi">0</span> <span class="n">OR</span>   <span class="p">:</span><span class="n">call</span>     <span class="n">CocAction</span><span class="p">(</span><span class="s1">&#39;runCommand&#39;</span><span class="p">,</span> <span class="s1">&#39;editor.action.organizeImport&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Add NeoVim's native statusline support.
+NOTE: Please see <code>:h coc-status</code> for integrations with external plugins that
+provide custom statusline: lightline.vim, vim-airline.</p>
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;set statusline^=%{coc#status()}%{get(b:,&#39;coc_current_function&#39;,&#39;&#39;)}</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot; Mappings for CoCList</span>
+<span class="s2">&quot;</span> <span class="n">Show</span> <span class="n">all</span> <span class="n">diagnostics</span><span class="p">.</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;&lt;</span><span class="n">nowait</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">space</span><span class="o">&gt;</span><span class="n">a</span>  <span class="p">:</span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">u</span><span class="o">&gt;</span><span class="n">CocList</span> <span class="n">diagnostics</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span>
+<span class="s2">&quot; Manage extensions.</span>
+<span class="s2">nnoremap &lt;silent&gt;&lt;nowait&gt; &lt;space&gt;e  :&lt;C-u&gt;CocList extensions&lt;cr&gt;</span>
+<span class="s2">&quot;</span> <span class="n">Show</span> <span class="n">commands</span><span class="p">.</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;&lt;</span><span class="n">nowait</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">space</span><span class="o">&gt;</span><span class="n">c</span>  <span class="p">:</span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">u</span><span class="o">&gt;</span><span class="n">CocList</span> <span class="n">commands</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span>
+<span class="s2">&quot; Find symbol of current document.</span>
+<span class="s2">nnoremap &lt;silent&gt;&lt;nowait&gt; &lt;space&gt;o  :&lt;C-u&gt;CocList outline&lt;cr&gt;</span>
+<span class="s2">&quot;</span> <span class="n">Search</span> <span class="n">workspace</span> <span class="n">symbols</span><span class="p">.</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;&lt;</span><span class="n">nowait</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">space</span><span class="o">&gt;</span><span class="n">s</span>  <span class="p">:</span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">u</span><span class="o">&gt;</span><span class="n">CocList</span> <span class="o">-</span><span class="n">I</span> <span class="n">symbols</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span>
+<span class="s2">&quot; Do default action for next item.</span>
+<span class="s2">nnoremap &lt;silent&gt;&lt;nowait&gt; &lt;space&gt;j  :&lt;C-u&gt;CocNext&lt;CR&gt;</span>
+<span class="s2">&quot;</span> <span class="n">Do</span> <span class="n">default</span> <span class="n">action</span> <span class="kr">for</span> <span class="n">previous</span> <span class="n">item</span><span class="p">.</span>
+<span class="n">nnoremap</span> <span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;&lt;</span><span class="n">nowait</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">space</span><span class="o">&gt;</span><span class="n">k</span>  <span class="p">:</span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">u</span><span class="o">&gt;</span><span class="n">CocPrev</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="s2">&quot; Resume latest coc list.</span>
+<span class="s2">nnoremap &lt;silent&gt;&lt;nowait&gt; &lt;space&gt;p  :&lt;C-u&gt;CocListResume&lt;CR&gt;</span>
+</code></pre></div>
+
+<h2>Old custom configuration</h2>
+<h3>Snippets</h3>
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot; Use &lt;C-l&gt; for triggering snippet expand.</span>
+<span class="s2">imap &lt;C-l&gt; &lt;Plug&gt;(coc-snippets-expand)</span>
+
+<span class="s2">&quot;</span> <span class="n">Use</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">j</span><span class="o">&gt;</span> <span class="kr">for</span> <span class="n">selecting</span> <span class="n">text</span> <span class="kr">for</span> <span class="n">visual</span> <span class="n">placeholder</span> <span class="n">of</span> <span class="n">snippet</span><span class="p">.</span>
+<span class="n">vmap</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">j</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">Plug</span><span class="o">&gt;</span><span class="p">(</span><span class="n">coc</span><span class="o">-</span><span class="n">snippets</span><span class="o">-</span><span class="nb">select</span><span class="p">)</span>
+
+<span class="s2">&quot; Use &lt;C-j&gt; to jump to the next placeholder, it&#39;s the default of coc.nvim</span>
+<span class="s2">let g:coc_snippet_next = &#39;&lt;c-j&gt;&#39;</span>
+
+<span class="s2">&quot;</span> <span class="n">Use</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">k</span><span class="o">&gt;</span> <span class="kr">for</span> <span class="n">jumping</span> <span class="n">to</span> <span class="n">the</span> <span class="n">previous</span> <span class="n">placeholder</span><span class="p">,</span> <span class="n">it</span><span class="s1">&#39;s the default of coc.nvim</span>
+<span class="s1">let g:coc_snippet_prev = &#39;</span><span class="o">&lt;</span><span class="n">c</span><span class="o">-</span><span class="n">k</span><span class="o">&gt;</span><span class="s1">&#39;</span>
+
+<span class="s1">&quot; Use &lt;C-j&gt; to both expand and jump (make expand higher priority.)</span>
+<span class="s1">imap &lt;C-j&gt; &lt;Plug&gt;(coc-snippets-expand-jump)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="n">auto.html</span> <span class="n">User</span> <span class="n">CocJumpPlaceholder</span> <span class="n">call</span> <span class="n">CocActionAsync</span><span class="p">(</span><span class="s1">&#39;showSignatureHelp&#39;</span><span class="p">)</span>
+
+<span class="s2">&quot;let g:coc_global_extensions = [&#39;coc-python&#39;, &#39;coc-rome&#39;]</span>
+
+<span class="s2">let g:autofmt_autosave = 1</span>
+</code></pre></div>
+
+<!-- vim: set ft=vim: set conceallevel=0: -->

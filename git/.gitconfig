@@ -18,3 +18,8 @@
 [merge "json"]
     name = custom merge driver for json files
     driver = git-json-merge %A %O %B
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process

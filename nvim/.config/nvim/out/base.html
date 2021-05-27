@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="highlight.css">
 <h1>Base config</h1>
-<p><a href="vimrc.md">vimrc</a></p>
+<p><a href="vimrc.html">vimrc</a></p>
 <h2>Leader</h2>
 <p>Map space as leader.</p>
 <div class="codehilite"><pre><span></span><code>map &lt;Space&gt; &lt;Leader&gt;
@@ -10,7 +10,7 @@ nnoremap &lt;SPACE&gt; &lt;Nop&gt;
 let mapleader=&quot; &quot;
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="nv">set</span> <span class="nv">showcmd</span>
+<div class="codehilite"><pre><span></span><code><span class="nv">set</span> <span class="nv">show.html</span>
 <span class="nv">set</span> <span class="nv">completeopt</span><span class="o">+=</span><span class="nv">noinsert</span>
 <span class="nv">set</span> <span class="nv">completeopt</span><span class="o">+=</span><span class="nv">preview</span>
 
@@ -60,7 +60,9 @@ let mapleader=&quot; &quot;
 
 <h2>Spellchecking</h2>
 <p>Spell check configuration.</p>
-<div class="codehilite"><pre><span></span><code>set spell
+<div class="codehilite"><pre><span></span><code>&quot; TODO: https://github.com/nvim-treesitter/nvim-treesitter/issues/698
+&quot; enable spell checking again when this issue is solved
+&quot;set spell
 set spelllang=pt_pt,en
 hi SpellBad cterm=underline
 </code></pre></div>
@@ -68,7 +70,7 @@ hi SpellBad cterm=underline
 <h2>Resume last position</h2>
 <p>Uncomment the following to have Vim jump to the last position when
 reopening a file.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="nv">has</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">autocmd</span><span class="s2">&quot;</span><span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="nv">has</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">auto.html</span><span class="s2">&quot;</span><span class="ss">)</span>
   <span class="nv">au</span> <span class="nv">BufReadPost</span> <span class="o">*</span> <span class="k">if</span> <span class="nv">line</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">&#39;\</span><span class="s2">&quot;&quot;</span><span class="s">) &gt; 0 &amp;&amp; line(</span><span class="s2">&quot;</span><span class="s1">&#39;</span><span class="s">\&quot;&quot;) &lt;= line(&quot;$&quot;)</span>
     \<span class="o">|</span> <span class="nv">exe</span> <span class="s2">&quot;</span><span class="s">normal! g&#39;\</span><span class="s2">&quot;&quot;</span><span class="s"> | endif</span>
 <span class="k">endif</span>
@@ -80,11 +82,11 @@ reopening a file.</p>
 <span class="n">set</span> <span class="n">foldnestmax</span><span class="o">=</span><span class="mi">10</span>
 <span class="n">set</span> <span class="n">foldlevel</span><span class="o">=</span><span class="mi">0</span>
 <span class="s2">&quot; auto-save fold views</span>
-<span class="n">augroup</span> <span class="n">AutoSaveFolds</span>
-<span class="n">autocmd</span><span class="o">!</span>
-<span class="n">autocmd</span> <span class="n">BufWinLeave</span> <span class="err">?</span><span class="o">*</span> <span class="n">mkview</span>
-<span class="n">autocmd</span> <span class="n">BufWinEnter</span> <span class="err">?</span><span class="o">*</span> <span class="n">silent</span> <span class="n">loadview</span>
-<span class="n">augroup</span> <span class="n">END</span>
+<span class="s2">&quot;augroup AutoSaveFolds</span>
+<span class="s2">&quot;auto.html!</span>
+<span class="s2">&quot;auto.html BufWinLeave ?* mkview</span>
+<span class="s2">&quot;auto.html BufWinEnter ?* silent loadview</span>
+<span class="s2">&quot;augroup END</span>
 <span class="n">set</span> <span class="n">foldenable</span>
 </code></pre></div>
 
