@@ -2,6 +2,8 @@
 
 [Plugins](plugins.md)
 
+[https://github.com/junegunn/fzf.vim](https://github.com/junegunn/fzf.vim)
+
 ## Plugin
 
 ```viml

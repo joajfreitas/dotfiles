@@ -1,5 +1,10 @@
 # Compe
 
+[Plugins](plugins.md)
+
+[https://github.com/ hrsh7th/nvim-compe](https://github.com/hrsh7th/nvim-compe)
+
+## Setup
 ```viml
 set completeopt=menuone,noselect
 ```

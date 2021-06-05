@@ -1,5 +1,9 @@
 # Limelight
 
+[Plugins](plugins.md)
+
+[https://github.com/junegunn/limelight.vim](https://github.com/junegunn/limelight.vim)
+
 ## Configuration
 
 ```viml
