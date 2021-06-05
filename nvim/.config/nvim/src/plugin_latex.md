@@ -1,5 +1,9 @@
 # Latex
 
+[Plugins](plugins.md)
+
+[https://github.com/lervag/vimtex](https://github.com/lervag/vimtex)
+
 ## Configuration
 
 ```viml

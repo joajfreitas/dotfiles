@@ -1,5 +1,9 @@
 # Pandoc
 
+[Plugins](plugins.md)
+
+[https://github.com/vim-pandoc/vim-pandoc](https://github.com/vim-pandoc/vim-pandoc)
+
 ## Configuration
 
 ```viml

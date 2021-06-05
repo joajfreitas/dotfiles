@@ -1,5 +1,9 @@
 # Markdown Preview
 
+[Plugins](plugins.md)
+
+[https://github.com/iamcco/markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim)
+
 ## Configuration
 
 ```viml
@@ -9,6 +13,9 @@ nnoremap <Leader>m :MarkdownPreview<CR>
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
+
+let g:mkdp_browser = 'qutebrowser'
+set updatetime=100
 ```
 
 
