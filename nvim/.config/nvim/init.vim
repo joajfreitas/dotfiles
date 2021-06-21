@@ -23,7 +23,7 @@ Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'mhinz/vim-startify'
-Plug 'vim-scripts/Conque-GDB'
+"Plug 'vim-scripts/Conque-GDB'
 Plug 'hjson/vim-hjson'
 Plug 'tpope/vim-commentary'
 Plug 'stephpy/vim-yaml'
@@ -313,13 +313,13 @@ set softtabstop=4   " in insert mode, tabs are 4 spaces
 set tabstop=4
 
 set colorcolumn=80
-if strftime('%H') >= 8 && strftime('%H') < 17
-  colorscheme gruvbox 
-  set background=light
-else
+"if strftime('%H') >= 8 && strftime('%H') < 17
+"  colorscheme gruvbox 
+"  set background=light
+"else
   colors cosmic_latte
   set background=dark
-endif
+"endif
 
 set t_Co=256
 " TODO: https://github.com/nvim-treesitter/nvim-treesitter/issues/698
