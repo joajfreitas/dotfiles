@@ -4,7 +4,14 @@
 
 [https://joajfreitas.gitlab.io/dotfiles/vimrc.html](https://joajfreitas.gitlab.io/dotfiles/vimrc.html)
 
-## Account recovery
+## GPG key
+
+### Export
+
+    gpg --armor --export-private-keys <email> > private.key
+	gpg --symmetric private.key
+
+### Account recovery
 
 Recover gpg key
 
