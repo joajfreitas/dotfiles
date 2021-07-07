@@ -126,7 +126,8 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
 /home/joaj/bin/gruvbox
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -138,8 +139,8 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 #source /opt/ros/kinetic/setup.zsh
 #source /home/joaj/ros_ws/devel/setup.zsh
 
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
+#source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 #export DISABLE_AUTO_TITLE='true'
 #compctl -g '~/.teamocil/*(:t:r)' teamocil
 
@@ -209,3 +210,13 @@ set_title()
 
 set_title "uxterm"
 #eval "$(starship init zsh)"
+
+###  RPP-BEGIN  ###
+# Do not change content between BEGIN and END!
+# This section is managed by a script.
+if [[ -d "/usr/libexec/rpp_zshrc.d" ]]; then
+    for rc_script in "/usr/libexec/rpp_zshrc.d/"*; do
+      source "${rc_script}"
+    done
+fi
+###  RPP-END  ###

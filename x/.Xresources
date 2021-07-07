@@ -60,8 +60,8 @@ URxvt*letterSpace: -1
 !
 ! URxvt*background:            S_base03
 
-xterm*font: xft:Fira Mono:pixelsize=12:antialias=true:hinting=true
-XTerm*faceName: DejaVu Sans Mono for Powerline 
+!xterm*font: xft:Fira Mono:pixelsize=12:antialias=true:hinting=true
+!XTerm*faceName: DejaVu Sans Mono for Powerline 
 !XTerm*faceName: Fira Mono for Powerline 
 xterm*locale: true
 xterm*saveLines: 10000

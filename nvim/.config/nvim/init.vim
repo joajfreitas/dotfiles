@@ -4,41 +4,54 @@ function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
 
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'morhetz/gruvbox'
+Plug 'nightsense/cosmic_latte'
+Plug 'mhartington/oceanic-next'
+
+Plug 'vim-utils/vim-husk'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'vimwiki/vimwiki'
-Plug 'scrooloose/nerdtree'
-Plug 'morhetz/gruvbox'
-Plug 'nightsense/cosmic_latte'
 Plug 'lervag/vimtex'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 Plug 'daeyun/vim-matlab', { 'do': function('DoRemote') }
 Plug 'tpope/vim-fugitive'
-Plug 'rhysd/git-messenger.vim'
 Plug 'itspriddle/vim-shellcheck'
-Plug 'wsdjeg/vim-lua'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'mzlogin/vim-markdown-toc'
-Plug 'mhinz/vim-startify'
-"Plug 'vim-scripts/Conque-GDB'
-Plug 'hjson/vim-hjson'
 Plug 'tpope/vim-commentary'
-Plug 'stephpy/vim-yaml'
-Plug 'PotatoesMaster/i3-vim-syntax'
-Plug 'lepture/vim-jinja'
 Plug 'sheerun/vim-polyglot'
 Plug 'rust-lang/rust.vim'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'dubek/vim-mal'
-Plug 'joajfreitas/fcp.vim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
 Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
+Plug 'simrat39/rust-tools.nvim'
+" Optional dependencies
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-telescope/telescope.nvim'
+
 Plug 'hrsh7th/nvim-compe'
+
+"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+
+Plug 'PotatoesMaster/i3-vim-syntax'
+Plug 'lepture/vim-jinja'
+Plug 'wsdjeg/vim-lua'
+Plug 'dubek/vim-mal'
+Plug 'stephpy/vim-yaml'
+Plug 'joajfreitas/fcp.vim'
+
+Plug 'ledger/vim-ledger'
+
 call plug#end()
 let g:fzf_nvim_statusline = 0
 
@@ -128,39 +141,6 @@ let g:limelight_default_coefficient = 0.7
 let g:limelight_conceal_ctermfg = 238
 nmap <silent> gl :Limelight!!<CR>
 xmap gl <Plug>(Limelight)
-let wiki_1 = {}
-let wiki_1.path = '~/vimwiki/'
-let wiki_1.syntax = 'markdown'
-let wiki_1.ext = '.md'
-
-let g:vimwiki_list = [wiki_1]
-let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-let g:vimwiki_global_ext = 0
-
-nnoremap <Leader>wn :! lj diary-note<CR> :e ~/vimwiki/diary/diary.md<CR>
-
-command Wiki Goyo | Limelight | VimwikiDiaryIndex
-
-let g:vimwiki_folding='expr'
-au FileType vimwiki set filetype=vimwiki.markdown
-  let g:NERDTreeMinimalUI = 1
-  let g:NERDTreeHijackNetrw = 0
-  let g:NERDTreeWinSize = 31
-  let g:NERDTreeChDirMode = 2
-  let g:NERDTreeAutoDeleteBuffer = 1
-  let g:NERDTreeShowBookmarks = 1
-  let g:NERDTreeCascadeOpenSingleChildDir = 1
-
-  map <F1> :call NERDTreeToggleAndFind()<cr>
-  map <F2> :NERDTreeToggle<CR>
-
-  function! NERDTreeToggleAndFind()
-    if (exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1)
-      execute ':NERDTreeClose'
-    else
-      execute ':NERDTreeFind'
-    endif
-  endfunction
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
@@ -192,20 +172,12 @@ nnoremap <Leader>m :MarkdownPreview<CR>
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-ensure_installed = {"rust", "python"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ignore_install = {}, -- List of parsers to ignore installing
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = {},  -- list of language that will be disabled
-  },
-}
-EOF
+
+let g:mkdp_browser = 'qutebrowser'
+set updatetime=100
 lua << EOF
 require'lspconfig'.rust_analyzer.setup{}
-EOF
-lua << EOF
+require'lspconfig'.pyls.setup{}
 local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys 
@@ -241,12 +213,87 @@ local on_attach = function(client, bufnr)
 
 end
 
+require'lspinstall'.setup() -- important
+
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pyright", "rust_analyzer", "tsserver" }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
+local servers = require'lspinstall'.installed_servers()
+for _, server in pairs(servers) do
+  require'lspconfig'[server].setup{}
 end
+EOF
+lua << EOF
+local opts = {
+    tools = { -- rust-tools options
+        -- automatically set inlay hints (type hints)
+        -- There is an issue due to which the hints are not applied on the first
+        -- opened file. For now, write to the file to trigger a reapplication of
+        -- the hints or just run :RustSetInlayHints.
+        -- default: true
+        autoSetHints = true,
+
+        -- whether to show hover actions inside the hover window
+        -- this overrides the default hover handler
+        -- default: true
+        hover_with_actions = true,
+
+        runnables = {
+            -- whether to use telescope for selection menu or not
+            -- default: true
+            use_telescope = true
+
+            -- rest of the opts are forwarded to telescope
+        },
+
+        inlay_hints = {
+            -- wheter to show parameter hints with the inlay hints or not
+            -- default: true
+            show_parameter_hints = true,
+
+            -- prefix for parameter hints
+            -- default: "<-"
+            parameter_hints_prefix = "<-",
+
+            -- prefix for all the other hints (type, chaining)
+            -- default: "=>"
+            other_hints_prefix  = "=>",
+
+            -- whether to align to the lenght of the longest line in the file
+            max_len_align = false,
+
+            -- padding from the left if max_len_align is true
+            max_len_align_padding = 1,
+
+            -- whether to align to the extreme right or not
+            right_align = false,
+
+            -- padding from the right if right_align is true
+            right_align_padding = 7,
+        },
+
+        hover_actions = {
+            -- the border that is used for the hover window
+            -- see vim.api.nvim_open_win()
+            border = {
+              {"╭", "FloatBorder"},
+              {"─", "FloatBorder"},
+              {"╮", "FloatBorder"},
+              {"│", "FloatBorder"},
+              {"╯", "FloatBorder"},
+              {"─", "FloatBorder"},
+              {"╰", "FloatBorder"},
+              {"│", "FloatBorder"}
+            },
+        }
+    },
+
+    -- all the opts to send to nvim-lspconfig
+    -- these override the defaults set by rust-tools.nvim
+    -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
+    server = {}, -- rust-analyer options
+}
+
+require('rust-tools').setup(opts)
 EOF
 set completeopt=menuone,noselect
 let g:compe = {}
@@ -313,7 +360,6 @@ set softtabstop=4   " in insert mode, tabs are 4 spaces
 set tabstop=4
 
 set colorcolumn=80
-"if strftime('%H') >= 8 && strftime('%H') < 17
 "  colorscheme gruvbox 
 "  set background=light
 "else
@@ -341,31 +387,21 @@ set foldlevel=0
 "autocmd BufWinEnter ?* silent loadview
 "augroup END
 set foldenable
-"status line
-"set laststatus=2
-"
-"set statusline=%F							"full path to file in the buffer
-"set statusline+=%m                          "rodified flag in square brackets
-"set statusline+=%r							"readonly flag in square brackets
-"set statusline+=%h                          "help flag in square brackets
-"set statusline+=%w                          "preview flag in square brackets
-"set statusline+=%=                          "split justification
-"set statusline+=%<[                         "truncation point
-"set statusline+=%{&ff}]                     "current fileformat
-"set statusline+=%y[                         "current syntax
-"set statusline+=%p][                        "current % into file
-"set statusline+=%00l/                       "current line
-"set statusline+=%L,                         "number of lines
-"set statusline+=%00v]                       "current column
-"
-"set foldenable
-""set foldmethod=indent   " fold based on indent level
-"set foldlevelstart=10   " open most folds by default
-"set foldnestmax=10      " 10 nested fold max
 let g:python3_host_prog='/usr/bin/python3'
 let g:python_host_prog='/usr/bin/python2'
 "autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab smarttab
 "autocmd FileType vue setlocal ts=2 sts=2 sw=2 expandtab smarttab
 "autocmd FileType js setlocal ts=2 sts=2 sw=2 expandtab smarttab
+
+function FormatBuffer()
+  if &modified && !empty(findfile('.clang-format', expand('%:p:h') . ';'))
+    let cursor_pos = getpos('.')
+    :%!clang-format
+    call setpos('.', cursor_pos)
+  endif
+endfunction
+
+autocmd BufWritePre *.h,*.hpp,*.c,*.cpp,*.vert,*.frag :call FormatBuffer()
+
 
 " vim: set sw=2 ts=2 et foldlevel=0 foldmethod=marker:
