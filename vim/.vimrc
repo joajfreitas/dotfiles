@@ -2,64 +2,28 @@
 "{{{
 call plug#begin('~/.vim/bundle')
 
-Plug 'mzlogin/vim-markdown-toc'
-
 "Cosmetic
 Plug 'PotatoesMaster/i3-vim-syntax'     "syntax for i3 files
 Plug 'morhetz/gruvbox'
 
-Plug 'majutsushi/tagbar'
-
 Plug 'tpope/vim-eunuch'				 "unix commands
 Plug 'tpope/vim-fugitive'            "git
 Plug 'tpope/vim-commentary'          "commentary
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-dispatch'            "compile asynchronously
 Plug 'tpope/vim-vinegar'             "project drawer
 Plug 'tpope/vim-tbone'
-Plug 'tpope/vim-jdaddy'
-Plug 'tpope/vim-afterimage'
 Plug 'tpope/vim-markdown'
-Plug 'scrooloose/nerdtree'
-Plug 'godlygeek/tabular'
-"Plug 'vim-scripts/Conque-GDB'
-Plug 'lervag/vimtex'
-Plug 'cespare/vim-toml'
 Plug 'vim-scripts/greplace.vim'
-
-"Plug 'ctrlpvim/ctrlp.vim'
-
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
-Plug 'junegunn/vim-easy-align'
 
 Plug 'mustache/vim-mustache-handlebars'
 
 
 Plug 'chrisbra/Colorizer'
 
-Plug 'junegunn/goyo.vim'
-
-"Plug 'vim-airline/vim-airline'
-Plug 'mateusbraga/vim-spell-pt-br'
-
 Plug 'junegunn/fzf.vim'
-
-Plug 'elixir-editors/vim-elixir'
-
-Plug 'fatih/vim-go'
-
-Plug 'vimwiki/vimwiki'
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
-
-Plug 'stephpy/vim-yaml'
-
-Plug 'rhysd/git-messenger.vim'
-
 "
 call plug#end()
 "}}}
+
 "CUSTOMIZATION-----------------------------------------------------------------
 "{{{
 "  The following are some extra mappings/configs to enhance my personal
@@ -130,79 +94,8 @@ set showcmd
 
 nnoremap <C-p> :Files<Cr>
 nnoremap <C-g> :Rg<Cr>
-
-"vimtex
-let g:vimtex_compiler_latexmk = {
-	\ 'options' : [
-	\   '-pvc',
-	\   '-pdf',
-	\   '-e "$pdflatex=q/pdflatex %O -pdf -f -interaction=nonstopmode %S/"',
-	\ ],
-	\}
-
-"autocmd BufWinEnter __run__,__doc__ :wincmd H
-
 "}}}
-"PLUGIN CONFIG----------------------------------------------------------------
-"{{{
-"
-"latex
-let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
-let g:vimtex_quickfix_mode=0
-set conceallevel=1
-let g:tex_conceal='abdmg'
 
-nnoremap <Leader>y :ConqueGdbCommand y<CR>
-nnoremap <Leader>n :ConqueGdbCommand n<CR>
-nmap <Leader>g :ConqueGdb<CR>
-
-"autocmd vimenter * NERDTree
-"map <C-n> :NERDTreeToggle<CR>
-
-" Tagbar toggle and auto close
-nmap <Leader>q :TagbarToggle<CR>
-nmap <Leader>T :TagbarOpenAutoClose<CR>
-nmap <Leader>c :!ctags *.c *.h<CR>
-
-"ultisnips
-let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME."/.vim/my-snippets"]
-set runtimepath+=~/.vim/my-snippets/
-
-let g:UltiSnipsExpandTrigger='<c-j>'
-let g:UltiSnipsJumpForwardTrigger='<c-j>'
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
-autocmd vimenter * NERDTree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd BufWinEnter * NERDTreeMirror
-
-let g:NERDTreeWinSize=25
-
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-
-map <C-n> :NERDTreeToggle<CR>
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"
-nmap <silent> <Leader>r :call clighter#Rename()<CR>
-
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-let g:vimwiki_list = [{'template_path': '$HOME/vimwiki/templates',
-		  \ 'template_default': 'def_template',
-		  \ 'template_ext': '.html'}]
-
-" # add the pre tag for inserting code snippets
-let g:vimwiki_valid_html_tags = 'b,i,s,u,sub,sup,kbd,br,hr, pre, script'
-
-"let g:livepreview_previewer = 'zathura'
-"set rtp^=/usr/share/vimpager
-"}}}
 "COLORS-----------------------------------------------------------------------
 "{{{
 colors gruvbox
@@ -242,9 +135,6 @@ if has("persistent_undo")
 	set undofile
 endif
 
-"set guioptions -=m
-"set guioptions -=T
-
 " remove the .ext~ files, but not the swapfiles
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swp//
@@ -273,7 +163,7 @@ set autoread
 
 " encoding is utf 8
 set encoding=utf-8
-set fileencoding=utf-8
+"set fileencoding=utf-8
 
 " enable matchit plugin which ships with vim and greatly enhances '%'
 runtime macros/matchit.vim
@@ -286,7 +176,7 @@ set backspace=indent,eol,start
 set hidden
 
 " set unix line endings
-set fileformat=unix
+"set fileformat=unix
 " when reading files try unix line endings then dos, also use unix for new
 " buffers
 set fileformats=unix
@@ -311,7 +201,7 @@ set wildmenu
 set mouse=a
 
 setlocal spell
-set spelllang=pt_pt,en
+set spelllang=en
 hi clear SpellBad
 "hi SpellBad cterm=underline
 hi SpellBad cterm=bold
@@ -361,8 +251,6 @@ set foldnestmax=10      " 10 nested fold max
 
 autocmd FileType python setlocal omnifunc=python3complete#Complete
 
-"set tags+=$HOME/.vim/tags/python.ctags
-
 set conceallevel=2
 " sunaku's vim/tmux 256color hack. more info here:
 " https://github.com/ninrod/tricks/blob/master/shell/tmux.md#sunakus-hack-for-fixing-256-colors-colorschemes-for-vim-inside-tmux
@@ -381,10 +269,6 @@ if has("autocmd")
 endif
 
 "}}}
-
-" inkscape latex
-inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/images/"'<CR><CR>:w<CR>
-nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/images/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
 
 set nu
 "source ~/.vim/config/user.vim
