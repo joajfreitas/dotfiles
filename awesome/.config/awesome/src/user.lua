@@ -2,11 +2,11 @@
 local user = {
 	-- >> Default applications <<
 	-- Check apps.lua for more
-	terminal = "uxterm -1",
-	floating_terminal = "uxterm -1",
+	terminal = "alacritty",
+	floating_terminal = "alacritty",
 	browser = "firefox",
 	file_manager = "uxterm -1 --class files -e ranger",
-	editor = "uxterm -1 --class editor -e vim",
+	editor = "alacritty -e vim",
 	email_client = "uxterm -1 --class email -e neomutt",
 	music_client = "uxterm -o font_size=12 --class music -e ncmpcpp",
 

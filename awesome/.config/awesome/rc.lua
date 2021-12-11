@@ -82,7 +82,7 @@ local file = string.format("%s/.config/awesome/themes/f_theme/theme.lua", os.get
 beautiful.init(file)
 
 -- This is used later as the default terminal and editor to run.
-terminal = "uxterm"
+terminal = "alacritty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -100,6 +100,7 @@ awful.layout.layouts = require(src .. 'layouts')
 -- Create a launcher widget and a main menu
 myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+   { "prompt", function() awful.screen.focused().mypromptbox:run() end },
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },

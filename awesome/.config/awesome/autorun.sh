@@ -9,7 +9,8 @@ function run {
 
 run nm-applet
 #run conky
-run picom -f
+#run picom -f
 #run wallpapers.py
 run blueman-applet
+run thunderbird
 #run /home/joaj/.screenlayout/layout.sh

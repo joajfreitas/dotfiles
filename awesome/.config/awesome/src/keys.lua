@@ -129,6 +129,8 @@ local globalkeys = gears.table.join(
 			  {description = "show the menubar", group = "launcher"}),
 	awful.key({ modkey}, "p", function() awful.spawn("rofi-pass") end,
 			  {description = "Launch rofi-pass", group = "launcher"}),
+	awful.key({ modkey}, "f", function() awful.spawn("thunar") end,
+			  {description = "Launch thunar", group = "launcher"}),
 
 	awful.key({ }, "XF86MonBrightnessDown", function ()
 		awful.util.spawn("xbacklight -dec 5") end, {description="Decrease brightness", group="brightness"}),
