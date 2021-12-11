@@ -7,10 +7,11 @@ pages:
     - yes | pip3 install markdown || true
     - yes | pip3 install click || true
     - yes | pip3 install loguru || true
+    - yes | pip3 install literate-vim || true
   script:
     - mkdir public
-    - ./nvim/.config/nvim/lit.py web ./nvim/.config/nvim/src public
-    - cp nvim/.config/nvim/html/*.css public
+    - make -C nvim/.config/nvim
+    - cp -r nvim/.config/nvim/html public
   artifacts:
     paths:
     - public
