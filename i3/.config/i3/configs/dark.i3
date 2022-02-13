@@ -1,7 +1,7 @@
 # Dark color scheme for i3
 
 # set wallpapper
-set $wallpapper "/home/joaj/media/rotation/street-lights-in-fog-1920×1200.jpg"
+set $wallpapper "~/Pictures/archlinux.png"
 exec_always --no-startup-id feh --bg-scale $wallpapper
 
 set $bg-color            #2f343f

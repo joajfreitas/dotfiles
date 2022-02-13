@@ -48,21 +48,6 @@ set tabstop=4
 set colorcolumn=80
 ```
 
-## Colorscheme
-Light theme in the morning, dark theme at night.
-
-```viml
-if strftime('%H') >= 8 && strftime('%H') < 17
-  colorscheme gruvbox 
-  set background=light
-else
-  "colorscheme OceanicNext
-  colors cosmic_latte
-  set background=dark
-endif
-
-set t_Co=256
-```
 
 ## Spellchecking
 

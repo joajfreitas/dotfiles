@@ -50,8 +50,8 @@ Xft.rgba: rgb
 !Xft.dpi: 96
 
 !! URxvt
-URxvt*font: xft:Fira Code:pixelsize=12:antialias=true:hinting=true
-URxvt*boldFont: xft:Fira Code:bold:pixelsize=12:antialias=true:hinting=true
+URxvt*font: xft:Fira Code:pixelsize=14:antialias=true:hinting=true
+URxvt*boldFont: xft:Fira Code:bold:pixelsize=14:antialias=true:hinting=true
 xterm*faceName: xft:FiraCode:size=13:antialias=true
 URxvt*letterSpace: -1
 
@@ -60,13 +60,13 @@ URxvt*letterSpace: -1
 !
 ! URxvt*background:            S_base03
 
-xterm*font: xft:Fira Mono:pixelsize=12:antialias=true:hinting=true
+xterm*font: xft:Fira Mono:pixelsize=14:antialias=true:hinting=true
 XTerm*faceName: DejaVu Sans Mono for Powerline 
 !XTerm*faceName: Fira Mono for Powerline 
 xterm*locale: true
 xterm*saveLines: 10000
 !xterm*faceName: xft:Monospace:size=10:antialias=true
-xterm*faceName: xft:FiraMono:size=9:antialias=true
+xterm*faceName: xft:FiraMono:size=10:antialias=true
 
 urxvt*borderLess: false
 urxvt*internalborder: 0
@@ -166,27 +166,6 @@ Rxvt*font: xft: Font Aawesome: size=5, xft: Liberation Mono:pixelsize=14,xft: De
 !*color7:  #7c6f64
 !*color15: #3c3836
 
-
-! ------------------------------------------------------------------------------
-! ROFI Color theme
-! ------------------------------------------------------------------------------
-! Use extended color scheme
-rofi.color-enabled:                  true
-! Color scheme for normal row
-rofi.color-normal:                   #ffffff,#525d76,#f5f5f5,#5294e2,#ffffff
-! Color scheme for urgent row
-rofi.color-urgent:                   #ffffff,#dc322f,#f5f5f5,#5294e2,#dc322f
-! Color scheme for active row
-rofi.color-active:                   #ffffff,#c2cad0,#f5f5f5,#5294e2,#c2cad0
-! Color scheme window
-rofi.color-window:                   #ffffff,#f5f5f5
-! Separator style (none, dash, solid)
-rofi.separator-style:                solid
-rofi.font:                           FiraMono 15
-rofi.width: 80
-rofi.fake-transparency: true
-
-rofi.show-icons:					 true
 
 ! Very important Meta stuff
 XTerm*metaSendsEscape: true

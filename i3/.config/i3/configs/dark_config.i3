@@ -1,7 +1,7 @@
 # Dark color scheme for i3
 
 # set wallpapper
-set $wallpapper "/home/joaj/media/rotation/street-lights-in-fog-1920×1200.jpg"
+set $wallpapper "~/Pictures/archlinux.png"
 exec_always --no-startup-id feh --bg-scale $wallpapper
 
 set $bg-color            #2f343f
@@ -43,7 +43,7 @@ font pango:Fira Mono 9
 floating_modifier $mod
 
 # launch terminal
-bindsym $mod+Return exec --no-startup-id uxterm
+bindsym $mod+Return exec --no-startup-id wezterm
 # launch a small terminal
 bindsym $mod+Shift+Return exec uxterm -title launcher -geometry 150x20
 # launch a terminal at the top of the window
@@ -381,9 +381,9 @@ bindsym $mod+q mode "no-command"
 
 # window colors
 #                       border              background         text      indicator
-client.focused          $arc-blue         $arc-blue         $text-color  $arc-blue
+client.focused          $accent           $accent          $text-color  $accent
 client.unfocused        $bg-color         $bg-color         $text-color  $bg-color
-client.focused_inactive $bg-color         $arc-blue         $text-color  $bg-color
+client.focused_inactive $bg-color         $accent         $text-color  $bg-color
 client.urgent           $urgent-bg-color  $urgent-bg-color  $text-color  $urgent-bg-color
 
 # launch rofi-pass
@@ -416,17 +416,17 @@ bar {
 	#status_command i3status-rs /home/joaj/build/i3status-rust/example_config.toml
 	#status_command i3status
 	status_command i3blocks
-    position bottom
+    position top
 	font pango: Awesome 9
     separator_symbol "•"
     #height 25
     colors {
 		statusline $text-color
         background $bg-color
-        separator $arc-blue
+        separator $accent
 
         #                  border             background         text
-        focused_workspace  $arc-blue          $arc-blue          $text-color
+        focused_workspace  $accent            $accent            $text-color
         inactive_workspace $bg-color          $bg-color          $inactive-text-color
         urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
     }

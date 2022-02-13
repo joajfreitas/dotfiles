@@ -8,8 +8,9 @@ The configuration is exported with [literate_vim](https://github.com/joajfreitas
 
 The configuration is divided in plugins, base and languages. Links can be found below.
 
-* [Plugins](plugins.md)
 * [Base](base.md)
+* [Plugins](plugins.md)
+* [Colors](colors.md)
 * [Languages](language.md)
 
 

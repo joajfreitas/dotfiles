@@ -61,8 +61,8 @@ promptinit
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt extendedglob nomatch notify
 # End of lines configured by zsh-newuser-install
 
@@ -207,5 +207,5 @@ set_title()
     echo -n "\033]0;$1\007"
 }
 
-set_title "uxterm"
+(cat ~/.cache/wal/sequences &)
 #eval "$(starship init zsh)"

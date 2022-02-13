@@ -11,35 +11,18 @@ Plug 'tpope/vim-fugitive'            "git
 Plug 'tpope/vim-commentary'          "commentary
 Plug 'tpope/vim-vinegar'             "project drawer
 Plug 'tpope/vim-tbone'
-Plug 'tpope/vim-markdown'
-Plug 'vim-scripts/greplace.vim'
 
-Plug 'mustache/vim-mustache-handlebars'
-
-
-Plug 'chrisbra/Colorizer'
-
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'mateusbraga/vim-spell-pt-br'
 "
 call plug#end()
 "}}}
-
 "CUSTOMIZATION-----------------------------------------------------------------
 "{{{
-"  The following are some extra mappings/configs to enhance my personal
-"  VIM experience
-"
 
 "Space is leader
-"let mapleader = "\\"
 let mapleader = "\<Space>"
-"let mapleader = ","
-
-" run quickfix after make
-"autocmd QuickFixCmdPost * copen
-
-"Automaticly go to directory file is in
-"set autochdir
 
 "" Ignoring case is a fun trick
 set ignorecase
@@ -58,11 +41,6 @@ let &clipboard = has('unnamedplus') ? 'unnamedplus' : 'unnamed'
 nnoremap j gj
 nnoremap k gk
 
-"use this instead with relative numbers
-"set relativenumber     "relative numbers
-"noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-"noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
-
 " search settings
 set incsearch        " find the next match as we type the search
 set hlsearch         " hilight searches by default
@@ -80,22 +58,11 @@ set shiftwidth=4    " when reading, tabs are 4 spaces
 set softtabstop=4   " in insert mode, tabs are 4 spaces
 set tabstop=4
 
-" no lines longer than 80 cols
-" set textwidth=79
-"
-"go to end of pasted text
-vnoremap <silent> y y`]
-vnoremap <silent> p p`]
-nnoremap <silent> p p`]
-"select pasted code
-noremap gV `[v`]
-
 set showcmd
 
 nnoremap <C-p> :Files<Cr>
 nnoremap <C-g> :Rg<Cr>
 "}}}
-
 "COLORS-----------------------------------------------------------------------
 "{{{
 colors gruvbox
@@ -103,11 +70,9 @@ set background=dark
 set t_Co=256
 let g:gruvbox_termcolors=16
 
-
 "make a mark for column 80
 set colorcolumn=80
 highlight colorcolumn ctermbg=0 guibg=lightcyan
-
 
 "show cursor line only when focused
 augroup highlight_follows_focus
@@ -122,11 +87,6 @@ augroup highligh_follows_vim
 	autocmd FocusLost * set nocursorline
 augroup END
 
-" On file types...
-"   .md files are markdown files
-autocmd BufNewFile,BufRead *.md setlocal ft=markdown
-"   set ft=masm for every .as file
-autocmd BufRead,BufNewFile *.as setlocal filetype=masm
 "}}}
 "BACKUP------------------------------------------------------------------------
 "{{{
@@ -151,7 +111,7 @@ set nocompatible
 syntax on
 
 "show line numbers
-"set number
+set number
 
 " make vim try to detect file types and load plugins for them
 filetype indent plugin on
@@ -163,7 +123,6 @@ set autoread
 
 " encoding is utf 8
 set encoding=utf-8
-"set fileencoding=utf-8
 
 " enable matchit plugin which ships with vim and greatly enhances '%'
 runtime macros/matchit.vim
@@ -201,7 +160,7 @@ set wildmenu
 set mouse=a
 
 setlocal spell
-set spelllang=en
+set spelllang=en,pt_pt
 hi clear SpellBad
 "hi SpellBad cterm=underline
 hi SpellBad cterm=bold
@@ -269,8 +228,4 @@ if has("autocmd")
 endif
 
 "}}}
-
-set nu
-"source ~/.vim/config/user.vim
-"
 " vim:foldmethod=marker:foldlevel=0

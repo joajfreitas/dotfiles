@@ -10,7 +10,6 @@
 
 ```lua
 require'lspconfig'.rust_analyzer.setup{}
-require'lspconfig'.pyls.setup{}
 ```
 ```lua
 local nvim_lsp = require('lspconfig')
