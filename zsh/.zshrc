@@ -51,7 +51,7 @@ zstyle ':completion:*' format $'\n%F{yellow}Completing %d%f\n'
 zstyle ':completion:*' group-name ''
 
 
-#bindkey -v
+bindkey -v
 
 autoload -Uz promptinit
 autoload -Uz compinit prompinit
@@ -100,6 +100,7 @@ function zle-line-init zle-keymap-select {
     #PROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/[INSERT]} %? $EPS1"
     zle reset-prompt
 }
+
 #PROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} %? $EPS1"
 
 PROMPT=$'[%F{red}%n@%M%F{white}] [%F{green}%T%F{white}] [%F{yellow}%~%F{white}] ${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/[INSERT]} %? $EPS1

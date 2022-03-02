@@ -28,7 +28,7 @@ font pango:Fira Mono 9
 floating_modifier $mod
 
 # launch terminal
-bindsym $mod+Return exec --no-startup-id uxterm
+bindsym $mod+Return exec --no-startup-id wezterm
 # launch a small terminal
 bindsym $mod+Shift+Return exec uxterm -title launcher -geometry 150x20
 # launch a terminal at the top of the window
@@ -85,7 +85,7 @@ bindsym $mod+c split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+F11 fullscreen
+bindsym $mod+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
 # stack
@@ -110,8 +110,9 @@ bindsym $mod+Shift+m exec "i3-msg sticky toggle; i3-msg floating enable; i3-msg 
 #bindsym $mod+u border none
 # small border
 #bindsym $mod+y border pixel 2
-# normal border
-bindsym $mod+n border normal
+
+
+bindsym $mod+n exec --no-startup-id i3-input -P 'Rename or renumber workspace: ' -F 'exec python3 ~/.i3/hinting/rename_ws.py rename "%s"'
 
 # toggle floating
 bindsym $mod+space focus mode_toggle
@@ -132,40 +133,40 @@ workspace_auto_back_and_forth yes
 # toggke floating
 bindsym $mod+button2 floating toggle
 
-set $workspace1 "1"
-set $workspace2 "2"
-set $workspace3 "3"
-set $workspace4 "4"
-set $workspace5 "5"
-set $workspace6 "6-vc"
-set $workspace7 "7-show"
-set $workspace8 "8-comms"
-set $workspace9 "9-music"
-set $workspace10 "0-web"
+set $workspace1 1
+set $workspace2 2
+set $workspace3 3
+set $workspace4 4
+set $workspace5 5
+set $workspace6 6
+set $workspace7 7
+set $workspace8 8
+set $workspace9 9
+set $workspace10 0
 
 
 
 # switch to workspace
 # switch to workspace 1
-bindsym $mod+1 workspace $workspace1
+bindsym $mod+1 workspace number $workspace1
 # switch to workspace 2
-bindsym $mod+2 workspace $workspace2
+bindsym $mod+2 workspace number $workspace2
 # switch to workspace 3
-bindsym $mod+3 workspace $workspace3
+bindsym $mod+3 workspace number $workspace3
 # switch to workspace 4
-bindsym $mod+4 workspace $workspace4
+bindsym $mod+4 workspace number $workspace4
 # switch to workspace 5
-bindsym $mod+5 workspace $workspace5
+bindsym $mod+5 workspace number $workspace5
 # switch to workspace 6
-bindsym $mod+6 workspace $workspace6
+bindsym $mod+6 workspace number $workspace6
 # switch to workspace 7
-bindsym $mod+7 workspace $workspace7
+bindsym $mod+7 workspace number $workspace7
 # switch to workspace 8
-bindsym $mod+8 workspace $workspace8
+bindsym $mod+8 workspace number $workspace8
 # switch to workspace 9
-bindsym $mod+9 workspace $workspace9
+bindsym $mod+9 workspace number $workspace9
 # switch to workspace 10
-bindsym $mod+0 workspace $workspace10
+bindsym $mod+0 workspace number $workspace10
 
 # move focused container to workspace
 # move container to workspace 1
@@ -232,7 +233,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # launch thunar
-bindsym $mod+f exec uxterm -e "ranger"
+#bindsym $mod+f exec uxterm -e "ranger"
 bindsym $mod+Shift+f exec thunar
 
 # take screenshot
@@ -341,17 +342,13 @@ exec --no-startup-id /home/joaj/bin/battery.py > /dev/null 2>&1
 #exec --no-startup-id powertop --auto-tune
 exec_always --no-startup-id xss-lock -- i3lock
 exec --no-startup-id dunst
-exec --no-startup-id thunderbird
+#exec --no-startup-id thunderbird
 exec --no-startup-id discord
 #exec --no-startup-id ~/sources/inkscape-shortcut-manager
 exec --no-startup-id ~/bin/wallpapers
 exec --no-startup-id spotify
-exec --no-startup-id brave --app="https://app.slack.com/client/T0102UM1UKA/C0102V8D8HW"
-exec --no-startup-id brave --app="https://app.slack.com/client/T5KTEHKRV/CH88GF1DY"
-exec --no-startup-id brave --app="https://web.whatsapp.com/"
-exec --no-startup-id brave
 exec --no-startup-id blueman-applet
-exec --no-startup-id /home/joaj/bin/class-calendar
+exec --no-startup-id clipmenud
 #exec_always --no-startup-id flashfocus
 #exec_always --no-startup-id ~/bin/polybar.sh &
 
@@ -401,7 +398,7 @@ bar {
 	#status_command i3status-rs /home/joaj/build/i3status-rust/example_config.toml
 	#status_command i3status
 	status_command i3blocks
-    position bottom
+    position top
 	font pango: Awesome 9
     separator_symbol "•"
     #height 25
