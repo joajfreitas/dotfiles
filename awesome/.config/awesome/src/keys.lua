@@ -1,4 +1,4 @@
-local gears = require("gears")
+	local gears = require("gears")
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local helpers = require("src/helpers")
@@ -212,7 +212,7 @@ local clientkeys = gears.table.join(
 	--	{description = "toggle statusbar"})
 	awful.key({ modkey }, "b",
 		function ()
-			awful.spawn.with_shell("marcador rofi")
+			awful.spawn.with_shell("marcador rofi --hostname joajfreitas.xyz --port 6003")
 		end,
 		{description = "launch bookmarks"})
 )

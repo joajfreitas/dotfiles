@@ -18,7 +18,7 @@ local colors = require('themes/f_theme/gruvbox')
 
 local theme                    = {}
 theme.dir                      = os.getenv("HOME") .. "/.config/awesome/themes/f_theme"
-theme.wallpaper                = theme.dir .. "/wall.png"
+theme.wallpaper                = "/home/joaj/DSC_4676.jpg"
 theme.font                     = "Fira Mono 10"
 theme.taglist_font             = "Icons 10"
 theme.fg_normal                = colors.light4
