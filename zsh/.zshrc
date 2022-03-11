@@ -220,4 +220,7 @@ if [[ -d "/usr/libexec/rpp_zshrc.d" ]]; then
       source "${rc_script}"
     done
 fi
+
+(cat ~/.cache/wal/sequences &)
 ###  RPP-END  ###
+source /home/joaj/bmw/data-management/kpi/kpi-metrics/kpi_calculation/driver/dag_run_conf_generator_tool/shell_completion/kpi_conf_manager_zsh.sh

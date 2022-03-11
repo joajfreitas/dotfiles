@@ -24,7 +24,7 @@ call plug#end()
 
 set completeopt=menu,menuone,noselect
 colorscheme gruvbox
-set background=light
+set background=dark
 
 lua <<EOF
 local nvim_lsp = require'lspconfig'
