@@ -63,7 +63,7 @@ promptinit
 HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=100000
-setopt extendedglob nomatch notify
+setopt extendedglob nomatch notify extended_history
 # End of lines configured by zsh-newuser-install
 
 RPROMPT='%?'
@@ -125,7 +125,6 @@ bindkey '^r' history-incremental-search-backward
 autoload edit-command-line; zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
-/home/joaj/bin/gruvbox
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -206,6 +205,3 @@ set_title()
 {
     echo -n "\033]0;$1\007"
 }
-
-(cat ~/.cache/wal/sequences &)
-#eval "$(starship init zsh)"

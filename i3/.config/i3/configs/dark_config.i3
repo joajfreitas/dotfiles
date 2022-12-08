@@ -45,7 +45,9 @@ floating_modifier $mod
 # launch terminal
 bindsym $mod+Return exec --no-startup-id wezterm
 # launch a small terminal
-bindsym $mod+Shift+Return exec uxterm -title launcher -geometry 150x20
+#bindsym $mod+Shift+Return exec uxterm -title launcher -geometry 150x20
+#bindsym $mod+Shift+Return exec "wezterm --config 'initial_cols=400' --config 'initial_rows=100'; i3-msg floating enable"
+bindsym $mod+Shift+Return exec wezterm --config initial_cols=100; grab_focus; floating enable
 # launch a terminal at the top of the window
 #bindsym $mod+Control+Return exec xdotool type 'xterm -e "cd $(pwd) && /bin/zsh &"' && xdotool key Return
 
@@ -298,7 +300,7 @@ bindsym $mod+XF86AudioNext exec "mpc next; killall -s USR1 py3status"
 bindsym $mod+XF86AudioPrev exec "mpc prev; killall -s USR1 py3status"
 
 # lauch rofi-bookmarks
-bindsym $mod+b exec marcador rofi ~/Documents/books
+bindsym $mod+b exec marcador rofi --hostname "joajfreitas.com" --port 6003
 
 # lauch hotkeys
 bindsym $mod+i exec /home/joaj/bin/hotkeys
@@ -321,6 +323,7 @@ assign [class="^Thunderbird$"]  $workspace8
 assign [class="^Discord"]  $workspace8
 assign [class="Rambox"]         $workspace8
 assign [class="^Rviz$"]			$workspace7
+assign [class="^Joplin$"]			$workspace7
 
 for_window [title="FST CAN Interface"]		move to workspace $workspace2
 
@@ -349,26 +352,12 @@ for_window [title="Slack$"]		move to workspace $workspace8
 
 #autostart
 exec --no-startup-id nm-applet
-#exec_always --no-startup-id conky
-#exec --no-startup-id redshift-gtk
-exec --no-startup-id /home/joaj/bin/battery.py > /dev/null 2>&1
-#exec --no-startup-id compton -f
-#exec --no-startup-id powertop --auto-tune
 exec_always --no-startup-id xss-lock -- i3lock
-exec --no-startup-id dunst
-exec --no-startup-id thunderbird
+exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
 exec --no-startup-id discord
-#exec --no-startup-id ~/sources/inkscape-shortcut-manager
-exec --no-startup-id ~/bin/wallpapers
 exec --no-startup-id spotify
-exec --no-startup-id brave --app="https://app.slack.com/client/T0102UM1UKA/C0102V8D8HW"
-exec --no-startup-id brave --app="https://app.slack.com/client/T5KTEHKRV/CH88GF1DY"
-exec --no-startup-id brave --app="https://web.whatsapp.com/"
-exec --no-startup-id brave
 exec --no-startup-id blueman-applet
-exec --no-startup-id /home/joaj/bin/class-calendar
-#exec_always --no-startup-id flashfocus
-#exec_always --no-startup-id ~/bin/polybar.sh &
+exec --no-startup-id Joplin
 
 #no commands mode
 mode "no-command" {
@@ -415,8 +404,9 @@ bar {
 	#mode invisible
 	#status_command i3status-rs /home/joaj/build/i3status-rust/example_config.toml
 	#status_command i3status
+  #mode hide
 	status_command i3blocks
-    position top
+  position top
 	font pango: Awesome 9
     separator_symbol "•"
     #height 25
@@ -431,4 +421,4 @@ bar {
         urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
     }
 }
-# vim:filetype=i3
+# vim:filetype=i3config

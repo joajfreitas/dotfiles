@@ -1,10 +1,7 @@
 # vim: filetype=sh
 
-alias mine_ethminer='ethminer -P stratum1+tcp://joajfreitas.saturn@eth.cruxpool.com:5555 -G -R'
-alias mine_phoenixminer='PhoenixMiner -pool ssl://eth-de.flexpool.io:5555 -pool2 ssl://eth-se.flexpool.io:5555 -wal 0xE703BF19B20a26A88E98E52F7aafF4E5A9dADB39.saturn'
-#egse
-alias egse_tunnel='ssh -NTL 6969:localhost:6969 egse'
-alias safesat_tunnel='ssh -NTL 6969:localhost:6969 safe_mode'
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'
 
 alias pacman-news='informant'
 
@@ -66,7 +63,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-alias ls='ls -1 --color=auto'
+alias ls='ls -1 --color=auto --hyperlink'
 alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
@@ -217,3 +214,4 @@ export PATH=$PATH:/home/joaj/.cargo/bin
 export PATH=$PATH:/home/joaj/.local/share/gem/ruby/2.7.0/bin
 export MANPAGER='vim -R -M +MANPAGER -'
 export PATH=$PATH:/opt/microchip/xc16/v1.70/bin
+export PATH=$PATH:/opt/microchip/xc16/v2.00/bin
