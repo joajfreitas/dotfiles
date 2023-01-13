@@ -144,61 +144,40 @@ workspace_auto_back_and_forth yes
 # toggke floating
 bindsym $mod+button2 floating toggle
 
-set $workspace1 "1"
-set $workspace2 "2"
-set $workspace3 "3"
-set $workspace4 "4"
-set $workspace5 "5"
-set $workspace6 "6-vc"
-set $workspace7 "7-show"
-set $workspace8 "8-comms"
-set $workspace9 "9-music"
-set $workspace10 "0-web"
-
+set $workspace1  "1"
+set $workspace2  "2"
+set $workspace3  "3"
+set $workspace4  "4"
+set $workspace5  "5"
+set $workspace6  "6"
+set $workspace7  "7"
+set $workspace8  "8"
+set $workspace9  "9"
+set $workspace10 "0"
 
 
 # switch to workspace
-# switch to workspace 1
 bindsym $mod+1 workspace $workspace1
-# switch to workspace 2
 bindsym $mod+2 workspace $workspace2
-# switch to workspace 3
 bindsym $mod+3 workspace $workspace3
-# switch to workspace 4
 bindsym $mod+4 workspace $workspace4
-# switch to workspace 5
 bindsym $mod+5 workspace $workspace5
-# switch to workspace 6
 bindsym $mod+6 workspace $workspace6
-# switch to workspace 7
 bindsym $mod+7 workspace $workspace7
-# switch to workspace 8
 bindsym $mod+8 workspace $workspace8
-# switch to workspace 9
 bindsym $mod+9 workspace $workspace9
-# switch to workspace 10
 bindsym $mod+0 workspace $workspace10
 
 # move focused container to workspace
-# move container to workspace 1
 bindsym $mod+Shift+1 move container to workspace $workspace1
-# move container to workspace 2
 bindsym $mod+Shift+2 move container to workspace $workspace2
-# move container to workspace 3
 bindsym $mod+Shift+3 move container to workspace $workspace3
-# move container to workspace 4
 bindsym $mod+Shift+4 move container to workspace $workspace4
-# move container to workspace 5
 bindsym $mod+Shift+5 move container to workspace $workspace5
-# move container to workspace 6
 bindsym $mod+Shift+6 move container to workspace $workspace6
-# move container to workspace 7
 bindsym $mod+Shift+7 move container to workspace $workspace7
-# move container to workspace 8
 bindsym $mod+Shift+8 move container to workspace $workspace8
-# move container to workspace 9
 bindsym $mod+Shift+9 move container to workspace $workspace9
-# move container to workspace 10
 bindsym $mod+Shift+0 move container to workspace $workspace10
 
 # reload configuration
@@ -209,7 +188,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 #bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # exit menu
-bindsym $mod+Shift+e exec exit_menu
+bindsym $mod+Shift+e exec i3-msg 'exit'
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -296,6 +275,7 @@ bindsym $mod+XF86AudioPrev exec "mpc prev; killall -s USR1 py3status"
 
 # lauch rofi-bookmarks
 bindsym $mod+b exec marcador rofi --hostname "joajfreitas.com" --port 6003
+bindsym $mod+Shift+b exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
 # lauch hotkeys
 bindsym $mod+i exec /home/joaj/bin/hotkeys
@@ -306,21 +286,21 @@ bindsym $mod+i exec /home/joaj/bin/hotkeys
 #bindsym $mod+minus scratchpad show
 
 # workspace assignments
-assign [class="^Chromium$"]     $workspace10
-assign [class="Brave-browser$"]        $workspace10
-assign [class="^Firefox$"]      $workspace10
-assign [class="qutebrowser"]    $workspace10
-assign [class="Audacious"]      $workspace9
-assign [class="Transmission"]   $workspace7
-assign [class="MPlayer"]        $workspace7
-assign [class="mpv"]            $workspace7
-assign [class="^Thunderbird$"]  $workspace8
-assign [class="^Discord"]  $workspace8
-assign [class="Rambox"]         $workspace8
-assign [class="^Rviz$"]			$workspace7
+assign [class="^Chromium$"]			$workspace10
+assign [class="Brave-browser$"]			$workspace10
+assign [class="^firefox$"]			$workspace10
+assign [class="qutebrowser"]			$workspace10
+assign [class="Audacious"]			$workspace9
+assign [class="^discord"]			$workspace9
+assign [class="^Thunderbird$"]			$workspace8
+assign [class="^thunderbird"]		        $workspace8
+assign [class="Microsoft Teams - Preview"] 	$workspace8
+assign [class="^teams-for-linux"]		$workspace8
+assign [class="Transmission"]			$workspace7
+assign [class="MPlayer"]			$workspace7
+assign [class="mpv"]				$workspace7
+assign [class="^Rviz$"]				$workspace7
 assign [class="^Joplin$"]			$workspace7
-
-for_window [title="FST CAN Interface"]		move to workspace $workspace2
 
 # window settings
 for_window [class="^Spotify$"]  move to workspace $workspace9
@@ -347,12 +327,14 @@ for_window [title="Slack$"]		move to workspace $workspace8
 
 #autostart
 exec --no-startup-id nm-applet
-exec_always --no-startup-id xss-lock -- i3lock
-exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
+exec_always --no-startup-id xss-lock -- /home/joaj/bin/lock
 exec --no-startup-id discord
 exec --no-startup-id spotify
 exec --no-startup-id blueman-applet
-exec --no-startup-id Joplin
+exec --no-startup-id nasa-wallpaper -a
+exec --no-startup-id thunderbird
+exec_always --no-startup-id picom
+exec_always --no-startup-id greenclip daemon
 
 #no commands mode
 mode "no-command" {
@@ -382,8 +364,6 @@ bindsym $mod+o exec fullscreen disable; floating enable; resize set 422 240; sti
 bindsym $mod+y exec rofi -combi-modi window -show combi -modi combi 
 # expo
 bindsym $mod+z exec --no-startup-id flash_window
-
-bindsym $mod+u exec uxterm -e "cd vimwiki && vim +Wiki"
 
 bindsym $mod+Shift+y exec xdotool click 4
 bindsym $mod+Shift+u exec xdotool click 5
