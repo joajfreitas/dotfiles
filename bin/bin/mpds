@@ -1,3 +1,0 @@
-#!/bin/bash
-mpd; mpDris2; killall -s USR1 py3status
-

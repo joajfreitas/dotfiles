@@ -1,3 +1,0 @@
-#!/bin/bash
-
-python3 /home/joaj/.config/i3blocks/classes/countdown.py

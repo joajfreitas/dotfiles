@@ -1,7 +1,0 @@
-#!/bin/zsh
-
-while (true) {
-	notify-send "$(task)"
-	sleep 3600
-}
-

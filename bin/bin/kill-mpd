@@ -1,3 +1,0 @@
-#!/bin/bash
-killall mpd
-killall -s USR1 py3status

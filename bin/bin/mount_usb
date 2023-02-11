@@ -1,5 +1,0 @@
-#!/bin/bash
-
-sudo mkdir /mnt/usb
-sudo mount /dev/sdb1 /mnt/usb
-

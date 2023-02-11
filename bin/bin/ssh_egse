@@ -1,3 +1,0 @@
-#!/usr/bin/sh
-
-ssh -NTL 6969:localhost:6969 egse-local 

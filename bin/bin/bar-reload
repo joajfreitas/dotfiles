@@ -1,2 +1,0 @@
-#!/bin/bash
-killall -s USR1 py3status
