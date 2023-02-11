@@ -1,5 +1,11 @@
 # vim: filetype=sh
 
+
+# Brian
+export JOURNAL='/home/joaj/sources/wiki/wiki/journal/2023.md'
+alias task='brian journal tasks $JOURNAL'
+alias j='lvim $JOURNAL'
+
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 
@@ -11,7 +17,6 @@ alias ssh_sat='ssh pi@caronte.tecnico.ulisboa.pt -p 2000'
 
 alias radio0='mpv http://stream.radiozero.pt/zero128.mp3'
 
-alias journal='vim ~/projects/notes'
 #ti
 #alias uniflash='/home/joaj/ti/uniflash_4.3.0/node-webkit/nw'
 #alias ccs='/home/joaj/ti/ccsv8/eclipse/ccstudio'
@@ -29,8 +34,6 @@ alias mit='rlwrap mit-scheme'
 alias tmux='tmux -2'
 
 alias tw='task'
-
-alias pspice='wine ~/.wine/drive_c/Program\ Files/OrCAD_Demo/PSpice/psched.exe'
 
 alias mypy='python -m mypy'
 alias py='python'
@@ -212,6 +215,23 @@ export PATH=/home/joaj/.local/bin:$PATH
 export PATH=$PATH:/home/joaj/.emacs.d/bin
 export PATH=$PATH:/home/joaj/.cargo/bin
 export PATH=$PATH:/home/joaj/.local/share/gem/ruby/2.7.0/bin
+export PATH=$PATH:"$XDG_CONFIG_HOME"/emacs/bin
 export MANPAGER='vim -R -M +MANPAGER -'
-export PATH=$PATH:/opt/microchip/xc16/v1.70/bin
-export PATH=$PATH:/opt/microchip/xc16/v2.00/bin
+
+# XDG
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
+export XDG_CACHE_HOME=$HOME/.cache
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export MPLAYER_HOME="$XDG_DATA_HOME"/mplayer
+export WINEPREFIX="$XDG_DATA_HOME"/wine
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+export SQLITE_HISTORY="$XDG_CACHE_HOME"/sqlite_history
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+export REDISCLI_HISTFILE="$XDG_DATA_HOME"/redis/rediscli_history
+export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc"
+export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc

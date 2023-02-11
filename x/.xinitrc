@@ -1,21 +1,17 @@
 #!/bin/bash #!/bin/sh userresources=$HOME/.Xresources usermodmap=$HOME/.Xmodmap sysresources=/etc/X11/xinit/.Xresources sysmodmap=/etc/X11/xinit/.Xmodmap # merge in defaults and keymaps 
 if [ -f $sysresources ]; then
-	echo "ola"
     #xrdb -merge $sysresources
 fi
 
 if [ -f $sysmodmap ]; then
-	echo "ola"
     xmodmap $sysmodmap
 fi
 
 if [ -f "$userresources" ]; then
-	echo "ola"
     xrdb -merge "$userresources"
 fi
 
 if [ -f "$usermodmap" ]; then
-	echo "ola"
     xmodmap "$usermodmap"
 fi
 
@@ -30,7 +26,9 @@ fi
 
 XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CONFIG_HOME
-xrdb .Xresources
+export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
+export ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
+xrdb "XDG_CONFIG_HOME/X11/xresources"
 
 setxkbmap us
 setxkbmap -option "caps:escape"

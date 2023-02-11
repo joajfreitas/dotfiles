@@ -124,6 +124,9 @@ interval=once
 signal=10
 #STEP=5%
 
+[microphone]
+label=
+interval=5 
 
 # Date Time
 #

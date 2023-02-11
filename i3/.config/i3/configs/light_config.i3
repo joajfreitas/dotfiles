@@ -333,7 +333,7 @@ for_window [title="Slack$"]		move to workspace $workspace8
 exec --no-startup-id nm-applet
 exec_always --no-startup-id xss-lock -- /home/joaj/bin/lock
 exec --no-startup-id discord
-exec --no-startup-id spotify
+exec --no-startup-id spotify-launcher
 exec --no-startup-id blueman-applet
 exec --no-startup-id nasa-wallpaper -a
 exec --no-startup-id thunderbird

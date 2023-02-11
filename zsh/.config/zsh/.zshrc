@@ -60,7 +60,7 @@ promptinit
 
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
+export HISTFILE="$XDG_STATE_HOME"/zsh/history
 HISTSIZE=100000
 SAVEHIST=100000
 setopt extendedglob nomatch notify extended_history
@@ -127,7 +127,7 @@ bindkey -M vicmd v edit-command-line
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f $XDG_CONFIG_HOME/fzf/fzf.zsh ] && source $XDG_CONFIG_HOME/fzf/fzf.zsh
 
 #source /etc/profile.d/autojump.zsh
 
@@ -205,3 +205,6 @@ set_title()
 {
     echo -n "\033]0;$1\007"
 }
+
+#XDG
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
