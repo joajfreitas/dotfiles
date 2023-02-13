@@ -5,3 +5,5 @@
 **/*.tmp
 *.html
 **/*.html
+.zcompdump
+watch_later

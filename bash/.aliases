@@ -1,72 +1,34 @@
 # vim: filetype=sh
 
-
 # Brian
 export JOURNAL='/home/joaj/sources/wiki/wiki/journal/2023.md'
 alias task='brian journal tasks $JOURNAL'
 alias j='lvim $JOURNAL'
 
+# Copy paste commands
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 
-alias pacman-news='informant'
-
-alias tmux="TERM=screen-256color-bce tmux"
-
-alias ssh_sat='ssh pi@caronte.tecnico.ulisboa.pt -p 2000'
-
-alias radio0='mpv http://stream.radiozero.pt/zero128.mp3'
-
-#ti
-#alias uniflash='/home/joaj/ti/uniflash_4.3.0/node-webkit/nw'
-#alias ccs='/home/joaj/ti/ccsv8/eclipse/ccstudio'
-alias drive='chromium --app="https://drive.google.com/drive/u/1/my-drive?ogss=1"'
-alias slack='chromium --app="https://fstlisboa.slack.com"'
-alias ct='ctags -R --c-kinds=+p --fields=+S'
 alias mpv='mpv --save-position-on-quit'
-alias getpage='wget -E -H -k -p'
-alias qutebrowser='qutebrowser --backend webengine'
 
-alias us='setxkbmap us; setxkbmap -option "caps:swapescape"'
-alias pt='setxkbmap pt; setxkbmap -option "caps:swapescape"'
-alias mit='rlwrap mit-scheme'
-
-alias tmux='tmux -2'
-
-alias tw='task'
-
-alias mypy='python -m mypy'
 alias py='python'
 alias weather='curl wttr.in | tac | tac | head -n 7'
 
 #alias l='log_wiki.py'
 
-alias bat='bat --theme=gruvbox'
-
-function compress_pdf ()
-{
-	for i in $(ls); do
-        echo $i;
-        gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/default -dNOPAUSE -dQUIET -dBATCH -sOutputFile=compressed/$i $i;
-	done
-}
-#alias vim='echo "running clean vimrc"; sleep 0.2; vim -u ~/.vim/empty.vim'
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
     LS_COLORS='di=33:fi=31:ln=34:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
     export LS_COLORS
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
+    alias ls='ls -1 --color=auto --hyperlink' # enable color support and file links
 fi
 
-alias ls='ls -1 --color=auto --hyperlink'
 alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
@@ -74,33 +36,12 @@ alias cp='cp -i'
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
-#alias l='ls -CF'
+alias l='ls -CF'
 
-#git
-#alias gl='git log'
-#alias gc='git commit'
-#alias gpush='git push'
-#alias gpull='git pull'
-#alias ga='git add'
-#alias gall='git add .'
-#alias gs='git status'
-#alias gcheck='git checkout'
-#alias gb='git branch'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-#Tecnico sigma
-alias sigma="ssh ist425393@sigma.tecnico.ulisboa.pt"
-alias sigmafs="sshfs ist425393@sigma.tecnico.ulisboa.pt:/afs/.ist.utl.pt/users/9/3/ist425393 sigma"
-
-#i3
-alias i3bar="nohup i3bar --bar_id bar-0 &"
-
-alias nose='nosetests'
-alias rusti='rustup run nightly-2016-08-01 /usr/bin/rusti'
-alias update='newsbeuter && sudo pacman -Syu'
 
 # ----------------------
 # Git Aliases
@@ -122,13 +63,15 @@ alias gcod='git checkout develop'
 alias gd='git diff'
 alias gda='git diff HEAD'
 alias gi='git init'
+alias gl='git log'
 alias glg='git log --graph --oneline --decorate --all'
-alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
+alias gls='git log --pretty=format:"%h %ad %s" --date=short --all'
 alias gm='git merge --no-ff'
 alias gma='git merge --abort'
 alias gmc='git merge --continue'
 alias gp='git pull'
 alias gpr='git pull --rebase'
+alias gpush='git push'
 alias gr='git rebase'
 alias gs='git status'
 alias gss='git status --short'
@@ -144,11 +87,6 @@ alias gsts='git stash save'
 # ----------------------
 # Git log find by commit message
 function glf() { git log --all --grep="$1"; }
-
-function youtube-dl-user ()
-{
-	youtube-dl ytuser:$1
-}
 
 # ex - archive extractor
 # usage: ex <file>
@@ -180,18 +118,6 @@ function ex ()
 	fi
 }
 
-function login ()
-{
-    i3bar
-    source .profile
-    xmodmap .Xmodmap
-}
-
-
-function cs () {
-    cd "$@" && ls
-}
-
 function up()
 {
     LIMIT=$1
@@ -203,20 +129,8 @@ function up()
     export MPWD=$P
 }
 
-function mm() {
-    mpv --no-video --ytdl-format=bestaudio ytdl://ytsearch10:"$@"
-}
 
-
-# source ~/.secret_alias
-export PYTHONSTARTUP=/home/joaj/.pythonrc
-
-export PATH=/home/joaj/.local/bin:$PATH
-export PATH=$PATH:/home/joaj/.emacs.d/bin
-export PATH=$PATH:/home/joaj/.cargo/bin
-export PATH=$PATH:/home/joaj/.local/share/gem/ruby/2.7.0/bin
-export PATH=$PATH:"$XDG_CONFIG_HOME"/emacs/bin
-export MANPAGER='vim -R -M +MANPAGER -'
+# Environment Variables
 
 # XDG
 export XDG_DATA_HOME=$HOME/.local/share
@@ -235,3 +149,12 @@ export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc"
 export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+
+export PYTHONSTARTUP=/home/joaj/.pythonrc
+export PATH=/home/joaj/.local/bin:$PATH
+export PATH=$PATH:"$XDG_DATA_HOME"/cargo/bin
+export PATH=$PATH:"$XDG_CONFIG_HOME"/emacs/bin
+export PATH=$PATH:"$XDG_DATA_HOME"/gem/ruby/2.7.0/bin
+export PATH=$PATH:"$XDG_CONFIG_HOME"/emacs/bin
+export MANPAGER='vim -R -M +MANPAGER -'
+

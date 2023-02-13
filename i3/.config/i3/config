@@ -335,6 +335,8 @@ exec --no-startup-id nasa-wallpaper -a
 exec --no-startup-id thunderbird
 exec_always --no-startup-id picom
 exec_always --no-startup-id greenclip daemon
+exec_always --no-startup-id clipmenud &
+exec_always --no-startup-id /home/joaj/bin/layout.sh
 
 #no commands mode
 mode "no-command" {

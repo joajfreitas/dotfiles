@@ -71,10 +71,6 @@ RPROMPT='%?'
 autoload -Uz run-help
 alias help=run-help
 
-#source /usr/share/doc/pkgfile/command-not-found.zsh
-
-#export KEYTIMEOUT=1
-
 setopt prompt_subst
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' stagedstr 'M' 
@@ -129,14 +125,6 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 [ -f $XDG_CONFIG_HOME/fzf/fzf.zsh ] && source $XDG_CONFIG_HOME/fzf/fzf.zsh
 
-#source /etc/profile.d/autojump.zsh
-
-#export PATH=/home/joaj/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/opt/microchip/xc16/v1.33/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/joaj/go/bin:/home/joaj/.gem/ruby/2.4.0/bin:/home/joaj/bin:/home/joaj/.gem/ruby/2.6.0/bin:/opt/ros/kinetic/bin:/home/joaj/sat/Software/src/scripts:/opt/ti/ccs910/ccs/tools/compiler/msp430-gcc-8.2.0.52_linux64/bin
-#
-#export PATH=$PATH:/home/joaj/.local/bin
-#source /opt/ros/kinetic/setup.zsh
-#source /home/joaj/ros_ws/devel/setup.zsh
-
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 #export DISABLE_AUTO_TITLE='true'
@@ -148,13 +136,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=7'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 #[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 #
-#eval "$(starship init zsh)"
 
-#source ~/bin/mouse.zsh
 #zle-toggle-mouse
-if [ -e /home/joaj/.nix-profile/etc/profile.d/nix.sh ]; then . /home/joaj/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-
 
 _z_cd() {
     cd "$@" || return "$?"
