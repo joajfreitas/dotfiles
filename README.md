@@ -1,5 +1,7 @@
 # README
 
+![dektop](screenshot.png)
+
 ## GPG key
 
 ### Export
