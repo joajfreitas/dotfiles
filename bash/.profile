@@ -8,12 +8,9 @@ export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export PAGER=less
 
 export PATH=/home/joaj/bin:$PATH
-export PATH=$PATH:/home/joaj/go/bin
 
 export HOSTNAME=$(hostname)
 
 TZ='Europe/Lisbon'; export TZ
-
-source ~/.aliases
 
 # vim: set ft=sh:

@@ -4,10 +4,6 @@
 	signingkey = 7ED1B2BB849809852B25C6ECE7EF5BDBBED2E1E6
 [commit]
 	gpgsign = true
-#[gpg]
-#	program = gpg2
-[init]
-	templatedir = ~/.git_template
 [pager]
        diff = diff-so-fancy | less --tabs=1,5 -RFX
        show = diff-so-fancy | less --tabs=1,5 -RFX

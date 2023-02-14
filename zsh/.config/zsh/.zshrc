@@ -1,38 +1,14 @@
-# User configuration
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# Source the common bash/zsh aliases
 source ~/.aliases
 source ~/.profile
 
 # The following lines were added by compinstall
 
-#zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
-#zstyle :compinstall filename '/home/joaj/.zshrc'
 zstyle ':completion:*' menu select
 
-##### completions
-
-# explaining the compinit -u hack:
-  # the compinit -u hack is called for because I run the shell as a docker image
-  # and mount the dotfiles repo as a volume. Compinit gets angry at me because
-  # when docker mounts the volume, the permissions are wrong.
-  # So when you run `exec zsh`, for exemple, compinit gets angry at you by saying:
-  # "zsh compinit: insecure directories and files, run compaudit for list."
-  # The -u flag tells compinit to be silent about that.
-  # more info here: http://stackoverflow.com/a/19601821/4921402
-# comp bootstrap
+#info here: http://stackoverflow.com/a/19601821/4921402
 autoload -Uz compinit && compinit -u
 autoload bashcompinit
-
-# case insensitive completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 ### fuzzy completion
 # lifted from http://superuser.com/a/815317/555734
@@ -50,58 +26,40 @@ zstyle ':completion:*:functions' ignored-patterns '_*'
 zstyle ':completion:*' format $'\n%F{yellow}Completing %d%f\n'
 zstyle ':completion:*' group-name ''
 
-
-#bindkey -v
-
 autoload -Uz promptinit
 autoload -Uz compinit prompinit
 compinit
 promptinit
 
 # End of lines added by compinstall
-# Lines configured by zsh-newuser-install
+
+# Shell history
 export HISTFILE="$XDG_STATE_HOME"/zsh/history
 HISTSIZE=100000
 SAVEHIST=100000
 setopt extendedglob nomatch notify extended_history
-# End of lines configured by zsh-newuser-install
 
+# Show return code on the right side of the prompt
 RPROMPT='%?'
 
 autoload -Uz run-help
 alias help=run-help
 
-setopt prompt_subst
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' stagedstr 'M' 
-zstyle ':vcs_info:*' unstagedstr 'M' 
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
-zstyle ':vcs_info:*' formats \
-  '%F{5}[%F{2}%b%F{5}] %F{2}%c%F{3}%u%f'
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-zstyle ':vcs_info:*' enable git 
-+vi-git-untracked() {
-  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-  [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
-  hook_com[unstaged]+='%F{1}??%f'
-fi
-}
+#setopt prompt_subst
 
-function zle-line-init zle-keymap-select {
-    VIM_PROMPT="%{$fg_bold[yellow]%}[% NORMAL]% %{$reset_color%}"
+#function zle-line-init zle-keymap-select {
+#    VIM_PROMPT="%{$fg_bold[yellow]%}[% NORMAL]% %{$reset_color%}"
+#
+#	PROMPT="[%F{red}%n@%M%F{white}] [%F{green}%T%F{white}] [%F{yellow}%~%F{white}] ${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/[INSERT]} $EPS1
+# %F{white}-> %F{grey}"
+#    zle reset-prompt
+#}
 
-	PROMPT="[%F{red}%n@%M%F{white}] [%F{green}%T%F{white}] [%F{yellow}%~%F{white}] ${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/[INSERT]} $EPS1
- %F{white}-> %F{grey}"
-    #PROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/[INSERT]} %? $EPS1"
-    zle reset-prompt
-}
-#PROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} %? $EPS1"
+#PROMPT=$'[%F{red}%n@%M%F{white}] [%F{green}%T%F{white}] [%F{yellow}%~%F{white}] ${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/[INSERT]} %? $EPS1
+# %F{white}->%F{014} %{\e[0m%}'
+#zle -N zle-line-init
+#zle -N zle-keymap-select
 
-PROMPT=$'[%F{red}%n@%M%F{white}] [%F{green}%T%F{white}] [%F{yellow}%~%F{white}] ${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/[INSERT]} %? $EPS1
- %F{white}->%F{014} %{\e[0m%}'
-zle -N zle-line-init
-zle -N zle-keymap-select
 
 
 # Use vim cli mode
@@ -121,24 +79,16 @@ bindkey '^r' history-incremental-search-backward
 autoload edit-command-line; zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f $XDG_CONFIG_HOME/fzf/fzf.zsh ] && source $XDG_CONFIG_HOME/fzf/fzf.zsh
 
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-#export DISABLE_AUTO_TITLE='true'
-#compctl -g '~/.teamocil/*(:t:r)' teamocil
+[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=7'
-#source ~/powerlevel10k/powerlevel10k.zsh-theme
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-#
 
-#zle-toggle-mouse
-
+# zoxide
 _z_cd() {
     cd "$@" || return "$?"
 
@@ -166,17 +116,14 @@ zi() {
     _zoxide_result="$(zoxide query -i -- "$@")" && _z_cd "$_zoxide_result"
 }
 
-
 alias za='zoxide add'
-
 alias zq='zoxide query'
 alias zqi='zoxide query -i'
-
 alias zr='zoxide remove'
+
 zri() {
     _zoxide_result="$(zoxide query -i -- "$@")" && zoxide remove "$_zoxide_result"
 }
-
 
 _zoxide_hook() {
     zoxide add "$(pwd -L)"
@@ -189,5 +136,8 @@ set_title()
     echo -n "\033]0;$1\007"
 }
 
-#XDG
+# XDG compliance
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
+
+
+eval "$(starship init zsh)"
