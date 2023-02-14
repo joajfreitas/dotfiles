@@ -60,8 +60,6 @@ alias help=run-help
 #zle -N zle-line-init
 #zle -N zle-keymap-select
 
-
-
 # Use vim cli mode
 bindkey '^P' up-history
 bindkey '^N' down-history
