@@ -278,21 +278,21 @@ bindsym $mod+Shift+b exec rofi -modi "clipboard:greenclip print" -show clipboard
 bindsym $mod+i exec /home/joaj/bin/hotkeys
 
 # workspace assignments
-assign [class="^Chromium$"]			$workspace10
-assign [class="Brave-browser$"]			$workspace10
-assign [class="^firefox$"]			$workspace10
-assign [class="qutebrowser"]			$workspace10
-assign [class="Audacious"]			$workspace9
-assign [class="^discord"]			$workspace9
-assign [class="^Thunderbird$"]			$workspace8
-assign [class="^thunderbird"]		        $workspace8
-assign [class="Microsoft Teams - Preview"] 	$workspace8
-assign [class="^teams-for-linux"]		$workspace8
-assign [class="Transmission"]			$workspace7
-assign [class="MPlayer"]			$workspace7
-assign [class="mpv"]				$workspace7
-assign [class="^Rviz$"]				$workspace7
-assign [class="^Joplin$"]			$workspace7
+assign [class = "^Chromium$"]			            $workspace10
+assign [class = "Brave-browser$"]			        $workspace10
+assign [class = "^firefox$"]			            $workspace10
+assign [class = "qutebrowser"]			          $workspace10
+assign [class = "Audacious"]			            $workspace9
+assign [class = "^discord"]			              $workspace9
+assign [class = "^Thunderbird$"]			        $workspace8
+assign [class = "^thunderbird"]		            $workspace8
+assign [class = "Microsoft Teams - Preview"] 	$workspace8
+assign [class = "^teams-for-linux"]		        $workspace8
+assign [class = "Transmission"]			          $workspace7
+assign [class = "MPlayer"]			              $workspace7
+assign [class = "mpv"]				                $workspace7
+assign [class = "^Rviz$"]				              $workspace7
+assign [class = "^Joplin$"]			              $workspace7
 
 # window settings
 for_window [class="^Spotify$"]  move to workspace $workspace9
@@ -301,7 +301,6 @@ for_window [class="^Shutter$"]  floating enable
 for_window [class="^Pidgin$"]   floating enable
 for_window [class="^feh$"] 	floating enable
 for_window [class="^.*"]        border pixel 3
-for_window [class="^albert$"]   border pixel 0
 for_window [class="^MATLAB$"]	move to workspace $workscape7
 # launcher
 for_window [title="launcher"]   floating enable
@@ -329,6 +328,7 @@ exec_always --no-startup-id picom
 exec_always --no-startup-id greenclip daemon
 exec_always --no-startup-id clipmenud &
 exec_always --no-startup-id /home/joaj/bin/layout.sh
+exec_always --no-startup-id dunst
 
 #no commands mode
 mode "no-command" {
