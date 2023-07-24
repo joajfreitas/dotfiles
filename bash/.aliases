@@ -2,9 +2,9 @@
 
 # Brian
 export JOURNAL='/home/joaj/sources/wiki/wiki/journal/2023.md'
-alias task='brian journal tasks $JOURNAL'
+alias task='brian task status'
 alias brian-times='brian journal tasks $JOURNAL'
-alias j='lvim $JOURNAL'
+alias j='lvim "+normal G $" $JOURNAL'
 
 # Copy paste commands
 alias pbcopy='xsel --clipboard --input'

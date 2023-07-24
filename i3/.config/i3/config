@@ -39,10 +39,13 @@ floating_modifier $mod
 
 # launch terminal
 bindsym $mod+Return exec --no-startup-id wezterm
-# launch a small terminal
-#bindsym $mod+Shift+Return exec uxterm -title launcher -geometry 150x20
-#bindsym $mod+Shift+Return exec "wezterm --config 'initial_cols=400' --config 'initial_rows=100'; i3-msg floating enable"
-bindsym $mod+Shift+Return exec wezterm --config initial_cols=100; grab_focus; floating enable
+bindsym $mod+Control+Return exec --no-startup-id wezterm start --class "wezterm_floating"
+# launch a dropdown terminal
+bindsym $mod+Shift+Return exec wezterm start --class "wezterm_dropdown"
+
+# scratchpad controls
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 # launch a terminal at the top of the window
 #bindsym $mod+Control+Return exec xdotool type 'xterm -e "cd $(pwd) && /bin/zsh &"' && xdotool key Return
 
@@ -311,10 +314,22 @@ for_window [title="Open File"] 	move position center
 for_window [title="pinentry"] 	floating enable
 for_window [title="Slack$"]		move to workspace $workspace8
 
+#dropdown terminal
+for_window [instance="dropdown_*"] floating enable
+for_window [instance="dropdown_*"] move scratchpad
+for_window [instance="dropdown_*"] sticky enable
+for_window [instance="dropdown_*"] scratchpad show
+for_window [instance="dropdown_*"] resize set 1600 500
+for_window [instance="dropdown_*"] move position 480 375
+for_window [instance="dropdown_*"] border pixel 1
+
+# floating terminal
+for_window [instance="floating_*"] floating enable
+
 #gaps
-#smart_gaps on
-#smart_borders on
-#gaps inner 10
+smart_gaps on
+smart_borders on
+gaps inner 10
 
 #autostart
 exec --no-startup-id nm-applet

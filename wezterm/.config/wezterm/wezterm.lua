@@ -2,6 +2,8 @@ local wezterm = require 'wezterm'
 
 return {
   font = wezterm.font 'FiraCode',
-  color_scheme = "GruvboxDark"
+  font_size=10,
+  color_scheme = "GruvboxDark",
+  use_fancy_tab_bar = false,
 }
 
