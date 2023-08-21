@@ -6,7 +6,7 @@
 
 ### Export
 
-    gpg --armor --export-private-keys <email> > private.key
+    gpg --armor --export-secret-keys <email> > private.key
 	gpg --symmetric private.key
 
 ### Account recovery
