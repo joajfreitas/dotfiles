@@ -10,7 +10,8 @@
 [alias]
 	pool = "!sh -c 'echo "chilling in the pool"'"
 [core]
-    attributesfile = ~/.config/git/attributes
+  attributesfile = ~/.config/git/attributes
+  hooksPath=hooks
 [merge "json"]
     name = custom merge driver for json files
     driver = git-json-merge %A %O %B

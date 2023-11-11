@@ -34,7 +34,7 @@ promptinit
 # End of lines added by compinstall
 
 # Shell history
-export HISTFILE="$XDG_STATE_HOME"/zsh/history
+export HISTFILE="$HOME"/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 setopt extendedglob nomatch notify extended_history
@@ -86,12 +86,11 @@ bindkey -M vicmd v edit-command-line
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=7'
 
 
-# zoxide
-eval "$(zoxide init zsh)"
 
 # XDG compliance
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
 
+eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"

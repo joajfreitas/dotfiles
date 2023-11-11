@@ -23,7 +23,7 @@ set_from_resource $accent i3wm.color4
 
 #Mod key: Mod1 = Alt, Mod4=Super
 set $mod Mod4
-
+    
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
 font pango:Fira Mono 9
@@ -274,28 +274,29 @@ bindsym $mod+XF86AudioNext exec "mpc next; killall -s USR1 py3status"
 bindsym $mod+XF86AudioPrev exec "mpc prev; killall -s USR1 py3status"
 
 # lauch rofi-bookmarks
-bindsym $mod+b exec marcador rofi --hostname "joajfreitas.com" --port 6003
+bindsym $mod+b exec marcador rofi --hostname "https://joajfreitas.com/marcador"
 bindsym $mod+Shift+b exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
 # lauch hotkeys
 bindsym $mod+i exec /home/joaj/bin/hotkeys
 
 # workspace assignments
-assign [class = "^Chromium$"]			            $workspace10
-assign [class = "Brave-browser$"]			        $workspace10
-assign [class = "^firefox$"]			            $workspace10
-assign [class = "qutebrowser"]			          $workspace10
-assign [class = "Audacious"]			            $workspace9
-assign [class = "^discord"]			              $workspace9
-assign [class = "^Thunderbird$"]			        $workspace8
-assign [class = "^thunderbird"]		            $workspace8
-assign [class = "Microsoft Teams - Preview"] 	$workspace8
-assign [class = "^teams-for-linux"]		        $workspace8
-assign [class = "Transmission"]			          $workspace7
-assign [class = "MPlayer"]			              $workspace7
-assign [class = "mpv"]				                $workspace7
-assign [class = "^Rviz$"]				              $workspace7
-assign [class = "^Joplin$"]			              $workspace7
+assign [class = "^Chromium$"]                $workspace10
+assign [class = "Brave-browser$"]            $workspace10
+assign [class = "^firefox$"]                 $workspace10
+assign [class = "qutebrowser"]               $workspace10
+assign [class = "Audacious"]                 $workspace9
+assign [class = "^discord"]                  $workspace9
+assign [class = "^Telegram"]                 $workspace9
+assign [class = "^Thunderbird$"]             $workspace8
+assign [class = "^thunderbird"]              $workspace8
+assign [class = "Microsoft Teams - Preview"] $workspace8
+assign [class = "^teams-for-linux"]          $workspace8
+assign [class = "Transmission"]              $workspace7
+assign [class = "MPlayer"]                   $workspace7
+assign [class = "mpv"]                       $workspace7
+assign [class = "^Rviz$"]                    $workspace7
+assign [class = "^Joplin$"]                  $workspace7
 
 # window settings
 for_window [class="^Spotify$"]  move to workspace $workspace9
@@ -335,7 +336,8 @@ gaps inner 10
 exec --no-startup-id nm-applet
 exec_always --no-startup-id xss-lock -- /home/joaj/bin/lock
 exec --no-startup-id discord
-exec --no-startup-id spotify-launcher
+exec --no-startup-id telegram-desktop
+exec --no-startup-id spotify
 exec --no-startup-id blueman-applet
 exec --no-startup-id nasa-wallpaper -a
 exec --no-startup-id thunderbird

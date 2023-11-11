@@ -1,7 +1,7 @@
 # vim: filetype=sh
 
 # Brian
-export JOURNAL='/home/joaj/sources/wiki/wiki/journal/2023.md'
+export JOURNAL='/home/joaj/sources/wiki/journal/2023.md'
 alias task='brian task status'
 alias brian-times='brian journal tasks $JOURNAL'
 alias j='lvim "+normal G $" $JOURNAL'
@@ -134,6 +134,7 @@ function up()
 # Environment Variables
 
 # XDG
+export XDG_CURRENT_DESKTOP="i3"
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_STATE_HOME=$HOME/.local/state
 export XDG_CACHE_HOME=$HOME/.cache
@@ -159,3 +160,5 @@ export PATH=$PATH:"$XDG_DATA_HOME"/gem/ruby/2.7.0/bin
 export PATH=$PATH:"$XDG_CONFIG_HOME"/emacs/bin
 export MANPAGER='vim -R -M +MANPAGER -'
 
+
+source ~/.secrets
