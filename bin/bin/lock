@@ -3,7 +3,7 @@ TMPBG=/tmp/screen.png
 rm -f $TMPBG
 scrot /tmp/screen.png
 #convert $TMPBG -blur 4x4 $TMPBG
-convert $TMPBG -scale 10% -scale 1000% $TMPBG
+convert $TMPBG -scale 5% -scale 2000% $TMPBG
 #convert $TMPBG -blur 2x2 $TMPBG
 #convert $TMPBG -scale 8% -scale 1250% $TMPBG
 #convert $TMPBG -scale 20% -scale 500% $TMPBG

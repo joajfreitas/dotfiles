@@ -7,3 +7,21 @@
 lvim.plugins = {
   "ledger/vim-ledger"
 }
+lvim.autocommands = {
+  {
+    { "BufEnter", "BufWinEnter" },
+    {
+      group = "lvim_user",
+      pattern = "*.cpp",
+      command = "setlocal ts=4 sw=4",
+    },
+  },
+  {
+    { "BufEnter", "BufWinEnter" },
+    {
+      group = "lvim_user",
+      pattern = "*.h",
+      command = "setlocal ts=4 sw=4",
+    },
+  },
+}

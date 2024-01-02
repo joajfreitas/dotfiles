@@ -1,5 +1,6 @@
 [global]
     #font = Monospace 9
+  mouse_middle_click = context,close_current
 	font = Fira Mono, Symbola 9
 
     # Allow a small subset of html markup:
