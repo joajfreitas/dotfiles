@@ -1,0 +1,25 @@
+[user]
+	email = joaj.freitas@gmail.com
+	name = João Freitas
+	signingkey = 7ED1B2BB849809852B25C6ECE7EF5BDBBED2E1E6
+[commit]
+	gpgsign = true
+[core]
+	editor = nvim
+	attributesfile = ~/.config/git/attributes
+	hooksPath=hooks
+	whitespace = trailing-space,space-before-tab
+[merge "json"]
+	name = custom merge driver for json files
+	driver = git-json-merge %A %O %B
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[apply]
+	whitespace = fix
+[rerere]
+	enabled = true
+[push]
+	recurseSubmodules = check

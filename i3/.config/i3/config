@@ -274,7 +274,7 @@ bindsym $mod+XF86AudioNext exec "mpc next; killall -s USR1 py3status"
 bindsym $mod+XF86AudioPrev exec "mpc prev; killall -s USR1 py3status"
 
 # lauch rofi-bookmarks
-bindsym $mod+b exec marcador rofi --host "https://joajfreitas.com/marcador"
+bindsym $mod+b exec marcador rofi
 bindsym $mod+Shift+b exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
 # lauch hotkeys

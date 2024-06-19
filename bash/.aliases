@@ -76,9 +76,6 @@ alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gsts='git stash save'
 
-# ----------------------
-# Git Functions
-# ----------------------
 # Git log find by commit message
 function glf() { git log --all --grep="$1"; }
 

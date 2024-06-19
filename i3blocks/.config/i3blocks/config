@@ -32,10 +32,10 @@ markup=none
 [classes]
 interval=5
 
-[mediaplayer]
-instance=spotify
-interval=5
-signal=10
+#[mediaplayer]
+#instance=spotify
+#interval=5
+#signal=10
 
 # Memory usage
 #
