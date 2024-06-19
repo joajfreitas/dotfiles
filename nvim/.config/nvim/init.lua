@@ -1,5 +1,3 @@
-vim.cmd.colorscheme('habamax')
-
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 local uv = vim.uv or vim.loop
 
