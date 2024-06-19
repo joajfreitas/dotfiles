@@ -1,21 +1,13 @@
-# vim: filetype=sh
-
 # Brian
-export JOURNAL='/home/joaj/sources/wiki/journal/2023.md'
-alias task='brian task status'
+export JOURNAL='/home/joaj/sources/wiki/journal/2024.md'
+alias task='brian task status $JOURNAL'
 alias brian-times='brian journal tasks $JOURNAL'
-alias j='lvim "+normal G $" $JOURNAL'
-
-# Copy paste commands
-alias pbcopy='xsel --clipboard --input'
-alias pbpaste='xsel --clipboard --output'
+alias j='nvim "+normal G $" $JOURNAL'
 
 alias mpv='mpv --save-position-on-quit'
 
 alias py='python'
 alias weather='curl wttr.in | tac | tac | head -n 7'
-
-#alias l='log_wiki.py'
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -30,6 +22,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias ls='ls -1 --color=auto --hyperlink' # enable color support and file links
 fi
 
+# safer defaults
 alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
@@ -160,5 +153,6 @@ export PATH=$PATH:"$XDG_DATA_HOME"/gem/ruby/2.7.0/bin
 export PATH=$PATH:"$XDG_CONFIG_HOME"/emacs/bin
 export MANPAGER='vim -R -M +MANPAGER -'
 
-
 source ~/.secrets
+
+# vim: filetype=sh
