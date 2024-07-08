@@ -46,11 +46,26 @@ require('lazy').setup({
   dependencies = { "rafamadriz/friendly-snippets" },
  },
  { 'saadparwaiz1/cmp_luasnip'},
- {'nvim-tree/nvim-tree.lua'}
+ {'nvim-tree/nvim-tree.lua'},
+ {'pocco81/true-zen.nvim'},
+ {'junegunn/limelight.vim'},
+ {'ledger/vim-ledger'},
+ {'piero-vic/cmp-ledger'},
 })
 
 vim.opt.termguicolors = true
-vim.cmd.colorscheme('lunar')
+vim.cmd.colorscheme('gruvbox')
+local time = os.date('*t')
+
+local sunset = {18, 18, 19, 20, 21, 22, 22, 21, 20, 19, 18, 18}
+local sunrise = {8, 8, 7, 6, 7, 6, 6, 7, 7, 8, 7, 8}
+
+if time.hour < sunrise[time.month] or time.hour > sunset[time.month] then
+	vim.o.background = "dark"
+else
+	vim.o.background = "light"
+end
+
 vim.o.autochdir = true
 vim.wo.number = true
 vim.opt.clipboard = "unnamedplus"
@@ -309,6 +324,7 @@ cmp.setup({
     { name = 'luasnip' },
     { name = 'nvim_lsp'},
     { name = 'buffer' },
+    { name = 'ledger' },
   },
   formatting = {
     format = function(entry, vim_item)
@@ -383,7 +399,14 @@ wk.register({
     b = { telescope_builtin.buffers, "Buffers"},
     t = { telescope_builtin.help_tags, "Help tags"},
   },
-  e = {"<cmd>NvimTreeToggle<cr>", "File explorer"}
+  e = {"<cmd>NvimTreeToggle<cr>", "File explorer"},
+  z = {name = "zen",
+   n = {"<cmd>TZNarrow<cr>", "Narrow"},
+   f = {"<cmd>TZFocus<cr>", "Focus"},
+   m = {"<cmd>TZMinimalist<cr>", "Minimalist"},
+   a = {"<cmd>TZAtaraxis<cr>", "Ataraxis"},
+   l = {"<cmd>Limelight<cr>", "Limelight"},
+  }
 }, { prefix = "<leader>" })
 
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -401,3 +424,5 @@ vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { silent = true })
 vim.keymap.set("n", "go", vim.lsp.buf.type_definition, { silent = true })
 vim.keymap.set("n", "gr", vim.lsp.buf.references, { silent = true })
 vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { silent = true })
+
+
