@@ -22,7 +22,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	{ "folke/tokyonight.nvim" },
+	{ "tpope/vim-fugitive" },
 	{ "lunarvim/lunar.nvim" },
 	{ "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
 	{ "williamboman/mason.nvim" },
@@ -80,7 +80,7 @@ local time = os.date("*t")
 local sunset = { 18, 18, 19, 20, 21, 22, 22, 21, 20, 19, 18, 18 }
 local sunrise = { 8, 8, 7, 6, 7, 6, 6, 7, 7, 8, 7, 8 }
 
-if time.hour < sunrise[time.month] or time.hour > sunset[time.month] then
+if time.hour <= sunrise[time.month] or time.hour >= sunset[time.month] then
 	vim.o.background = "dark"
 else
 	vim.o.background = "light"
@@ -413,9 +413,10 @@ wk.register({
 	f = { telescope_builtin.find_files, "Find file" },
 	g = { telescope_builtin.git_files, "Find git files" },
 	t = {
-		name = "telescope", -- optional group name
+		name = "telescope",
 		g = { telescope_builtin.live_grep, "Live grep" },
 		b = { telescope_builtin.buffers, "Buffers" },
+		p = { telescope_builtin.builtin, "Builtin pickers" },
 		h = { telescope_builtin.help_tags, "Help tags" },
 	},
 	e = { "<cmd>Neotree<cr>", "File explorer" },
@@ -445,10 +446,9 @@ vim.o.expandtab = true
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 
-
 ---neotree---
 require("neo-tree").setup({
-        source_selector = {
-            statusline = true,
-        }
-    })
+	source_selector = {
+		statusline = true,
+	},
+})
