@@ -1,0 +1,6 @@
+alias clang-format-adp='bazel run //bazel/tools/clang_format:fix'
+alias clang-check-adp='bazel run //bazel/tools/clang_format:check application/adp'
+alias buildifier='bazel run //bazel/tools/buildifier:fix'
+alias klockwork='bazel run //application/adp/tools/klocwork:klocwork_analysis -- -t "//application/adp/activities/driver:driver_activity" -o ~/klocwork'
+alias carmen='wine "/home/joaj/.wine/drive_c/Program Files (x86)/Systemtesttools/CARMEN/bin/TopEd.exe"'
+alias mapr='sshfs jmfreitas1@bmwdpdesp000104.advantagedp.org:/maprposix /home/joaj/mapr'
