@@ -1,14 +1,12 @@
 local M = {}
 
-M.setup = function() 
+M.setup = function()
 
     local lsp_zero = require("lsp-zero")
 
     local lua_opts = lsp_zero.nvim_lua_ls({
         single_file_support = false,
-        on_attach = function(client, bufnr)
-            print("hello world")
-        end,
+        on_attach = function(client, bufnr) print("hello world") end
     })
 
     require("lspconfig").lua_ls.setup(lua_opts)
@@ -16,7 +14,7 @@ M.setup = function()
     lsp_zero.on_attach(function(client, bufnr)
         -- see :help lsp-zero-keybindings
         -- to learn the available actions
-        lsp_zero.default_keymaps({ buffer = bufnr })
+        lsp_zero.default_keymaps({buffer = bufnr})
     end)
 
     --- if you want to know more about lsp-zero and mason.nvim
@@ -26,23 +24,17 @@ M.setup = function()
         handlers = {
             function(server_name)
                 require("lspconfig")[server_name].setup({})
-            end,
-        },
+            end
+        }
     })
 
     require("lspconfig").rust_analyzer.setup({})
     require("lspconfig").clangd.setup({})
     require("lspconfig").lua_ls.setup({
-        settings = {
-            Lua = {
-                completion = {
-                    callSnippet = "Replace",
-                },
-            },
-        },
+        settings = {Lua = {completion = {callSnippet = "Replace"}}}
     })
 
-    lsp_zero.setup_servers({ "rust_analyzer" })
+    lsp_zero.setup_servers({"rust_analyzer"})
 
     local cmp = require("cmp")
     local cmp_action = require("lsp-zero").cmp_action()
@@ -52,7 +44,7 @@ M.setup = function()
     cmp.setup({
         mapping = cmp.mapping.preset.insert({
             -- `Enter` key to confirm completion
-            ["<CR>"] = cmp.mapping.confirm({ select = false }),
+            ["<CR>"] = cmp.mapping.confirm({select = false}),
 
             -- Ctrl+Space to trigger completion menu
             ["<C-Space>"] = cmp.mapping.complete(),
@@ -63,27 +55,27 @@ M.setup = function()
 
             -- Scroll up and down in the completion documentation
             ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-            ["<C-d>"] = cmp.mapping.scroll_docs(4),
+            ["<C-d>"] = cmp.mapping.scroll_docs(4)
         }),
         snippet = {
             expand = function(args)
                 require("luasnip").lsp_expand(args.body)
-            end,
+            end
         },
         sources = {
-            { name = "luasnip" },
-            { name = "nvim_lsp" },
-            { name = "buffer" },
-            { name = "ledger" },
+            {name = "luasnip"}, {name = "nvim_lsp"}, {name = "buffer"},
+            {name = "ledger"}
         },
         formatting = {
             format = function(entry, vim_item)
-                local max_width = 0 --lvim.builtin.cmp.formatting.max_width
+                local max_width = 0 -- lvim.builtin.cmp.formatting.max_width
                 if max_width ~= 0 and #vim_item.abbr > max_width then
-                    vim_item.abbr = string.sub(vim_item.abbr, 1, max_width - 1) .. lvim.icons.ui.Ellipsis
+                    vim_item.abbr =
+                        string.sub(vim_item.abbr, 1, max_width - 1) ..
+                            lvim.icons.ui.Ellipsis
                 end
                 if lvim.use_icons then
-                    vim_item.kind = lvim.icons.kind[vim_item.kind] --lvim.builtin.cmp.formatting.kind_icons[vim_item.kind]
+                    vim_item.kind = lvim.icons.kind[vim_item.kind] -- lvim.builtin.cmp.formatting.kind_icons[vim_item.kind]
 
                     if entry.source.name == "copilot" then
                         vim_item.kind = lvim.icons.git.Octoface
@@ -111,11 +103,12 @@ M.setup = function()
                     end
                 end
                 vim_item.menu = lvim.formatting.source_names[entry.source.name]
-                vim_item.dup = lvim.formatting.duplicates[entry.source.name] or lvim.formatting.duplicated_default --builtin.cmp.formatting.duplicates_default
+                vim_item.dup = lvim.formatting.duplicates[entry.source.name] or
+                                   lvim.formatting.duplicated_default -- builtin.cmp.formatting.duplicates_default
 
                 return vim_item
-            end,
-        },
+            end
+        }
     })
 end
 

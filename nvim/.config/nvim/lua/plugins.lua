@@ -8,12 +8,9 @@ M.setup = function()
     if not uv.fs_stat(lazypath) then
         print("Installing lazy.nvim....")
         vim.fn.system({
-            "git",
-            "clone",
-            "--filter=blob:none",
-            "https://github.com/folke/lazy.nvim.git",
-            "--branch=stable",
-            lazypath,
+            "git", "clone", "--filter=blob:none",
+            "https://github.com/folke/lazy.nvim.git", "--branch=stable",
+            lazypath
         })
         print("Done.")
     end
@@ -21,80 +18,55 @@ M.setup = function()
     vim.opt.rtp:prepend(lazypath)
 
     require("lazy").setup({
-        {
-            "folke/neodev.nvim",
-            config = function()
-                require("neodev").setup()
-            end,
-        },
-        { "tpope/vim-fugitive" },
-        { "lunarvim/lunar.nvim" },
-        { "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
-        { "williamboman/mason.nvim" },
-        { "williamboman/mason-lspconfig.nvim" },
-        { "neovim/nvim-lspconfig" },
-        { "hrsh7th/cmp-nvim-lsp" },
-        { "hrsh7th/nvim-cmp" },
-        { "nvimtools/none-ls.nvim",
+        {"folke/neodev.nvim", config = function()
+            require("neodev").setup()
+        end}, {"tpope/vim-fugitive"}, {"lunarvim/lunar.nvim"},
+        {"VonHeikemen/lsp-zero.nvim", branch = "v3.x"},
+        {"williamboman/mason.nvim"}, {"williamboman/mason-lspconfig.nvim"},
+        {"neovim/nvim-lspconfig"}, {"hrsh7th/cmp-nvim-lsp"},
+        {"hrsh7th/nvim-cmp"}, {
+            "nvimtools/none-ls.nvim",
             config = function()
                 local null_ls = require("null-ls")
-                null_ls.setup({
-                    null_ls.builtins.formatting.black
-	    })
+                null_ls.setup({null_ls.builtins.formatting.black})
             end
-        },
-        { "morhetz/gruvbox" },
-        {
+        }, {"morhetz/gruvbox"}, {
             "nvim-neo-tree/neo-tree.nvim",
             branch = "v3.x",
             dependencies = {
-                "nvim-lua/plenary.nvim",
-                "nvim-tree/nvim-web-devicons",
-                "MunifTanjim/nui.nvim",
-                "3rd/image.nvim",
+                "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons",
+                "MunifTanjim/nui.nvim", "3rd/image.nvim"
             },
             config = function()
                 require("neo-tree").setup({
-                    source_selector = {
-                        statusline = true,
-                    },
+                    source_selector = {statusline = true}
                 })
-            end,
+            end
         },
-        { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
         {
+            "nvim-telescope/telescope.nvim",
+            dependencies = {"nvim-lua/plenary.nvim"}
+        }, {
             "nvim-telescope/telescope-fzf-native.nvim",
-            build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
-        },
-        {
+            build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release"
+        }, {
             "folke/which-key.nvim",
             event = "VeryLazy",
             init = function()
                 vim.o.timeout = true
                 vim.o.timeoutlen = 300
-            end,
+            end
         },
-        {
-            "L3MON4D3/LuaSnip",
-            dependencies = { "rafamadriz/friendly-snippets" },
-        },
-        { "saadparwaiz1/cmp_luasnip" },
-        { "pocco81/true-zen.nvim" },
-        { "junegunn/limelight.vim" },
+        {"L3MON4D3/LuaSnip", dependencies = {"rafamadriz/friendly-snippets"}},
+        {"saadparwaiz1/cmp_luasnip"}, {"pocco81/true-zen.nvim"},
+        {"junegunn/limelight.vim"},
         {
             "FabijanZulj/blame.nvim",
-            config = function()
-                require("blame").setup()
-            end,
-        },
-        { "ledger/vim-ledger" },
-        { "piero-vic/cmp-ledger" },
-        {
+            config = function() require("blame").setup() end
+        }, {"ledger/vim-ledger"}, {"piero-vic/cmp-ledger"}, {
             "lewis6991/gitsigns.nvim",
-            config = function()
-                require("gitsigns").setup()
-            end,
-        },
+            config = function() require("gitsigns").setup() end
+        }
     })
 end
 
