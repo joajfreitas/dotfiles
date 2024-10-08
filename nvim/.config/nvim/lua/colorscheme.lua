@@ -22,6 +22,8 @@ M.setup = function()
     else
         vim.o.background = "light"
     end
+
+    vim.opt.colorcolumn = "80"
 end
 
 return M

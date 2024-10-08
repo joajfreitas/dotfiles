@@ -3,30 +3,24 @@ local M = {}
 M.setup = function()
     local telescope_builtin = require("telescope.builtin")
     local wk = require("which-key")
-    wk.register({
-        f = { telescope_builtin.find_files, "Find file" },
-        g = { telescope_builtin.git_files, "Find git files" },
-        t = {
-            name = "telescope",
-            g = { telescope_builtin.live_grep, "Live grep" },
-            b = { telescope_builtin.buffers, "Buffers" },
-            p = { telescope_builtin.builtin, "Builtin pickers" },
-            h = { telescope_builtin.help_tags, "Help tags" },
-        },
-        e = { "<cmd>Neotree toggle<cr>", "File explorer" },
-        s = { "<cmd>ClangdSwitchSourceHeader<cr>", "Switch between source and header" },
-        D = { vim.lsp.buf.type_definition, "Lsp type definition" },
-        a = { vim.lsp.buf.code_action, "Lsp code action" },
-        r = { vim.lsp.buf.rename, "Lsp rename" },
-        z = {
-            name = "zen",
-            n = { "<cmd>TZNarrow<cr>", "Narrow" },
-            f = { "<cmd>TZFocus<cr>", "Focus" },
-            m = { "<cmd>TZMinimalist<cr>", "Minimalist" },
-            a = { "<cmd>TZAtaraxis<cr>", "Ataraxis" },
-            l = { "<cmd>Limelight<cr>", "Limelight" },
-        },
-    }, { prefix = "<leader>" })
+    wk.add({
+        {"<leader>f", telescope_builtin.find_files, desc = "Find file"},
+        {"<leader>g", telescope_builtin.git_files, desc = "Find git files"},
+        {"<leader>tg", telescope_builtin.live_grep, desc = "Live grep"},
+        {"<leader>tb", telescope_builtin.buffers, desc = "Buffers"},
+        {"<leader>tp", telescope_builtin.builtin, desc = "Builtin pickers"},
+        {"<leader>th", telescope_builtin.help_tags, desc = "Help tags"},
+        {"<leader>e", "<cmd>Neotree toggle<cr>", desc = "Find explorer"},
+        {"<leader>s", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch between source and header"},
+        {"<leader>D", vim.lsp.buf.type_definition, desc = "Lsp type definition" },
+        { "<leader>a", vim.lsp.buf.code_action, desc = "Lsp code action" },
+        { "<leader>r", vim.lsp.buf.rename, desc = "Lsp rename" },
+        {"<leader>zr", "<cmd>TZNarrow<cr>", desc = "Narrow" },
+        { "<leader>zf", "<cmd>TZFocus<cr>", desc = "Focus" },
+        { "<leader>zm", "<cmd>TZMinimalist<cr>", desc = "Minimalist" },
+        { "<leader>za", "<cmd>TZAtaraxis<cr>", desc = "Ataraxis" },
+        { "<leader>zl", "<cmd>Limelight<cr>", desc = "Limelight" },
+    })
 
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { silent = true })
