@@ -7,7 +7,6 @@
 [core]
 	editor = nvim
 	attributesfile = ~/.config/git/attributes
-	hooksPath=hooks
 	whitespace = trailing-space,space-before-tab
 [merge "json"]
 	name = custom merge driver for json files
@@ -22,4 +21,11 @@
 [rerere]
 	enabled = true
 [push]
-	recurseSubmodules = check
+    recurseSubmodules = check
+[merge]
+  tool = nvimdiff
+[mergetool]
+  prompt = false
+  keepBackup = false
+[mergetool "nvimdiff"]
+  layout = "LOCAL,BASE,REMOTE / MERGED"
