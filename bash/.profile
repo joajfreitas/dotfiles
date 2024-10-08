@@ -9,4 +9,7 @@ export HOSTNAME=$(hostname)
 
 TZ='Europe/Lisbon'; export TZ
 
+GPG_TTY=$(tty)
+export GPG_TTY
+
 # vim: set ft=sh:
