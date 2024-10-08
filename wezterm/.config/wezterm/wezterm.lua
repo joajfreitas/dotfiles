@@ -27,7 +27,7 @@ return {
       action = wezterm.action.ActivatePaneDirection 'Down',
   },
   {
-      key = 'LeftArrow',
+      key = 'h',
       mods = 'ALT|SHIFT', 
       action = wezterm.action.SplitPane {
           direction = 'Left',
