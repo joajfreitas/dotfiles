@@ -85,11 +85,8 @@ bindkey -M vicmd v edit-command-line
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=7'
 
-
-
 # XDG compliance
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
-
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
