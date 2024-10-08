@@ -38,7 +38,7 @@ font pango:Fira Mono 9
 floating_modifier $mod
 
 # launch terminal
-bindsym $mod+Return exec --no-startup-id wezterm
+bindsym $mod+Return exec --no-startup-id urxvt
 bindsym $mod+Control+Return exec --no-startup-id wezterm start --class "wezterm_floating"
 # launch a dropdown terminal
 bindsym $mod+Shift+Return exec wezterm start --class "wezterm_dropdown"
