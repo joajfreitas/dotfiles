@@ -34,6 +34,7 @@ setxkbmap -option "caps:escape"
 xset r rate 150 55
 
 /home/joaj/bin/layout.sh
+dbus-update-activation-environment --systemd DISPLAY
 
 #wal -R
 exec i3
