@@ -38,7 +38,7 @@ font pango:Fira Mono 9
 floating_modifier $mod
 
 # launch terminal
-bindsym $mod+Return exec --no-startup-id urxvt
+bindsym $mod+Return exec --no-startup-id wezterm
 bindsym $mod+Control+Return exec --no-startup-id wezterm start --class "wezterm_floating"
 # launch a dropdown terminal
 bindsym $mod+Shift+Return exec wezterm start --class "wezterm_dropdown"
@@ -192,31 +192,41 @@ bindsym $mod+Shift+r restart
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+    # These bindings trigger as soon as you enter the resize mode
 
-        # shrink width
-        bindsym h resize shrink width 2 px or 2 ppt
-        # grow height
-        bindsym j resize grow height 2 px or 2 ppt
-        # shrink height
-        bindsym k resize shrink height 2 px or 2 ppt
-        # grow width
-        bindsym l resize grow width 2 px or 2 ppt
+    # shrink width
+    bindsym h resize shrink width 10 px
+    # grow height
+    bindsym j resize grow height 10 px
+    # shrink height
+    bindsym k resize shrink height 10 px
+    # grow width
+    bindsym l resize grow width 10 px
 
-        # shrink width
-        bindsym Shift+h resize shrink width 40 px or 40 ppt
-        # grow height
-        bindsym Shift+j resize grow height 40 px or 40 ppt
-        # shrink height
-        bindsym Shift+k resize shrink height 40 px or 40 ppt
-        # grow width
-        bindsym Shift+l resize grow width 40 px or 40 ppt
+    # shrink width
+    bindsym Shift+h resize shrink width 40 px or 40 ppt
+    # grow height
+    bindsym Shift+j resize grow height 40 px or 40 ppt
+    # shrink height
+    bindsym Shift+k resize shrink height 40 px or 40 ppt
+    # grow width
+    bindsym Shift+l resize grow width 40 px or 40 ppt
 
-        # back to normal: Enter or Escape
+
+    # shrink width
+    bindsym Control+h resize shrink width 1 px
+    # grow height
+    bindsym Control+j resize grow height 1 px
+    # shrink height
+    bindsym Control+k resize shrink height 1 px
+    # grow width
+    bindsym Control+l resize grow width 1 px
+
+    # back to normal: Enter or Escape
 	# exit resize
-        bindsym Return mode "default"
+    bindsym Return mode "default"
 	# exit resize
-        bindsym Escape mode "default"
+    bindsym Escape mode "default"
 }
 
 # enter mode resize
@@ -346,15 +356,6 @@ exec_always --no-startup-id greenclip daemon
 exec_always --no-startup-id clipmenud &
 exec_always --no-startup-id /home/joaj/bin/layout.sh
 exec_always --no-startup-id dunst
-
-#no commands mode
-mode "no-command" {
-    # leave no-command
-    bindsym $mod+q mode "default"
-}
-# enter no-command
-bindsym $mod+q mode "no-command"
-
 
 # window colors
 #                       border              background         text      indicator
