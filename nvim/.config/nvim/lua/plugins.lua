@@ -37,6 +37,7 @@ M.setup = function()
         { "hrsh7th/nvim-cmp" },
         { "L3MON4D3/LuaSnip" },
         { "morhetz/gruvbox" },
+        { "Mofiqul/vscode.nvim" },
         {
             "nvim-neo-tree/neo-tree.nvim",
             branch = "v3.x",
@@ -88,6 +89,34 @@ M.setup = function()
                 require("gitsigns").setup()
             end,
         },
+        {
+            "ahmedkhalf/project.nvim",
+            config = function()
+                require("project_nvim").setup{}
+            end,
+        },
+        {
+            "nvim-treesitter/nvim-treesitter",
+            config = function()
+              local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+              parser_config.fcp = {
+                install_info = {
+                  url = "~/sources/fcp-core/tree-sitter-fcp", -- local path or git repo
+                  files = {"src/parser.c"}, -- note that some parsers also require src/scanner.c or src/scanner.cc
+                  -- optional entries:
+                  generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+                  requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+                },
+                filetype = "fcp", -- if filetype does not match the parser name
+              }
+              require'nvim-treesitter.configs'.setup {
+                highlight = {
+                  enable = true,
+                }
+              }
+            end,
+        },
+        {"github/copilot.vim"}
         --{
         --  "NeogitOrg/neogit",
         --  dependencies = {

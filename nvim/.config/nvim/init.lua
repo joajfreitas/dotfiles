@@ -19,7 +19,6 @@ require("telescope").load_extension("fzf")
 require('keybindings').setup()
 require('colorscheme').setup()
 
-vim.o.autochdir = true
 vim.wo.number = true
 vim.opt.clipboard = "unnamedplus"
 vim.g.mapleader = " "

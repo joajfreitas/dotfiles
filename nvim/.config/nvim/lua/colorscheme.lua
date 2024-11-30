@@ -20,7 +20,7 @@ M.setup = function()
     if time.hour <= sunrise(time.month) or time.hour >= sunset(time.month) then
         vim.o.background = "dark"
     else
-        vim.o.background = "light"
+        vim.o.background = "dark"
     end
 
     vim.opt.colorcolumn = "80"
