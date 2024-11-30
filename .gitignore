@@ -7,3 +7,4 @@
 **/*.html
 .zcompdump
 watch_later
+lazy-lock.json
