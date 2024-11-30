@@ -1,0 +1,8 @@
+[Unit]
+Description=Clean Downloads folder every week on Sunday at 00:00
+[Timer]
+Unit=clean_downloads_folder.service
+OnCalendar=Sun *-*-* 23:59:00
+Persistent=True
+[Install]
+WantedBy=timers.target

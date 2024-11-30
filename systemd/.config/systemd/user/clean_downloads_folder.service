@@ -1,0 +1,6 @@
+[Unit]
+Description=Clean downloads folder
+[Service]
+ExecStart=/bin/bash -c "PATH=$PATH:~/bin:~/.local/bin exec rm -rf /home/joaj/Downloads/*"
+[Install]
+WantedBy=multi-user.target
