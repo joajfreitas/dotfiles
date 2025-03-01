@@ -16,7 +16,7 @@ local function end_of_day(t)
 end
 
 local function run(command)
-  local handle = io.popen('brian task id /home/joaj/sources/wiki/journal/2024.md')
+  local handle = io.popen('brian task id $JOURNAL')
   local output = handle:read('*a')
   local result = output:gsub('[\n\r]', '')
   handle:close()

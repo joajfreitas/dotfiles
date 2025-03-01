@@ -27,7 +27,26 @@ M.setup = function()
                 require("neodev").setup()
             end,
         },
+        {
+            'goolord/alpha-nvim',
+            dependencies = { 'echasnovski/mini.icons' },
+            config = function ()
+                require'alpha'.setup(require'alpha.themes.dashboard'.config)
+            end
+        },
+        {
+            'johnfrankmorgan/whitespace.nvim',
+            config = function ()
+                require('whitespace-nvim').setup({
+                highlight = 'DiffDelete',
+                ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help', 'dashboard' },
+                ignore_terminal = true,
+                return_cursor = true,
+                })
+            end
+        },
         { "tpope/vim-fugitive" },
+        { "tpope/vim-rhubarb" },
         { "lunarvim/lunar.nvim" },
         { "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
         { "williamboman/mason.nvim" },
@@ -35,12 +54,11 @@ M.setup = function()
         { "neovim/nvim-lspconfig" },
         { "hrsh7th/cmp-nvim-lsp" },
         { "hrsh7th/nvim-cmp" },
+        { "folke/trouble.nvim", opts = {}, cmd = "Trouble" },
         { "L3MON4D3/LuaSnip" },
         { "morhetz/gruvbox" },
-        { "Mofiqul/vscode.nvim" },
         {
-            "nvim-neo-tree/neo-tree.nvim",
-            branch = "v3.x",
+            "nvim-tree/nvim-tree.lua",
             dependencies = {
                 "nvim-lua/plenary.nvim",
                 "nvim-tree/nvim-web-devicons",
@@ -48,9 +66,28 @@ M.setup = function()
                 "3rd/image.nvim",
             },
             config = function()
-                require("neo-tree").setup({
-                    source_selector = {
-                        statusline = true,
+                vim.g.loaded_netrw = 1
+                vim.g.loaded_netrwPlugin = 1
+                vim.opt.termguicolors = true
+
+                require("nvim-tree").setup({
+                    sync_root_with_cwd = true,
+                    respect_buf_cwd = true,
+                    update_focused_file = {
+                        enable = true,
+                        update_root = true,
+                    },
+                    sort = {
+                        sorter =  "case_sensitive",
+                    },
+                    view = {
+                        width = 30,
+                    },
+                    renderer = {
+                        group_empty = true,
+                    },
+                    filters = {
+                        dotfiles = true,
                     },
                 })
             end,
@@ -92,7 +129,7 @@ M.setup = function()
         {
             "ahmedkhalf/project.nvim",
             config = function()
-                require("project_nvim").setup{}
+                require("project_nvim").setup()
             end,
         },
         {
@@ -114,9 +151,27 @@ M.setup = function()
                   enable = true,
                 }
               }
-            end,
+            end
         },
-        {"github/copilot.vim"}
+        {"github/copilot.vim"},
+        {
+            "olimorris/codecompanion.nvim",
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                "nvim-treesitter/nvim-treesitter",
+            },
+            config = true,
+            opts = {
+                    strategies = {
+                        chat = {
+                            adapter = "copilot",
+                        },
+                        inline = {
+                            adapter = "copilot",
+                        },
+                    },
+                }
+        }
         --{
         --  "NeogitOrg/neogit",
         --  dependencies = {

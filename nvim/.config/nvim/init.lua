@@ -27,3 +27,16 @@ vim.o.tabstop = 4
 vim.o.expandtab = true
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
+
+
+vim.opt.swapfile = false -- no annoying swap files
+
+
+-- disable inline lsp warnings
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = false
+    }
+)
+
+vim.api.nvim_command("autocmd TermOpen * setlocal nonumber norelativenumber")
