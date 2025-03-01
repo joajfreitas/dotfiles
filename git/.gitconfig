@@ -4,10 +4,17 @@
 	signingkey = 7ED1B2BB849809852B25C6ECE7EF5BDBBED2E1E6
 [commit]
 	gpgsign = true
+	verbose = true
 [core]
 	editor = nvim
 	attributesfile = ~/.config/git/attributes
-	whitespace = trailing-space,space-before-tab
+    whitespace = trailing-space,space-before-tab
+	fsmonitor = true
+	untrackedCache = true
+[column]
+    ui = auto
+[branch]
+    sort = -committerdate
 [merge "json"]
 	name = custom merge driver for json files
 	driver = git-json-merge %A %O %B
@@ -20,12 +27,33 @@
 	whitespace = fix
 [rerere]
 	enabled = true
+	autoupdate = true
 [push]
     recurseSubmodules = check
+	autoSetupRemote = true
+	followTags = true
 [merge]
   tool = nvimdiff
+	conflictstyle = zdiff3
 [mergetool]
   prompt = false
   keepBackup = false
 [mergetool "nvimdiff"]
   layout = "LOCAL,BASE,REMOTE / MERGED"
+[tag]
+	sort = version:refname
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	renames = true
+	mnemonicPrefix = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+[pull]
+	rebase = true
