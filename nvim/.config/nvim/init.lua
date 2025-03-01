@@ -2,8 +2,8 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-require('plugins').setup()
-require('lsp').setup()
+require("plugins").setup()
+require("lsp").setup()
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/luasnippets" })
 require("telescope").setup({
 	extensions = {
@@ -16,8 +16,8 @@ require("telescope").setup({
 	},
 })
 require("telescope").load_extension("fzf")
-require('keybindings').setup()
-require('colorscheme').setup()
+require("keybindings").setup()
+require("colorscheme").setup()
 
 vim.wo.number = true
 vim.opt.clipboard = "unnamedplus"
@@ -28,15 +28,11 @@ vim.o.expandtab = true
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 
-
 vim.opt.swapfile = false -- no annoying swap files
 
-
 -- disable inline lsp warnings
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false
-    }
-)
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+	virtual_text = false,
+})
 
 vim.api.nvim_command("autocmd TermOpen * setlocal nonumber norelativenumber")
