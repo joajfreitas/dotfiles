@@ -8,13 +8,13 @@
 [core]
 	editor = nvim
 	attributesfile = ~/.config/git/attributes
-    whitespace = trailing-space,space-before-tab
+	whitespace = trailing-space,space-before-tab
 	fsmonitor = true
 	untrackedCache = true
 [column]
-    ui = auto
+	ui = auto
 [branch]
-    sort = -committerdate
+	sort = -committerdate
 [merge "json"]
 	name = custom merge driver for json files
 	driver = git-json-merge %A %O %B
@@ -29,17 +29,17 @@
 	enabled = true
 	autoupdate = true
 [push]
-    recurseSubmodules = check
+	recurseSubmodules = check
 	autoSetupRemote = true
 	followTags = true
 [merge]
-  tool = nvimdiff
+	tool = nvimdiff
 	conflictstyle = zdiff3
 [mergetool]
-  prompt = false
-  keepBackup = false
+	prompt = false
+	keepBackup = false
 [mergetool "nvimdiff"]
-  layout = "LOCAL,BASE,REMOTE / MERGED"
+	layout = "LOCAL,BASE,REMOTE / MERGED"
 [tag]
 	sort = version:refname
 [diff]
@@ -56,7 +56,7 @@
 	autoStash = true
 	updateRefs = true
 [pull]
-    rebase = true
+	rebase = true
 [alias]
-    lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all -n 15
-    out = "log @{u}.."
+	lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all -n 15
+	out = "log @{u}.."
