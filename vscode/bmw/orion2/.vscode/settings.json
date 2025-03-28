@@ -1,0 +1,91 @@
+{
+    "bazelerator.packages": [
+        "//common/...",
+        "//activities/motion_planning/...",
+        "//domains/planning/...",
+        "//interfaces/...",
+        "//test/planning/...",
+        "verification/support/evaluators/motion_planning_aborted_lane_change_evaluator/..."
+    ],
+    "bazelerator.favorites": [
+        "//activities/motion_planning/...",
+        "//domains/planning/...",
+        "//domains/planning/behavior/...",
+        "//test/planning/motion_planning/...",
+        "//test/planning/motion_planning/behavior/...",
+    ],
+    "bazelerator.configurations": {
+        "clang": {
+            "release": [
+                "--config=clang",
+            ],
+            "fastdebug": [
+                "--config=clang",
+                "--compilation_mode=dbg",
+                "--define",
+                "profile_memory=1",
+            ],
+            "debug": [
+                "--config=clang",
+                "--compilation_mode=dbg",
+                "--copt=-O0",
+                "--define",
+                "log_level=debug",
+            ],
+            "coverage": [
+                "--config=clang_cov",
+                "--cache_test_results=no",
+                "--experimental_generate_llvm_lcov",
+                "--experimental_use_llvm_covmap",
+            ],
+        },
+        "gcc": {
+            "release": [
+                "--config=orion_gcc_release",
+            ],
+            "fastdebug": [
+                "--config=orion_gcc_fastdebug",
+            ],
+            "debug": [
+                "--config=orion_gcc_debug",
+            ],
+            "coverage": [
+                "--config=orion_cov",
+            ],
+        }
+    },
+    "bazelerator.activeConfiguration": {
+        "configuration": "gcc",
+        "mode": "debug"
+    },
+    "bazelerator.automaticTestScan": true,
+    "bazelerator.buildifierFixOnFormat": true,
+    "bazelerator.dependencyGraphScope": "//...:all",
+    "bazelerator.enableCodeLens": true,
+    "bazelerator.followSymlinks": true,
+    "bazelerator.cpp.auto": true,
+    "bazelerator.cpp.compileCommandsDir": "${workspaceFolder}",
+    "bazelerator.cpp.externalSymlink": true,
+    "bazelerator.cpp.mode": "actions",
+    "bazelerator.cpp.sandbox": true,
+    "bazelerator.cpp.target": "clangd",
+    "bazelerator.cpp.debugger": "gdb",
+    "bazelerator.gdb.breakOnExceptions": false,
+    "bazelerator.coverage.exclude": "test|tests|mock|third_party",
+    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}/",
+        "--query-driver=**/clang++,**/*-g++",
+        "--background-index",
+        "--clang-tidy",
+        "--header-insertion=never"
+    ],
+    "editor.formatOnSaveMode": "modifications",
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    "git.inputValidationSubjectLength": 72,
+    "git.inputValidation": true,
+    "github-enterprise.uri": "https://cc-github.bmwgroup.net",
+}
