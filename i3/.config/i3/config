@@ -1,6 +1,5 @@
 # color scheme for i3 based on wall
 
-
 set_from_resource $bg-color i3wm.color0
 set_from_resource $text-color i3wm.color15
 set_from_resource $urgent-bg-color i3wm.color2
@@ -23,7 +22,7 @@ set_from_resource $accent i3wm.color4
 
 #Mod key: Mod1 = Alt, Mod4=Super
 set $mod Mod4
-    
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
 font pango:Fira Mono 9
@@ -56,7 +55,7 @@ bindsym $mod+x kill
 bindsym $mod+Shift+x exec --no-startup-id notify-send locking && sleep 1 && ~/bin/lock -i ~/media/windows_resized.png
 
 # lauch rofi
-bindsym $mod+Shift+d exec rofi -modi run -show run 
+bindsym $mod+Shift+d exec rofi -modi run -show run
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -284,8 +283,8 @@ bindsym $mod+XF86AudioNext exec "mpc next; killall -s USR1 py3status"
 bindsym $mod+XF86AudioPrev exec "mpc prev; killall -s USR1 py3status"
 
 # lauch rofi-bookmarks
-bindsym $mod+b exec marcador rofi
-bindsym $mod+Shift+b exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+bindsym $mod+Shift+b exec marcador rofi
+bindsym $mod+b exec CM_LAUNCHER=rofi clipmenu
 
 # lauch hotkeys
 bindsym $mod+i exec /home/joaj/bin/hotkeys
@@ -331,7 +330,7 @@ for_window [instance="dropdown_*"] move scratchpad
 for_window [instance="dropdown_*"] sticky enable
 for_window [instance="dropdown_*"] scratchpad show
 for_window [instance="dropdown_*"] resize set 1600 500
-for_window [instance="dropdown_*"] move position 480 420 
+for_window [instance="dropdown_*"] move position 480 420
 for_window [instance="dropdown_*"] border pixel 1
 
 # floating terminal
@@ -352,7 +351,6 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id nasa-wallpaper -a
 exec --no-startup-id thunderbird
 exec_always --no-startup-id picom
-exec_always --no-startup-id greenclip daemon
 exec_always --no-startup-id clipmenud &
 exec_always --no-startup-id /home/joaj/bin/layout.sh
 exec_always --no-startup-id dunst
@@ -367,9 +365,9 @@ client.urgent           $urgent-bg-color  $urgent-bg-color  $text-color  $urgent
 # launch rofi-pass
 bindsym $mod+p exec rofi-pass
 # launch rofi
-bindsym $mod+d exec rofi -modi drun -show drun 
+bindsym $mod+d exec rofi -modi drun -show drun
 # launch window switcher
-bindsym $mod+y exec rofi -combi-modi window -show combi -modi combi 
+bindsym $mod+y exec rofi -combi-modi window -show combi -modi combi
 # expo
 bindsym $mod+z exec --no-startup-id flash_window
 
