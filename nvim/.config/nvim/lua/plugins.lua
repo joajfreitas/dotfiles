@@ -28,13 +28,6 @@ M.setup = function()
 			end,
 		},
 		{
-			"goolord/alpha-nvim",
-			dependencies = { "echasnovski/mini.icons" },
-			config = function()
-				require("alpha").setup(require("alpha.themes.dashboard").config)
-			end,
-		},
-		{
 			"johnfrankmorgan/whitespace.nvim",
 			config = function()
 				require("whitespace-nvim").setup({
@@ -47,6 +40,20 @@ M.setup = function()
 		},
 		{ "tpope/vim-fugitive" },
 		{ "tpope/vim-rhubarb" },
+		{ "shumphrey/fugitive-gitlab.vim" },
+		{
+			"NeogitOrg/neogit",
+			dependencies = {
+				"nvim-lua/plenary.nvim", -- required
+				"sindrets/diffview.nvim", -- optional - Diff integration
+
+				-- Only one of these is needed.
+				"nvim-telescope/telescope.nvim", -- optional
+				"ibhagwan/fzf-lua", -- optional
+				"echasnovski/mini.pick", -- optional
+			},
+			config = true,
+		},
 		{ "lunarvim/lunar.nvim" },
 		{ "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
 		{ "williamboman/mason.nvim" },
@@ -56,7 +63,13 @@ M.setup = function()
 		{ "hrsh7th/nvim-cmp" },
 		{ "folke/trouble.nvim", opts = {}, cmd = "Trouble" },
 		{ "L3MON4D3/LuaSnip" },
-		{ "morhetz/gruvbox" },
+		--{ "morhetz/gruvbox" },
+		{
+			"ellisonleao/gruvbox.nvim",
+			config = function()
+				require("gruvbox").setup({ transparent_mode = true })
+			end,
+		},
 		{
 			"nvim-tree/nvim-tree.lua",
 			dependencies = {
