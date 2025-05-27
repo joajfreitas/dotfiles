@@ -5,6 +5,8 @@ return {
 	font_size = 10,
 	color_scheme = "GruvboxDark",
 	use_fancy_tab_bar = false,
+	scrollback_lines = 50000,
+	window_background_opacity = 0.92,
 	keys = {
 		{
 			key = "h",
