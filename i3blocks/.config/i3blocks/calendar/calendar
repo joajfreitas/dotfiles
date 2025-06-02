@@ -14,7 +14,7 @@ while getopts ":f:W:H:" opt; do
         \?)
             echo "Invalid option: -$OPTARG" >&2
             exit 1
-            ;;
+            ;t ;
         :)
             echo "Option -$OPTARG requires an argument." >&2
             exit 1
@@ -23,7 +23,7 @@ while getopts ":f:W:H:" opt; do
 done
 
 case "$BLOCK_BUTTON" in
-  1|2|3) 
+  1|2|3)
 
 	# the position of the upper left corner of the popup
 	posX=$(($BLOCK_X - $WIDTH / 2))

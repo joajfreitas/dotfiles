@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Left click
-if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+if [[ "${BLOCK_BUTTON}" -eq 4 ]]; then
   amixer -q sset Capture 5%+
 # Middle click
 elif [[ "${BLOCK_BUTTON}" -eq 2 ]]; then
   amixer -q sset Capture toggle
 # Right click
-elif [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
+elif [[ "${BLOCK_BUTTON}" -eq 5 ]]; then
   amixer -q sset Capture 5%-
 fi
 
@@ -20,7 +20,7 @@ if [[ "${status}" == "on" ]]; then
   echo "${volume}%"
   echo ""
 else
-  echo "off"
-  echo "off"
+  echo "MUTE"
+  echo "MUTE"
   echo ""
 fi
