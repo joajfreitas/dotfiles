@@ -18,6 +18,7 @@ require("telescope").setup({
 require("telescope").load_extension("fzf")
 require("keybindings").setup()
 require("colorscheme").setup()
+require("neovide").setup()
 
 vim.wo.number = true
 vim.opt.clipboard = "unnamedplus"
@@ -34,5 +35,3 @@ vim.opt.swapfile = false -- no annoying swap files
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	virtual_text = false,
 })
-
-vim.api.nvim_command("autocmd TermOpen * setlocal nonumber norelativenumber")
