@@ -11,16 +11,16 @@ M.setup = function()
 			end,
 			desc = "Buffer Local Keymaps (which-key)",
 		},
+		{ "<leader>g", telescope_builtin.git_files, desc = "Find git tracked files" },
+		{ "<leader>s", telescope_builtin.live_grep, desc = "Keyword search" },
 		{ "<leader>f", telescope_builtin.find_files, desc = "Find file" },
-		{ "<leader>g", telescope_builtin.git_files, desc = "Find git files" },
 		{ "<leader>t", group = "Search" },
-		{ "<leader>tg", telescope_builtin.live_grep, desc = "Live grep" },
 		{ "<leader>tb", telescope_builtin.buffers, desc = "Buffers" },
 		{ "<leader>tp", telescope_builtin.builtin, desc = "Builtin pickers" },
 		{ "<leader>th", telescope_builtin.help_tags, desc = "Help tags" },
 		{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Find explorer" },
 		{
-			"<leader>s",
+			"<leader>o",
 			"<cmd>ClangdSwitchSourceHeader<cr>",
 			desc = "Switch between source and header",
 		},
@@ -29,8 +29,10 @@ M.setup = function()
 			vim.lsp.buf.type_definition,
 			desc = "Lsp type definition",
 		},
-		{ "<leader>a", vim.lsp.buf.code_action, desc = "Lsp code action" },
-		{ "<leader>r", vim.lsp.buf.rename, desc = "Lsp rename" },
+		{ "<leader>l", group = "LSP" },
+		{ "<leader>la", vim.lsp.buf.code_action, desc = "Lsp code action" },
+		{ "<leader>lr", vim.lsp.buf.rename, desc = "Lsp rename" },
+		{ "<leader>lf", vim.lsp.buf.format, desc = "Lsp format" },
 		{ "<leader>z", group = "Zen Mode" },
 		{ "<leader>zr", "<cmd>TZNarrow<cr>", desc = "Narrow" },
 		{ "<leader>zf", "<cmd>TZFocus<cr>", desc = "Focus" },
@@ -68,17 +70,40 @@ M.setup = function()
 			"<cmd>Trouble qflist toggle<cr>",
 			desc = "Quickfix List (Trouble)",
 		},
+		{
+			"gd",
+			vim.lsp.buf.definition,
+			desc = "Go to definition (LSP)",
+		},
+		{
+			"gD",
+			vim.lsp.buf.declaration,
+			desc = "Go to declaration (LSP)",
+		},
+		{
+			"gi",
+			vim.lsp.buf.implementation,
+			desc = "Go to implementation (LSP)",
+		},
+		{
+			"go",
+			vim.lsp.buf.type_definition,
+			desc = "Go to type definition (LSP)",
+		},
+		{
+			"gr",
+			vim.lsp.buf.references,
+			desc = "Go to references (LSP)",
+		},
+		{
+			"gs",
+			vim.lsp.buf.signature_help,
+			desc = "Signature help (LSP)",
+		},
+		{ "gl", vim.diagnostic.open_float, desc = "Show diagnostics" },
+		{ "[d", vim.diagnostic.get_prev, desc = "Previous diagnostic" },
+		{ "]d", vim.diagnostic.get_next, desc = "Next diagnostic" },
 	})
-
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true })
-	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { silent = true })
-	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { silent = true })
-	vim.keymap.set("n", "go", vim.lsp.buf.type_definition, { silent = true })
-	vim.keymap.set("n", "gr", vim.lsp.buf.references, { silent = true })
-	vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { silent = true })
-	vim.keymap.set("n", "gl", vim.diagnostic.open_float, { silent = true })
-	vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { silent = true })
-	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { silent = true })
 end
 
 return M
