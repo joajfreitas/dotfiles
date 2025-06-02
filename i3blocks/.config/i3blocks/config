@@ -118,7 +118,7 @@ STEP_SIZE=5
 # See the script for details.
 
 [volume]
-label=♪ 
+label=♪
 #label=VOL
 interval=once
 signal=10
@@ -126,7 +126,7 @@ signal=10
 
 [microphone]
 label=
-interval=5 
+interval=5
 
 # Date Time
 #
@@ -134,12 +134,18 @@ interval=5
 command=date '+%Y-%m-%d %H:%M:%S'
 interval=1
 
+[system_theme]
+interval=once
+format=json
+markup=pango
+interval=5
+
+
 [dunst]
 interval=once
 format=json
 markup=pango
 #min_width=50
-#align=center
 #DUNST_MUTE=off
 
 # Generic media player support

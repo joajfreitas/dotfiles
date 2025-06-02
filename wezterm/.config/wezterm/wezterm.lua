@@ -1,9 +1,17 @@
 local wezterm = require("wezterm")
 
+function appearance(wezterm)
+	if wezterm.gui.get_appearance() == "Light" then
+		return "GruvboxLight"
+	else
+		return "GruvboxDark"
+	end
+end
+
 return {
 	font = wezterm.font("FiraCode"),
 	font_size = 10,
-	color_scheme = "GruvboxDark",
+	color_scheme = appearance(wezterm),
 	use_fancy_tab_bar = false,
 	scrollback_lines = 50000,
 	window_background_opacity = 0.92,

@@ -63,11 +63,11 @@ M.setup = function()
 		{ "hrsh7th/nvim-cmp" },
 		{ "folke/trouble.nvim", opts = {}, cmd = "Trouble" },
 		{ "L3MON4D3/LuaSnip" },
-		--{ "morhetz/gruvbox" },
+		{ "vimpostor/vim-lumen" },
 		{
 			"ellisonleao/gruvbox.nvim",
 			config = function()
-				require("gruvbox").setup({ transparent_mode = true })
+				require("gruvbox").setup({ transparent_mode = not vim.g.neovide })
 			end,
 		},
 		{
@@ -185,6 +185,7 @@ M.setup = function()
 				},
 			},
 		},
+		{ "ActivityWatch/aw-watcher-vim" },
 	})
 end
 
