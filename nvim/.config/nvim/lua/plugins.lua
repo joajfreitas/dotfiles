@@ -21,6 +21,17 @@ M.setup = function()
         {"folke/neodev.nvim", config = function()
             require("neodev").setup()
         end},
+        {
+			"johnfrankmorgan/whitespace.nvim",
+			config = function()
+				require("whitespace-nvim").setup({
+					highlight = "DiffDelete",
+					ignored_filetypes = { "TelescopePrompt", "Trouble", "help", "dashboard" },
+					ignore_terminal = true,
+					return_cursor = true,
+				})
+			end,
+		},
         {"tpope/vim-fugitive"},
 
         {"tpope/vim-rhubarb",
@@ -124,6 +135,12 @@ M.setup = function()
                 }
               }
             end,
+        },
+        {"f-person/auto-dark-mode.nvim",
+
+        opts = {
+            fallback = "light"
+        }
         },
     })
 end

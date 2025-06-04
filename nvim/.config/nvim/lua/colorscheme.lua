@@ -16,7 +16,7 @@ M.setup = function()
     local time = os.date("*t")
 
     if time.hour <= sunrise(time.month) or time.hour >= sunset(time.month) then
-        vim.o.background = "ligth"
+        vim.o.background = "dark"
     else
         vim.o.background = "light"
     end
