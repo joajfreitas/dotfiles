@@ -18,8 +18,8 @@ M.setup = function()
     vim.opt.rtp:prepend(lazypath)
 
     require("lazy").setup({
-        {"folke/neodev.nvim", config = function()
-            require("neodev").setup()
+        {"folke/lazydev.nvim", config = function()
+            require("lazydev").setup({library = {"nvim-dap-ui"},})
         end},
         {
 			"johnfrankmorgan/whitespace.nvim",
@@ -42,15 +42,27 @@ M.setup = function()
         {
           "NeogitOrg/neogit",
           dependencies = {
-            "nvim-lua/plenary.nvim",         -- required
-            "sindrets/diffview.nvim",        -- optional - Diff integration
-
-            -- Only one of these is needed.
-            "nvim-telescope/telescope.nvim", -- optional
-            "ibhagwan/fzf-lua",              -- optional
-            "echasnovski/mini.pick",         -- optional
+            "nvim-lua/plenary.nvim",
+            "sindrets/diffview.nvim",
+            "nvim-telescope/telescope.nvim",
           },
           config = true
+        },
+        {
+            "lewis6991/gitsigns.nvim" ,
+            config = function()
+                require('gitsigns').setup({
+                    current_line_blame = false,
+                    current_line_blame_opts = {
+                        virt_text = true,
+                        virt_text_pos = 'eol',
+                        delay = 300,
+                        ignore_whitespace = false,
+                        virt_text_priority = 100,
+                        use_focus = true,
+                    },
+                })
+            end
         },
         {"VonHeikemen/lsp-zero.nvim", branch = "v3.x"},
         {"williamboman/mason.nvim"},
@@ -65,7 +77,8 @@ M.setup = function()
                 null_ls.setup({null_ls.builtins.formatting.black})
             end
         },
-        {"morhetz/gruvbox"},
+        {"morhetz/gruvbox", lazy=false, priority=1000},
+        {"sainnhe/everforest"},
         {"ahmedkhalf/project.nvim"},
         {
             "nvim-tree/nvim-tree.lua",
@@ -76,6 +89,9 @@ M.setup = function()
                     update_focused_file = {
                         enable = true,
                         update_root = true
+                    },
+                    view = {
+                        width = 80,
                     }
                 })
             end
@@ -107,9 +123,9 @@ M.setup = function()
         {
             "FabijanZulj/blame.nvim",
             config = function() require("blame").setup() end
-        }, 
-	    {"ledger/vim-ledger"},
-	    {"piero-vic/cmp-ledger"}, 
+        },
+        {"ledger/vim-ledger"},
+        {"piero-vic/cmp-ledger"},
         {
             "lewis6991/gitsigns.nvim",
             config = function() require("gitsigns").setup() end
@@ -121,13 +137,12 @@ M.setup = function()
               local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
               parser_config.fcp = {
                 install_info = {
-                  url = "~/sources/fcp-core/tree-sitter-fcp", -- local path or git repo
-                  files = {"src/parser.c"}, -- note that some parsers also require src/scanner.c or src/scanner.cc
-                  -- optional entries:
-                  generate_requires_npm = false, -- if stand-alone parser without npm dependencies
-                  requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+                  url = "~/sources/fcp-core/tree-sitter-fcp",
+                  files = {"src/parser.c"},
+                  generate_requires_npm = false,
+                  requires_generate_from_grammar = false,
                 },
-                filetype = "fcp", -- if filetype does not match the parser name
+                filetype = "fcp", 
               }
               require'nvim-treesitter.configs'.setup {
                 highlight = {
@@ -142,7 +157,123 @@ M.setup = function()
             fallback = "light"
         }
         },
+        {"mfussenegger/nvim-dap"},
+        {
+            "rcarriga/nvim-dap-ui",
+            dependencies = {
+                "mfussenegger/nvim-dap",
+                "nvim-neotest/nvim-nio"
+            }
+        },
+        {
+           "https://cc-github.bmwgroup.net/shaharklinger/acronymviewer.nvim",
+           opts = {},
+           lazy = false,
+        },
+        {
+            "CopilotC-Nvim/CopilotChat.nvim",
+            dependencies = {
+              { "nvim-lua/plenary.nvim", branch = "master" },
+            },
+            build = "make tiktoken",
+        },
+        {
+            "obsidian-nvim/obsidian.nvim",
+            version = "*",
+            lazy = true,
+            event = {
+              "BufReadPre " .. vim.fn.expand("~") .. "/sources/wiki/*.md",
+              "BufNewFile " .. vim.fn.expand("~") .. "/sources/wiki/*.md",
+            },
+            dependencies = {
+              "nvim-lua/plenary.nvim",
+            },
+            opts = {
+              workspaces = {
+                {
+                  name = "wiki",
+                  path = "~/sources/wiki",
+                },
+              },
+              attachments = {
+                  img_folder = "assets/imgs",
+              }
+
+            },
+        },
+        {"rcarriga/nvim-notify", opts = {stages = "static"}},
+        {
+          "nvim-neotest/neotest",
+          dependencies = {
+            "nvim-neotest/nvim-nio",
+            "nvim-lua/plenary.nvim",
+            "antoinemadec/FixCursorHold.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "alfaix/neotest-gtest"
+          },
+          config = function()
+            local utils = require("neotest-gtest.utils")
+            local lib = require("neotest.lib")
+            require("neotest").setup({
+              adapters = {
+                require("neotest-gtest").setup({
+                  -- which debug adater to use? dap.adapters.<this debug_adapter> must be defined.
+                  debug_adapter = "gdb",
+                })
+              },
+            discovery =
+            {
+                enabled = false,
+                concurrent = 1
+            },
+            })
+          end,
+    },
+    {
+      "folke/snacks.nvim",
+      ---@type snacks.Config
+      opts = {
+        input = {}
+      }
+    }
     })
+
+    local dap = require("dap")
+    dap.adapters.gdb = {
+      type = "executable",
+      command = "gdb",
+      args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
+    }
+
+    dap.adapters.codelldb = {
+          type = "server",
+          port = "${port}",
+          executable = {
+              command = "/home/joaj/.local/share/nvim/mason/bin/codelldb", -- I installed codelldb through mason.nvim
+              args = {"--port", "${port}"}
+          },
+    }
+
+
+    dap.configurations.c = {
+      {
+        name = 'Attach to gdbserver :1234',
+        type = 'gdb',
+        request = 'attach',
+        target = 'localhost:1234',
+        program = function()
+           return vim.fn.input('Path to executable: ', '/home/joaj/bmw/orion2/bazel-bin/test/planning/motion_planning/behavior/lane_change/lane_segment_sequence_test')
+        end,
+        cwd = '${workspaceFolder}'
+      },
+    }
+
+
+    dap.configurations.cpp = dap.configurations.c
+    dap.configurations.rust = dap.configurations.c
+
+    vim.notify = require("notify")
+
 end
 
 return M
