@@ -126,4 +126,5 @@ return {
 			action = wezterm.action.ActivateTab(9),
 		},
 	},
+	enable_wayland = false,
 }
