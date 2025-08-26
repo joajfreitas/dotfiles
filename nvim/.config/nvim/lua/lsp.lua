@@ -29,7 +29,6 @@ M.setup = function()
 		},
 	})
 
-	require("lspconfig").rust_analyzer.setup({})
 	require("lspconfig").clangd.setup({})
 	require("lspconfig").lua_ls.setup({
 		settings = {
@@ -40,8 +39,6 @@ M.setup = function()
 			},
 		},
 	})
-
-	lsp_zero.setup_servers({ "rust_analyzer" })
 
 	local cmp = require("cmp")
 	local cmp_action = require("lsp-zero").cmp_action()

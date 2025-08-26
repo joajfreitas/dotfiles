@@ -14,6 +14,7 @@ M.setup = function()
 		{ "<leader>g", telescope_builtin.git_files, desc = "Find git tracked files" },
 		{ "<leader>s", telescope_builtin.live_grep, desc = "Keyword search" },
 		{ "<leader>f", telescope_builtin.find_files, desc = "Find file" },
+		{ "<leader>p", require('telescope').extensions.projects.projects, desc = "Find project" },
 		{ "<leader>t", group = "Search" },
 		{ "<leader>tb", telescope_builtin.buffers, desc = "Buffers" },
 		{ "<leader>tp", telescope_builtin.builtin, desc = "Builtin pickers" },
