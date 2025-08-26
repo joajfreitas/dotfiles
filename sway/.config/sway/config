@@ -1,0 +1,209 @@
+include /etc/sway/config.d/*
+
+set $bg-color #282828
+set $text-color #ebdbb2
+set $urgent-bg-color #98971a
+set $inactive-text-color #a89984
+set $accent #458588
+
+set $mod Mod4
+
+floating_modifier $mod
+
+# reload configuration
+bindsym $mod+Shift+c reload
+# restart sway
+bindsym $mod+Shift+r restart
+
+bindsym $mod+Return exec --no-startup-id wezterm
+bindsym $mod+d exec rofi -modi drun -show drun
+
+# kill focused window
+bindsym $mod+x kill
+
+# change focus
+# focus left
+bindsym $mod+h focus left
+# focus down
+bindsym $mod+j focus down
+# focus up
+bindsym $mod+k focus up
+# focus right
+bindsym $mod+l focus right
+
+# move focused window
+# move left
+bindsym $mod+Left  move left
+# move down
+bindsym $mod+Down  move down
+# move up
+bindsym $mod+Up    move up
+# move right
+bindsym $mod+Right move right
+
+# move workspace to monitor
+# move workspace to the left
+bindsym $mod+Shift+Left move workspace to output left
+# move workspace to the right
+bindsym $mod+Shift+Right move workspace to output right
+# move workspace up
+bindsym $mod+Shift+Up move workspace to output up
+# move workspace down
+bindsym $mod+Shift+Down move workspace to output down
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# toggle sticking
+bindsym $mod+Shift+s sticky toggle
+
+# enter fullscreen mode for the focused container
+bindsym $mod+F11 fullscreen
+
+# change container layout (stacked, tabbed, toggle split)
+# stack
+bindsym $mod+s layout stacking
+# tab
+bindsym $mod+w layout tabbed
+# toggle split
+bindsym $mod+e layout toggle split
+
+# split in horizontal orientation
+bindsym $mod+c split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# toggle floating
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+Shift+a focus child
+
+# cycle workspaces
+bindsym $mod+Tab workspace next
+# reverse cycle workspaces
+bindsym $mod+Shift+Tab workspace prev
+
+workspace_auto_back_and_forth yes
+
+# toggke floating
+bindsym $mod+button2 floating toggle
+
+set $workspace1  "1"
+set $workspace2  "2"
+set $workspace3  "3"
+set $workspace4  "4"
+set $workspace5  "5"
+set $workspace6  "6"
+set $workspace7  "7"
+set $workspace8  "8"
+set $workspace9  "9"
+set $workspace10 "0"
+
+# switch to workspace
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace10
+
+mode "resize" {
+    # These bindings trigger as soon as you enter the resize mode
+
+    # shrink width
+    bindsym h resize shrink width 10 px
+    # grow height
+    bindsym j resize grow height 10 px
+    # shrink height
+    bindsym k resize shrink height 10 px
+    # grow width
+    bindsym l resize grow width 10 px
+
+    # shrink width
+    bindsym Shift+h resize shrink width 40 px or 40 ppt
+    # grow height
+    bindsym Shift+j resize grow height 40 px or 40 ppt
+    # shrink height
+    bindsym Shift+k resize shrink height 40 px or 40 ppt
+    # grow width
+    bindsym Shift+l resize grow width 40 px or 40 ppt
+
+
+    # shrink width
+    bindsym Control+h resize shrink width 1 px
+    # grow height
+    bindsym Control+j resize grow height 1 px
+    # shrink height
+    bindsym Control+k resize shrink height 1 px
+    # grow width
+    bindsym Control+l resize grow width 1 px
+
+    # back to normal: Enter or Escape
+	# exit resize
+    bindsym Return mode "default"
+	# exit resize
+    bindsym Escape mode "default"
+}
+
+# enter mode resize
+bindsym $mod+r mode "resize"
+
+# launch rofi-pass
+bindsym $mod+p exec rofi-pass
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+	status_command i3blocks
+	position top
+	font pango: Fira Mono 9
+	separator_symbol "•"
+    	colors {
+		statusline $text-color
+        	background $bg-color
+        	separator $accent
+        	#                  border             background         text
+        	focused_workspace  $accent            $accent            $text-color
+        	inactive_workspace $bg-color          $bg-color          $inactive-text-color
+        	urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+    }
+}
+
+# set opacity
+set $opacity 0.9
+for_window [class=".*"] opacity $opacity
+for_window [app_id=".*"] opacity $opacity
+
+# remove titlebars
+for_window [class="^.*"]  border pixel 3
+
+#gaps
+smart_gaps on
+smart_borders on
+gaps inner 10
+
+input * repeat_delay 120
+input * repeat_rate 60
+
+include ~/.config/sway/saturn/*
