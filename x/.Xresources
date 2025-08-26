@@ -1,46 +1,3 @@
-!! -----------------------------------------------------------------------------2
-
-! SOlarized color scheme fot the X window System
-!
-! http://ethanschoonover.com/solarized
-
-
-
-! Common
-
-!#define S_yellow        #b58900
-!#define S_orange        #cb4b16
-!#define S_red           #dc322f
-!#define S_magenta       #d33682
-!#define S_violet        #6c71c4
-!#define S_blue          #268bd2
-!#define S_cyan          #2aa198
-!#define S_green         #859900
-!
-!
-!! Dark
-!
-!#define S_base03        #002b36
-!#define S_base02        #073642
-!#define S_base01        #586e75
-!#define S_base00        #657b83
-!#define S_base0         #eeeeee
-!#define S_base1         #93a1a1
-!#define S_base2         #eee8d5
-!#define S_base3         #fdf6e3
-
-
-! Light
-
-! #define S_base03        #fdf6e3
-! #define S_base02        #eee8d5
-! #define S_base01        #93a1a1
-! #define S_base00        #839496
-! #define S_base0         #657b83
-! #define S_base1         #586e75
-! #define S_base2         #073642
-! #define S_base3         #002b36
-
 Xft.autohint: 0
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintslight
@@ -54,43 +11,6 @@ URxvt*font: xft:Fira Code:pixelsize=14:antialias=true:hinting=true
 URxvt*boldFont: xft:Fira Code:bold:pixelsize=14:antialias=true:hinting=true
 xterm*faceName: xft:FiraCode:size=13:antialias=true
 URxvt*letterSpace: -1
-
-! To only apply colors to your terminal, for example, prefix
-! the color assignment statement with its name. Example:
-!
-! URxvt*background:            S_base03
-
-xterm*font: xft:Fira Mono:pixelsize=14:antialias=true:hinting=true
-XTerm*faceName: DejaVu Sans Mono for Powerline 
-!XTerm*faceName: Fira Mono for Powerline 
-xterm*locale: true
-xterm*saveLines: 10000
-!xterm*faceName: xft:Monospace:size=10:antialias=true
-xterm*faceName: xft:FiraMono:size=10:antialias=true
-
-urxvt*borderLess: false
-urxvt*internalborder: 0
-urxvt*externalborder: 0
-URxvt*scrollBar: False
-URxvt*scrollTtyOutput: False
-URxvt*scrollWithBuffer: False
-URxvt*scrollTtyKeypress: True
-URxvt*saveLines: 10000
-! URxvt.perl-ext: default,matcher,clipboard
-URxvt.perl-ext-common: default,clipboard,url-select
-URxvt.url-select.launcher: firefox
-URxvt.url-select.underline: true
-URxvt.keysym.M-C-o: perl:url-select:select_next
-URxvt.keysym.M-C-c: perl:clipboard:copy
-URxvt.keysym.M-C-v: perl:clipboard:paste
-URxvt*iso14755: False
-URxvt*iso14755_52: False
-URxvt*geometry: 111x29
-!URxvt*font: xft:droid sans mono:pixelsize=10:antialias=true:hinting=true
-!URxvt*boldFont: xft:droid sans mono:bold:pixelsize=10:antialias=true:hinting=true
-
-Rxvt*font: xft: Font Aawesome: size=5, xft: Liberation Mono:pixelsize=14,xft: DejaVu Sans Mono,xft: Symbola:size=5,xft: Unifont
-
 
 ! -----------------------------------------------------------------------------
 ! File: gruvbox-dark.xresources
