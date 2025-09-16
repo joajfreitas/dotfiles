@@ -8,6 +8,8 @@ set $accent #458588
 
 set $mod Mod4
 
+font pango:Fira Mono 9
+
 floating_modifier $mod
 
 # reload configuration
@@ -171,6 +173,25 @@ bindsym $mod+r mode "resize"
 
 # launch rofi-pass
 bindsym $mod+p exec rofi-pass
+bindsym $mod+y exec /home/joaj/bin/window_switcher
+
+# toggle audio
+bindsym XF86AudioMute exec "pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+10 i3blocks"
+# toggle mic
+bindsym XF86AudioMicMute exec "amixer set Capture toggle && pkill -RTMIN+10 i3blocks"
+# lower volume
+bindsym XF86AudioLowerVolume exec "pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 i3blocks"
+# raise volume
+bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 i3blocks"
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+# next song
+bindsym XF86AudioNext exec playerctl next
+# previous song
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym Print exec slurp | grim -g - - | satty --filename - --output-filename "/home/joaj/screenshots/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png" --early-exit --actions-on-enter save-to-clipboard --save-after-copy --copy-command 'wl-copy'
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -190,13 +211,33 @@ bar {
     }
 }
 
+#autostart
+exec --no-startup-id aw-qt
+exec --no-startup-id discord
+exec --no-startup-id Telegram
+exec --no-startup-id spotify
+exec --no-startup-id nasa-wallpaper -a
+exec --no-startup-id thunderbird
+
 # set opacity
-set $opacity 0.9
-for_window [class=".*"] opacity $opacity
-for_window [app_id=".*"] opacity $opacity
+set $opacity 1.0
+for_window [tiling class=".*"] opacity $opacity
+for_window [tiling app_id=".*"] opacity $opacity
+for_window [class="^Minecraft.*"] opacity 1.0
+for_window [app_id="mpv"] opacity 1.0
 
 # remove titlebars
 for_window [class="^.*"]  border pixel 3
+
+assign [class = "^Chromium$"]                $workspace10
+assign [class = "^firefox$"]                 $workspace10
+assign [class = "qutebrowser"]               $workspace10
+assign [class = "^discord"]                  $workspace9
+assign [class = "^Telegram"]                 $workspace9
+assign [class = "^Thunderbird$"]             $workspace8
+assign [class = "^thunderbird"]              $workspace8
+assign [class = "Transmission"]              $workspace7
+assign [class = "mpv"]                       $workspace7
 
 #gaps
 smart_gaps on

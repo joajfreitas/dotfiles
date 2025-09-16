@@ -22,10 +22,21 @@ M.setup = function()
 
     require("lazy").setup({
         {
-            "folke/neodev.nvim",
-            config = function()
-                require("neodev").setup()
-            end,
+            'NMAC427/guess-indent.nvim',
+            opts = {
+                on_tab_options = {
+                    ["expandtab"] = true
+                }
+            }
+        },
+        {
+            "folke/lazydev.nvim",
+            ft = "lua",
+            opts = {
+                library = {
+                    { path = '${3rd}/luv/library', word = { 'vim%.uv' } },
+                }
+            }
         },
         {
             "johnfrankmorgan/whitespace.nvim",
@@ -51,27 +62,39 @@ M.setup = function()
             config = true,
         },
         { "lewis6991/gitsigns.nvim" },
-        { "VonHeikemen/lsp-zero.nvim",        branch = "v3.x" }, -- TODO: deprecated
-        { "williamboman/mason.nvim" },
-        { "williamboman/mason-lspconfig.nvim" },
+
+        --- LSP ---
+
+        { "VonHeikemen/lsp-zero.nvim",     branch = "v3.x" }, -- TODO: deprecated
+        { "mason-org/mason.nvim" },
+        { "mason-org/mason-lspconfig.nvim" },
         { "neovim/nvim-lspconfig" },
         { "hrsh7th/cmp-nvim-lsp" },
         { "hrsh7th/nvim-cmp" },
-        { "folke/trouble.nvim",               opts = {},      cmd = "Trouble" },
-        { "L3MON4D3/LuaSnip" },
+        {
+            "folke/trouble.nvim",
+            opts = {},
+            cmd = "Trouble"
+        },
+        {
+            "L3MON4D3/LuaSnip",
+            run = "make install_jsregexp",
+            dependencies = { "rafamadriz/friendly-snippets" },
+        },
+        --- Follow system wide theme (dark/light)
         { "vimpostor/vim-lumen" },
+        --- Gruvbox! ---
         {
             "ellisonleao/gruvbox.nvim",
-            config = function()
-                require("gruvbox").setup({ transparent_mode = not vim.g.neovide })
-            end,
+            opts = { transparent_mode = not vim.g.neovide }
         },
+        --- Render image inline ---
         {
             "3rd/image.nvim",
             event = "VeryLazy",
             opts = {
                 --backend = "kitty",
-                backend = "kitty",
+                backend = "sixel",
                 integrations = {
                     markdown = {
                         enabled = true,
@@ -83,8 +106,8 @@ M.setup = function()
                         resolve_image_path = function(document_path, image_path, fallback)
                             local working_dir = vim.fn.getcwd()
                             -- Format image path for Obsidian notes
-                            if (working_dir:find("/home/joaj/sources/wiki")) then
-                                return working_dir .. "/" .. image_path
+                            if (working_dir:find("/home/joaj/Sync/wiki")) then
+                                return working_dir .. "/" .. "assets/" .. image_path
                             end
                             -- Fallback to the default behavior
                             return fallback(document_path, image_path)
@@ -139,23 +162,40 @@ M.setup = function()
                 })
             end,
         },
-        { "nvim-telescope/telescope.nvim",        dependencies = { "nvim-lua/plenary.nvim" } },
         {
-            "nvim-telescope/telescope-fzf-native.nvim",
-            build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+            "nvim-telescope/telescope.nvim",
+            event = 'VimEnter',
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                {
+                    "nvim-telescope/telescope-fzf-native.nvim",
+                    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+                },
+                { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+                "nvim-telescope/telescope-ui-select.nvim"
+            },
+            config = function()
+                require("telescope").setup({
+                    extensions = {
+                        ["ui-select"] = {
+                            require("telescope.themes").get_dropdown({}),
+                        },
+                    }
+                })
+
+                pcall(require("telescope").load_extension, "fzf")
+                pcall(require("telescope").load_extension, "ui-select")
+            end
         },
-        { "nvim-telescope/telescope-symbols.nvim" },
         {
             "folke/which-key.nvim",
-            event = "VeryLazy",
-            init = function()
-                vim.o.timeout = true
-                vim.o.timeoutlen = 300
-            end,
-        },
-        {
-            "L3MON4D3/LuaSnip",
-            dependencies = { "rafamadriz/friendly-snippets" },
+            event = "VimEnter",
+            opts = {
+                delay = 0,
+                icon = {
+                    mappings = vim.g.have_nerd_font,
+                }
+            }
         },
         { "saadparwaiz1/cmp_luasnip" },
         { "pocco81/true-zen.nvim" },
@@ -175,30 +215,37 @@ M.setup = function()
             end,
         },
         {
-            "ahmedkhalf/project.nvim",
-            config = function()
-                require("project_nvim").setup()
-            end,
+            "DrKJeff16/project.nvim",
+            dependencies = {
+                'nvim-lua/plenary.nvim',
+                'nvim-telescope/telescope.nvim',
+            },
+            opts = {}
         },
         {
             "nvim-treesitter/nvim-treesitter",
             build = ":TSUpdate",
-            config = function()
-                local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-                parser_config.fcp = {
-                    install_info = {
-                        url = "~/sources/fcp-core/tree-sitter-fcp",
-                        files = { "src/parser.c" },
-                        generate_requires_npm = false,
-                        requires_generate_from_grammar = false,
-                    },
-                    filetype = "fcp",
-                }
-                require("nvim-treesitter.configs").setup({
-                    ensure_installed = { "markdown" },
-                    highlight = { enable = true },
-                })
-            end,
+            opts = {
+                ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vimdoc', 'rust', 'toml', 'yaml', 'cpp' },
+                auto_install = true,
+                highlight = { enable = true },
+            }
+            --config = function()
+            --    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+            --    parser_config.fcp = {
+            --        install_info = {
+            --            url = "~/sources/fcp-core/tree-sitter-fcp",
+            --            files = { "src/parser.c" },
+            --            generate_requires_npm = false,
+            --            requires_generate_from_grammar = false,
+            --        },
+            --        filetype = "fcp",
+            --    }
+            --    require("nvim-treesitter.configs").setup({
+            --        ensure_installed = { "markdown" },
+            --        highlight = { enable = true },
+            --    })
+            --end,
         },
         { "github/copilot.vim" },
         {
@@ -211,21 +258,12 @@ M.setup = function()
         },
         { "ActivityWatch/aw-watcher-vim" },
         {
-            "ahmedkhalf/project.nvim",
-            config = function()
-                require("project_nvim").setup {
-                    patterns = { ".git", "Makefile", "CMakeLists.txt", "Cargo.toml" },
-                    silent_chdir = false,
-                }
-            end
-        },
-        {
             "epwalsh/obsidian.nvim",
             version = "*",
             lazy = true,
             event = {
-                "BufReadPre " .. vim.fn.expand("~") .. "/sources/wiki/*.md",
-                "BufNewFile " .. vim.fn.expand("~") .. "/sources/wiki/*.md",
+                "BufReadPre " .. vim.fn.expand("~") .. "/Sync/wiki/*.md",
+                "BufNewFile " .. vim.fn.expand("~") .. "/Sync/wiki/*.md",
             },
             dependencies = {
                 "nvim-lua/plenary.nvim",
@@ -234,7 +272,7 @@ M.setup = function()
                 workspaces = {
                     {
                         name = "wiki",
-                        path = "~/sources/wiki",
+                        path = "~/Sync/wiki",
                     },
                 },
                 attachments = {
@@ -247,10 +285,11 @@ M.setup = function()
             "rcarriga/nvim-dap-ui",
             dependencies = {
                 "mfussenegger/nvim-dap",
-                "nvim-neotest/nvim-nio"
-            }
+                "nvim-neotest/nvim-nio",
+                "jbyuki/one-small-step-for-vimkind"
+            },
+            lazy = false
         },
-        { "rcarriga/nvim-notify", opts = { stages = "static" } },
         {
             'mrcjkb/rustaceanvim',
             version = '^6', -- Recommended
@@ -299,49 +338,60 @@ M.setup = function()
             end,
         },
         {
-            "folke/snacks.nvim",
-            ---@type snacks.Config
+            'folke/todo-comments.nvim',
+            event = 'VimEnter',
+            dependencies = { 'nvim-lua/plenary.nvim' },
             opts = {
-                input = {}
+                signs = false
             }
-        }
+        },
     })
 
-    -- local dap = require("dap")
-    -- dap.adapters.gdb = {
-    --     type = "executable",
-    --     command = "gdb",
-    --     args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
-    -- }
+    local dap = require("dap")
+    dap.adapters.gdb = {
+        type = "executable",
+        command = "gdb",
+        args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
+    }
 
-    -- dap.adapters.codelldb = {
-    --     type = "server",
-    --     port = "${port}",
-    --     executable = {
-    --         command = "/home/joaj/.local/share/nvim/mason/bin/codelldb", -- I installed codelldb through mason.nvim
-    --         args = { "--port", "${port}" }
-    --     },
-    -- }
+    dap.adapters.codelldb = {
+        type = "server",
+        port = "${port}",
+        executable = {
+            command = "/home/joaj/.local/share/nvim/mason/bin/codelldb", -- I installed codelldb through mason.nvim
+            args = { "--port", "${port}" }
+        },
+    }
 
-    -- dap.configurations.c = {
-    --     {
-    --         name = 'Attach to gdbserver :1234',
-    --         type = 'gdb',
-    --         request = 'attach',
-    --         target = 'localhost:1234',
-    --         program = function()
-    --             return vim.fn.input('Path to executable: ',
-    --                 '/home/joaj/bmw/orion2/bazel-bin/test/planning/motion_planning/behavior/lane_change/lane_segment_sequence_test')
-    --         end,
-    --         cwd = '${workspaceFolder}'
-    --     },
-    -- }
+    dap.configurations.c = {
+        {
+            name = 'Attach to gdbserver :1234',
+            type = 'gdb',
+            request = 'attach',
+            target = 'localhost:1234',
+            program = function()
+                return vim.fn.input('Path to executable: ',
+                    '/home/joaj/bmw/orion2/bazel-bin/test/planning/motion_planning/behavior/lane_change/lane_segment_sequence_test')
+            end,
+            cwd = '${workspaceFolder}'
+        },
+    }
 
 
-    -- dap.configurations.cpp = dap.configurations.c
-    -- dap.configurations.rust = dap.configurations.c
+    dap.configurations.cpp = dap.configurations.c
+    dap.configurations.rust = dap.configurations.c
 
-    vim.notify = require("notify")
+    dap.configurations.lua = {
+        {
+            type = "nlua",
+            request = "attach",
+            name = "Attach to running Neovim instance",
+        }
+    }
+
+    dap.adapters.nlua = function(callback, config)
+        callback({ type = "server", host = config.host or "127.0.0.1", port = config.port or 8086 })
+    end
 end
 
 return M

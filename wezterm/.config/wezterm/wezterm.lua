@@ -14,8 +14,17 @@ return {
 	color_scheme = appearance(wezterm),
 	use_fancy_tab_bar = false,
 	scrollback_lines = 50000,
-	window_background_opacity = 0.92,
-	keys = {
+	window_background_opacity = 1.0,
+    unix_domains = {
+        {
+            name = "unix",
+        },
+    },
+    ssh_domains = {{
+            name = "uranus",
+            remote_address = "uranus",
+    }},
+    keys = {
 		{
 			key = "h",
 			mods = "ALT",
@@ -71,8 +80,8 @@ return {
 		{ key = "g", mods = "ALT", action = wezterm.action.ShowLauncher },
 		{ key = "t", mods = "ALT", action = wezterm.action.ShowTabNavigator },
 		{
-			key = "t",
-			mods = "SHIFT|ALT",
+			key = "Enter",
+			mods = "ALT",
 			action = wezterm.action.SpawnTab("CurrentPaneDomain"),
 		},
 		{

@@ -342,7 +342,7 @@ client.urgent           $urgent-bg-color  $urgent-bg-color  $text-color  $urgent
 # launch rofi-pass
 bindsym $mod+p exec rofi-pass
 # launch rofi
-bindsym $mod+d exec dmenu_run -nb '$bg-color' -sb '$accent' -p 'λ'
+bindsym $mod+d exec dmenu_run -i -nb '$bg-color' -sb '$accent' -p 'λ'
 
 bindsym $mod+Shift+y exec xdotool click 4
 bindsym $mod+Shift+u exec xdotool click 5
