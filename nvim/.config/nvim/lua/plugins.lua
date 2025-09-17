@@ -53,7 +53,10 @@ M.setup = function()
         { 'tpope/vim-rhubarb' },
         { 'shumphrey/fugitive-gitlab.vim' },
         {
-            'NeogitOrg/neogit',
+            "NeogitOrg/neogit",
+            opts = {
+                graph_style="unicode",
+            },
             dependencies = {
                 'nvim-lua/plenary.nvim',
                 'sindrets/diffview.nvim',
@@ -167,6 +170,32 @@ M.setup = function()
             dependencies = { { 'echasnovski/mini.icons', opts = {} } },
             opts = {},
             lazy = false,
+    	},
+	{
+            "nvim-telescope/telescope.nvim",
+            event = 'VimEnter',
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                {
+                    "nvim-telescope/telescope-fzf-native.nvim",
+                    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+                },
+                { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+                "nvim-telescope/telescope-ui-select.nvim"
+            },
+            config = function()
+                require("telescope").setup({
+                    extensions = {
+                        ["ui-select"] = {
+                            require("telescope.themes").get_dropdown({}),
+                        },
+                    }
+                })
+
+                --require("telescope_config").setup()
+                pcall(require("telescope").load_extension, "fzf")
+                pcall(require("telescope").load_extension, "ui-select")
+            end
         },
         {
             'nvim-telescope/telescope.nvim',

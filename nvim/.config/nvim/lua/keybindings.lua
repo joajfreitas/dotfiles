@@ -1,29 +1,9 @@
 local M = {}
 
-M.setup = function()
+-- Telescope keymaps for search
+M.telescope_keymaps = function(wk)
     local builtin = require 'telescope.builtin'
     local telescope = require 'telescope'
-    local dap = require 'dap'
-    local widgets = require 'dap.ui.widgets'
-    local wk = require 'which-key'
-    wk.add {
-        {
-            '<leader>?',
-            function()
-                wk.show { global = false }
-            end,
-            desc = 'Buffer Local Keymaps (which-key)',
-        },
-        { '<leader>q', vim.diagnostic.setloclist, desc = 'Open diagnostic [Q]uickfix list' },
-        {
-            '<Esc>',
-            '<cmd>nohlsearch<cr>',
-            mode = 'n',
-            desc = 'Clear search highlight',
-        },
-    }
-
-    --- Search ---
 
     wk.add {
         { '<leader>s', group = '[S]earch' },
@@ -72,9 +52,10 @@ M.setup = function()
 
         { '<leader>e', '<cmd>NvimTreeToggle<cr>', desc = 'Find explorer' },
     }
+end
 
-    --- LSP ---
-
+--- LSP keymaps
+M.lsp_keymaps = function(wk)
     wk.add {
         { '<leader>l', group = 'LSP' },
         { '<leader>la', vim.lsp.buf.code_action, desc = '[L]sp Code [A]ction' },
@@ -96,9 +77,9 @@ M.setup = function()
             desc = '[g]o to [i]mplementation (LSP)',
         },
         {
-            'gt',
+            "go",
             vim.lsp.buf.type_definition,
-            desc = '[g]o to [t]ype definition (LSP)',
+            desc = "[g]o to type definiti[o]n (LSP)",
         },
         {
             'gr',
@@ -116,9 +97,10 @@ M.setup = function()
             desc = 'switch between source and header',
         },
     }
+end
 
-    --- Zen Mode ---
-
+--- Zen mode keymaps
+M.zen_mode_keymaps = function(wk)
     wk.add {
         { '<leader>z', group = 'Zen Mode' },
         { '<leader>zr', '<cmd>TZNarrow<cr>', desc = 'Narrow' },
@@ -161,9 +143,12 @@ M.setup = function()
             desc = 'Quickfix List (Trouble)',
         },
     }
+end
 
-    --- DAP ---
-
+-- DAP keymaps
+M.dap_keymaps = function(wk)
+    local dap = require 'dap'
+    local widgets = require 'dap.ui.widgets'
     wk.add {
         { '<leader>d', group = 'Dap' },
         { '<loader>db', dap.toggle_breakpoint, desc = 'Toggle Breakpoint (Dap)' },
@@ -189,6 +174,114 @@ M.setup = function()
             desc = 'Widgets Frames (Dap)',
         },
     }
+end
+
+M.gitsigns_keymaps = function(wk)
+    local gitsigns = require 'gitsigns'
+    wk.add {
+        {
+            ']c',
+            function()
+                if vim.wo.diff then
+                    vim.cmd.normal({']c', bang = true})
+                else
+                    gitsigns.nav_hunk('next')
+                end
+            end,
+            desc = 'Go to next git [C]hunk (Gitsigns)',
+            mode = 'n',
+        },
+        {
+            '[c',
+            function()
+                if vim.wo.diff then
+                    vim.cmd.normal({'[c', bang = true})
+                else
+                    gitsigns.nav_hunk('prev')
+                end
+            end,
+            desc = 'Go to previous git [C]hunk (Gitsigns)',
+            mode = 'n',
+        },
+        { '<leader>hs', gitsigns.stage_hunk, desc = '[s]tage Hunk (Gitsigns)', mode='n' },
+        { '<leader>hr', gitsigns.reset_hunk, desc = '[r]eset Hunk (Gitsigns)', mode='n' },
+        {
+            '<leader>hs',
+            function()
+                gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+            end,
+            desc = '[s]tage Hunk (Gitsigns)',
+            mode = 'v'
+        },
+        {
+            '<leader>hr',
+            function()
+                gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+            end,
+            desc = '[r]eset Hunk (Gitsigns)',
+            mode = 'v',
+        },
+        { '<leader>hS', gitsigns.stage_buffer, desc = '[S]tage Buffer (Gitsigns)', mode='n' },
+        { '<leader>hR', gitsigns.reset_buffer, desc = '[R]eset Buffer (Gitsigns)', mode='n' },
+        { '<leader>hp', gitsigns.preview_hunk, desc = 'Preview [H]unk (Gitsigns)', mode='n' },
+        { '<leader>hi', gitsigns.preview_hunk_inline, desc = 'Preview Hunk [i]nline (Gitsigns)', mode='n' },
+        {
+            '<leader>hb',
+            function()
+                gitsigns.blame_line({ full = true })
+            end,
+            desc = '[B]lame Line (Gitsigns)',
+            mode='n'
+        },
+        { '<leader>hd', gitsigns.diffthis, desc = '[Ddiff This (Gitsigns)', mode='n' },
+        {
+            '<leader>hD',
+            function()
+                gitsigns.diffthis('~')
+            end,
+            desc = 'Diff This [~] (Gitsigns)',
+            mode='n'
+        },
+        {
+            '<leader>hQ',
+            function()
+                gitsigns.setqflist('all')
+            end,
+            desc = 'Set [Q]uickfix List (Gitsigns)',
+            mode='n'
+        },
+        { '<leader>hq', gitsigns.setqflist, desc = 'Set [q]uickfix List (Gitsigns)', mode='n'},
+        { '<leader>tb', gitsigns.toggle_current_line_blame, desc = '[T]oggle Current Line [b]lame (Gitsigns)', mode='n' },
+        { '<leader>tw', gitsigns.toggle_word_diff, desc = '[T]oggle [w]ord Diff (Gitsigns)', mode='n'},
+        { 'ih', gitsigns.select_hunk, desc = 'Select [H]unk (Gitsigns)', mode={'o', 'x'}},
+    }
+end
+
+
+M.setup = function()
+    local wk = require 'which-key'
+    wk.add {
+        {
+            '<leader>?',
+            function()
+                wk.show { global = false }
+            end,
+            desc = 'Buffer Local Keymaps (which-key)',
+        },
+        { '<leader>q', vim.diagnostic.setloclist, desc = 'Open diagnostic [Q]uickfix list' },
+        {
+            '<Esc>',
+            '<cmd>nohlsearch<cr>',
+            mode = 'n',
+            desc = 'Clear search highlight',
+        },
+    }
+
+    M.telescope_keymaps(wk)
+    M.lsp_keymaps(wk)
+    M.zen_mode_keymaps(wk)
+    M.dap_keymaps(wk)
+    M.gitsigns_keymaps(wk)
 
     wk.add {
         { 'gl', vim.diagnostic.open_float, desc = 'Show diagnostics' },
