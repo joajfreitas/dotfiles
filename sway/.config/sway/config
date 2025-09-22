@@ -17,8 +17,6 @@ bindsym $mod+Shift+c reload
 # restart sway
 bindsym $mod+Shift+r restart
 
-bindsym $mod+Return exec --no-startup-id wezterm
-bindsym $mod+d exec rofi -modi drun -show drun
 
 # kill focused window
 bindsym $mod+x kill
@@ -171,9 +169,6 @@ mode "resize" {
 # enter mode resize
 bindsym $mod+r mode "resize"
 
-# launch rofi-pass
-bindsym $mod+p exec rofi-pass
-bindsym $mod+y exec /home/joaj/bin/window_switcher
 
 # toggle audio
 bindsym XF86AudioMute exec "pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+10 i3blocks"
@@ -192,6 +187,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 bindsym Print exec slurp | grim -g - - | satty --filename - --output-filename "/home/joaj/screenshots/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png" --early-exit --actions-on-enter save-to-clipboard --save-after-copy --copy-command 'wl-copy'
+#bindsym Print exec flameshot gui
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -211,6 +207,8 @@ bar {
     }
 }
 
+# Applications
+
 #autostart
 exec --no-startup-id aw-qt
 exec --no-startup-id discord
@@ -218,6 +216,22 @@ exec --no-startup-id Telegram
 exec --no-startup-id spotify
 exec --no-startup-id nasa-wallpaper -a
 exec --no-startup-id thunderbird
+
+
+# terminal
+bindsym $mod+Return exec --no-startup-id wezterm
+
+# launch rofi launcher
+bindsym $mod+d exec rofi -modi drun -show drun
+
+# launch rofi-pass
+bindsym $mod+p exec rofi-pass
+
+# launch window switcher
+bindsym $mod+y exec /home/joaj/bin/window_switcher
+
+bindsym $mod+f exec thunar
+bindsym $mod+b exec firefox
 
 # set opacity
 set $opacity 1.0
@@ -246,5 +260,6 @@ gaps inner 10
 
 input * repeat_delay 120
 input * repeat_rate 60
+input * xkb_options compose:ralt
 
 include ~/.config/sway/saturn/*
