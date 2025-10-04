@@ -251,12 +251,11 @@ M.gitsigns_keymaps = function(wk)
             mode='n'
         },
         { '<leader>hq', gitsigns.setqflist, desc = 'Set [q]uickfix List (Gitsigns)', mode='n'},
-        { '<leader>tb', gitsigns.toggle_current_line_blame, desc = '[T]oggle Current Line [b]lame (Gitsigns)', mode='n' },
-        { '<leader>tw', gitsigns.toggle_word_diff, desc = '[T]oggle [w]ord Diff (Gitsigns)', mode='n'},
+        { '<leader>htb', gitsigns.toggle_current_line_blame, desc = '[T]oggle Current Line [b]lame (Gitsigns)', mode='n' },
+        { '<leader>htw', gitsigns.toggle_word_diff, desc = '[T]oggle [w]ord Diff (Gitsigns)', mode='n'},
         { 'ih', gitsigns.select_hunk, desc = 'Select [H]unk (Gitsigns)', mode={'o', 'x'}},
     }
 end
-
 
 M.setup = function()
     local wk = require 'which-key'

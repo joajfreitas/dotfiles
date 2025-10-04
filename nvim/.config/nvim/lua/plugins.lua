@@ -80,6 +80,10 @@ M.setup = function()
             cmd = 'Trouble',
         },
         {
+            "zbirenbaum/copilot-cmp",
+            opts = {},
+        },
+        {
             'L3MON4D3/LuaSnip',
             run = 'make install_jsregexp',
             dependencies = { 'rafamadriz/friendly-snippets' },

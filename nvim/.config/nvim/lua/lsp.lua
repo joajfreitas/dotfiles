@@ -67,6 +67,7 @@ M.setup = function()
             end,
         },
         sources = {
+            { name = "copilot "},
             { name = 'luasnip' },
             { name = 'nvim_lsp' },
             { name = 'buffer' },
