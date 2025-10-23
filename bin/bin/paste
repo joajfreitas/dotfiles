@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+
+if hash wl-paste 2>/dev/null; then
+    exec wl-paste
+elif hash xclip 2>/dev/null; then
+    exec xclip -selection clipboard -o
+fi
