@@ -25,11 +25,11 @@ vim.o.confirm = true
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
-  end,
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+    callback = function()
+        vim.hl.on_yank()
+    end,
 })
 
 -- Set conceallevel to 1 for markdown files, needed for obsidian.nvim
@@ -56,73 +56,75 @@ require('colorscheme').setup()
 require('neovide').setup()
 require('completion').setup()
 
-require('gitsigns').setup{
+require('gitsigns').setup {
     word_diff = true,
     current_line_blame = true,
     current_line_blame_opts = {
         delay = 200,
     },
-  on_attach = function(bufnr)
-    local gitsigns = require('gitsigns')
+    on_attach = function(bufnr)
+        local gitsigns = require 'gitsigns'
 
-    local function map(mode, l, r, opts)
-      opts = opts or {}
-      opts.buffer = bufnr
-      vim.keymap.set(mode, l, r, opts)
-    end
+        local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+        end
 
-    -- Navigation
-    map('n', ']c', function()
-      if vim.wo.diff then
-        vim.cmd.normal({']c', bang = true})
-      else
-        gitsigns.nav_hunk('next')
-      end
-    end)
+        -- Navigation
+        map('n', ']c', function()
+            if vim.wo.diff then
+                vim.cmd.normal { ']c', bang = true }
+            else
+                gitsigns.nav_hunk 'next'
+            end
+        end)
 
-    map('n', '[c', function()
-      if vim.wo.diff then
-        vim.cmd.normal({'[c', bang = true})
-      else
-        gitsigns.nav_hunk('prev')
-      end
-    end)
+        map('n', '[c', function()
+            if vim.wo.diff then
+                vim.cmd.normal { '[c', bang = true }
+            else
+                gitsigns.nav_hunk 'prev'
+            end
+        end)
 
-    -- Actions
-    map('n', '<leader>hs', gitsigns.stage_hunk)
-    map('n', '<leader>hr', gitsigns.reset_hunk)
+        -- Actions
+        map('n', '<leader>hs', gitsigns.stage_hunk)
+        map('n', '<leader>hr', gitsigns.reset_hunk)
 
-    map('v', '<leader>hs', function()
-      gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-    end)
+        map('v', '<leader>hs', function()
+            gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+        end)
 
-    map('v', '<leader>hr', function()
-      gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-    end)
+        map('v', '<leader>hr', function()
+            gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+        end)
 
-    map('n', '<leader>hS', gitsigns.stage_buffer)
-    map('n', '<leader>hR', gitsigns.reset_buffer)
-    map('n', '<leader>hp', gitsigns.preview_hunk)
-    map('n', '<leader>hi', gitsigns.preview_hunk_inline)
+        map('n', '<leader>hS', gitsigns.stage_buffer)
+        map('n', '<leader>hR', gitsigns.reset_buffer)
+        map('n', '<leader>hp', gitsigns.preview_hunk)
+        map('n', '<leader>hi', gitsigns.preview_hunk_inline)
 
-    map('n', '<leader>hb', function()
-      gitsigns.blame_line({ full = true })
-    end)
+        map('n', '<leader>hb', function()
+            gitsigns.blame_line { full = true }
+        end)
 
-    map('n', '<leader>hd', gitsigns.diffthis)
+        map('n', '<leader>hd', gitsigns.diffthis)
 
-    map('n', '<leader>hD', function()
-      gitsigns.diffthis('~')
-    end)
+        map('n', '<leader>hD', function()
+            gitsigns.diffthis '~'
+        end)
 
-    map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
-    map('n', '<leader>hq', gitsigns.setqflist)
+        map('n', '<leader>hQ', function()
+            gitsigns.setqflist 'all'
+        end)
+        map('n', '<leader>hq', gitsigns.setqflist)
 
-    -- Toggles
-    map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
-    map('n', '<leader>tw', gitsigns.toggle_word_diff)
+        -- Toggles
+        map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+        map('n', '<leader>tw', gitsigns.toggle_word_diff)
 
-    -- Text object
-    map({'o', 'x'}, 'ih', gitsigns.select_hunk)
-  end
+        -- Text object
+        map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
+    end,
 }

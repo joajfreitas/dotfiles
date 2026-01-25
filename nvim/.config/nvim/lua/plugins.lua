@@ -53,9 +53,9 @@ M.setup = function()
         { 'tpope/vim-rhubarb' },
         { 'shumphrey/fugitive-gitlab.vim' },
         {
-            "NeogitOrg/neogit",
+            'NeogitOrg/neogit',
             opts = {
-                graph_style="unicode",
+                graph_style = 'unicode',
             },
             dependencies = {
                 'nvim-lua/plenary.nvim',
@@ -68,10 +68,10 @@ M.setup = function()
 
         --- LSP ---
         { 'neovim/nvim-lspconfig' },
-        { 'mason-org/mason.nvim' , opts={}},
-        { 'williamboman/mason-lspconfig.nvim', opts={} },
-        { 'hrsh7th/nvim-cmp'},
-        { 'hrsh7th/cmp-nvim-lsp'},
+        { 'mason-org/mason.nvim', opts = {} },
+        { 'williamboman/mason-lspconfig.nvim', opts = {} },
+        { 'hrsh7th/nvim-cmp' },
+        { 'hrsh7th/cmp-nvim-lsp' },
         { 'hrsh7th/cmp-buffer' },
         { 'hrsh7th/cmp-path' },
         { 'hrsh7th/cmp-cmdline' },
@@ -82,7 +82,7 @@ M.setup = function()
             cmd = 'Trouble',
         },
         {
-            "zbirenbaum/copilot-cmp",
+            'zbirenbaum/copilot-cmp',
             opts = {},
         },
         {
@@ -176,32 +176,32 @@ M.setup = function()
             dependencies = { { 'echasnovski/mini.icons', opts = {} } },
             opts = {},
             lazy = false,
-    	},
-	{
-            "nvim-telescope/telescope.nvim",
+        },
+        {
+            'nvim-telescope/telescope.nvim',
             event = 'VimEnter',
             dependencies = {
-                "nvim-lua/plenary.nvim",
+                'nvim-lua/plenary.nvim',
                 {
-                    "nvim-telescope/telescope-fzf-native.nvim",
-                    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+                    'nvim-telescope/telescope-fzf-native.nvim',
+                    build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
                 },
-                { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
-                "nvim-telescope/telescope-ui-select.nvim"
+                { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+                'nvim-telescope/telescope-ui-select.nvim',
             },
             config = function()
-                require("telescope").setup({
+                require('telescope').setup {
                     extensions = {
-                        ["ui-select"] = {
-                            require("telescope.themes").get_dropdown({}),
+                        ['ui-select'] = {
+                            require('telescope.themes').get_dropdown {},
                         },
-                    }
-                })
+                    },
+                }
 
                 --require("telescope_config").setup()
-                pcall(require("telescope").load_extension, "fzf")
-                pcall(require("telescope").load_extension, "ui-select")
-            end
+                pcall(require('telescope').load_extension, 'fzf')
+                pcall(require('telescope').load_extension, 'ui-select')
+            end,
         },
         {
             'nvim-telescope/telescope.nvim',
@@ -401,13 +401,14 @@ M.setup = function()
             },
         },
         {
-            "olimorris/codecompanion.nvim",
+            'olimorris/codecompanion.nvim',
             dependencies = {
-                "nvim-lua/plenary.nvim",
-                "nvim-treesitter/nvim-treesitter"
+                'nvim-lua/plenary.nvim',
+                'nvim-treesitter/nvim-treesitter',
             },
-            opts = {}
-        }}, {
+            opts = {},
+        },
+    }, {
         ui = {
             -- If you are using a Nerd Font: set icons to an empty table which will use the
             -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table

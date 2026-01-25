@@ -77,9 +77,9 @@ M.lsp_keymaps = function(wk)
             desc = '[g]o to [i]mplementation (LSP)',
         },
         {
-            "go",
+            'go',
             vim.lsp.buf.type_definition,
-            desc = "[g]o to type definiti[o]n (LSP)",
+            desc = '[g]o to type definiti[o]n (LSP)',
         },
         {
             'gr',
@@ -183,9 +183,9 @@ M.gitsigns_keymaps = function(wk)
             ']c',
             function()
                 if vim.wo.diff then
-                    vim.cmd.normal({']c', bang = true})
+                    vim.cmd.normal { ']c', bang = true }
                 else
-                    gitsigns.nav_hunk('next')
+                    gitsigns.nav_hunk 'next'
                 end
             end,
             desc = 'Go to next git [C]hunk (Gitsigns)',
@@ -195,65 +195,65 @@ M.gitsigns_keymaps = function(wk)
             '[c',
             function()
                 if vim.wo.diff then
-                    vim.cmd.normal({'[c', bang = true})
+                    vim.cmd.normal { '[c', bang = true }
                 else
-                    gitsigns.nav_hunk('prev')
+                    gitsigns.nav_hunk 'prev'
                 end
             end,
             desc = 'Go to previous git [C]hunk (Gitsigns)',
             mode = 'n',
         },
-        { '<leader>hs', gitsigns.stage_hunk, desc = '[s]tage Hunk (Gitsigns)', mode='n' },
-        { '<leader>hr', gitsigns.reset_hunk, desc = '[r]eset Hunk (Gitsigns)', mode='n' },
+        { '<leader>hs', gitsigns.stage_hunk, desc = '[s]tage Hunk (Gitsigns)', mode = 'n' },
+        { '<leader>hr', gitsigns.reset_hunk, desc = '[r]eset Hunk (Gitsigns)', mode = 'n' },
         {
             '<leader>hs',
             function()
-                gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+                gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
             end,
             desc = '[s]tage Hunk (Gitsigns)',
-            mode = 'v'
+            mode = 'v',
         },
         {
             '<leader>hr',
             function()
-                gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+                gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
             end,
             desc = '[r]eset Hunk (Gitsigns)',
             mode = 'v',
         },
-        { '<leader>hS', gitsigns.stage_buffer, desc = '[S]tage Buffer (Gitsigns)', mode='n' },
-        { '<leader>hR', gitsigns.reset_buffer, desc = '[R]eset Buffer (Gitsigns)', mode='n' },
-        { '<leader>hp', gitsigns.preview_hunk, desc = 'Preview [H]unk (Gitsigns)', mode='n' },
-        { '<leader>hi', gitsigns.preview_hunk_inline, desc = 'Preview Hunk [i]nline (Gitsigns)', mode='n' },
+        { '<leader>hS', gitsigns.stage_buffer, desc = '[S]tage Buffer (Gitsigns)', mode = 'n' },
+        { '<leader>hR', gitsigns.reset_buffer, desc = '[R]eset Buffer (Gitsigns)', mode = 'n' },
+        { '<leader>hp', gitsigns.preview_hunk, desc = 'Preview [H]unk (Gitsigns)', mode = 'n' },
+        { '<leader>hi', gitsigns.preview_hunk_inline, desc = 'Preview Hunk [i]nline (Gitsigns)', mode = 'n' },
         {
             '<leader>hb',
             function()
-                gitsigns.blame_line({ full = true })
+                gitsigns.blame_line { full = true }
             end,
             desc = '[B]lame Line (Gitsigns)',
-            mode='n'
+            mode = 'n',
         },
-        { '<leader>hd', gitsigns.diffthis, desc = '[Ddiff This (Gitsigns)', mode='n' },
+        { '<leader>hd', gitsigns.diffthis, desc = '[Ddiff This (Gitsigns)', mode = 'n' },
         {
             '<leader>hD',
             function()
-                gitsigns.diffthis('~')
+                gitsigns.diffthis '~'
             end,
             desc = 'Diff This [~] (Gitsigns)',
-            mode='n'
+            mode = 'n',
         },
         {
             '<leader>hQ',
             function()
-                gitsigns.setqflist('all')
+                gitsigns.setqflist 'all'
             end,
             desc = 'Set [Q]uickfix List (Gitsigns)',
-            mode='n'
+            mode = 'n',
         },
-        { '<leader>hq', gitsigns.setqflist, desc = 'Set [q]uickfix List (Gitsigns)', mode='n'},
-        { '<leader>htb', gitsigns.toggle_current_line_blame, desc = '[T]oggle Current Line [b]lame (Gitsigns)', mode='n' },
-        { '<leader>htw', gitsigns.toggle_word_diff, desc = '[T]oggle [w]ord Diff (Gitsigns)', mode='n'},
-        { 'ih', gitsigns.select_hunk, desc = 'Select [H]unk (Gitsigns)', mode={'o', 'x'}},
+        { '<leader>hq', gitsigns.setqflist, desc = 'Set [q]uickfix List (Gitsigns)', mode = 'n' },
+        { '<leader>htb', gitsigns.toggle_current_line_blame, desc = '[T]oggle Current Line [b]lame (Gitsigns)', mode = 'n' },
+        { '<leader>htw', gitsigns.toggle_word_diff, desc = '[T]oggle [w]ord Diff (Gitsigns)', mode = 'n' },
+        { 'ih', gitsigns.select_hunk, desc = 'Select [H]unk (Gitsigns)', mode = { 'o', 'x' } },
     }
 end
 
