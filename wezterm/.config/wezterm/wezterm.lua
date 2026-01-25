@@ -15,16 +15,16 @@ return {
 	use_fancy_tab_bar = false,
 	scrollback_lines = 50000,
 	window_background_opacity = 1.0,
-    unix_domains = {
-        {
-            name = "unix",
-        },
-    },
-    ssh_domains = {{
-            name = "uranus",
-            remote_address = "uranus",
-    }},
-    keys = {
+	unix_domains = {
+		{
+			name = "unix",
+		},
+	},
+	ssh_domains = { {
+		name = "uranus",
+		remote_address = "uranus",
+	} },
+	keys = {
 		{
 			key = "h",
 			mods = "ALT",
@@ -135,5 +135,5 @@ return {
 			action = wezterm.action.ActivateTab(9),
 		},
 	},
-	enable_wayland = false,
+	enable_kitty_graphics = true,
 }
