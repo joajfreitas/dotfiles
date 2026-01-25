@@ -195,31 +195,11 @@ M.setup = function()
                         ['ui-select'] = {
                             require('telescope.themes').get_dropdown {},
                         },
-                    },
-                }
-
-                --require("telescope_config").setup()
-                pcall(require('telescope').load_extension, 'fzf')
-                pcall(require('telescope').load_extension, 'ui-select')
-            end,
-        },
-        {
-            'nvim-telescope/telescope.nvim',
-            event = 'VimEnter',
-            dependencies = {
-                'nvim-lua/plenary.nvim',
-                {
-                    'nvim-telescope/telescope-fzf-native.nvim',
-                    build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
-                },
-                { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
-                'nvim-telescope/telescope-ui-select.nvim',
-            },
-            config = function()
-                require('telescope').setup {
-                    extensions = {
-                        ['ui-select'] = {
-                            require('telescope.themes').get_dropdown {},
+                        ['fzf'] = {
+                            fuzzy = true,
+                            override_generic_sorter = true,
+                            override_file_sorter = true,
+                            case_mode = 'smart_case',
                         },
                     },
                 }
@@ -249,12 +229,7 @@ M.setup = function()
         },
         { 'ledger/vim-ledger' },
         { 'piero-vic/cmp-ledger' },
-        {
-            'lewis6991/gitsigns.nvim',
-            config = function()
-                require('gitsigns').setup()
-            end,
-        },
+        { 'lewis6991/gitsigns.nvim' },
         {
             'DrKJeff16/project.nvim',
             dependencies = {
@@ -285,6 +260,8 @@ M.setup = function()
                 },
                 auto_install = true,
                 highlight = { enable = true },
+                incremental_selection = { enable = true },
+                indent = { enable = true },
             },
             --config = function()
             --    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
@@ -303,7 +280,7 @@ M.setup = function()
             --    })
             --end,
         },
-        { 'github/copilot.vim' },
+        { 'github/copilot.vim', lazy = true },
         {
             'CopilotC-Nvim/CopilotChat.nvim',
             dependencies = {
@@ -344,7 +321,7 @@ M.setup = function()
                 'nvim-neotest/nvim-nio',
                 'jbyuki/one-small-step-for-vimkind',
             },
-            lazy = false,
+            lazy = true,
         },
         {
             'mrcjkb/rustaceanvim',
@@ -429,53 +406,6 @@ M.setup = function()
             },
         },
     })
-
-    local dap = require 'dap'
-    dap.adapters.gdb = {
-        type = 'executable',
-        command = 'gdb',
-        args = { '--interpreter=dap', '--eval-command', 'set print pretty on' },
-    }
-
-    dap.adapters.codelldb = {
-        type = 'server',
-        port = '${port}',
-        executable = {
-            command = '/home/joaj/.local/share/nvim/mason/bin/codelldb', -- I installed codelldb through mason.nvim
-            args = { '--port', '${port}' },
-        },
-    }
-
-    dap.configurations.c = {
-        {
-            name = 'Attach to gdbserver :1234',
-            type = 'gdb',
-            request = 'attach',
-            target = 'localhost:1234',
-            program = function()
-                return vim.fn.input(
-                    'Path to executable: ',
-                    '/home/joaj/bmw/orion2/bazel-bin/test/planning/motion_planning/behavior/lane_change/lane_segment_sequence_test'
-                )
-            end,
-            cwd = '${workspaceFolder}',
-        },
-    }
-
-    dap.configurations.cpp = dap.configurations.c
-    dap.configurations.rust = dap.configurations.c
-
-    dap.configurations.lua = {
-        {
-            type = 'nlua',
-            request = 'attach',
-            name = 'Attach to running Neovim instance',
-        },
-    }
-
-    dap.adapters.nlua = function(callback, config)
-        callback { type = 'server', host = config.host or '127.0.0.1', port = config.port or 8086 }
-    end
 end
 
 return M
