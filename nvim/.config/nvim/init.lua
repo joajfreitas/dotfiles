@@ -39,7 +39,6 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
 })
 
 require('plugins').setup()
-require('lsp').setup()
 require('luasnip.loaders.from_lua').load { paths = '~/.config/nvim/luasnippets' }
 require('telescope').setup {
     extensions = {
@@ -55,15 +54,7 @@ require('telescope').load_extension 'fzf'
 require('keybindings').setup()
 require('colorscheme').setup()
 require('neovide').setup()
-
--- gitsings config doesn't work in the lazy config table
--- require('gitsigns').setup {
---     word_diff = true,
---     current_line_blame = true,
---     current_line_blame_opts = {
---         delay = 200,
---     },
--- }
+require('completion').setup()
 
 require('gitsigns').setup{
     word_diff = true,

@@ -67,13 +67,15 @@ M.setup = function()
         { 'lewis6991/gitsigns.nvim' },
 
         --- LSP ---
-
-        { 'VonHeikemen/lsp-zero.nvim', branch = 'v3.x' }, -- TODO: deprecated
-        { 'mason-org/mason.nvim' },
-        { 'mason-org/mason-lspconfig.nvim' },
         { 'neovim/nvim-lspconfig' },
-        { 'hrsh7th/cmp-nvim-lsp' },
-        { 'hrsh7th/nvim-cmp' },
+        { 'mason-org/mason.nvim' , opts={}},
+        { 'williamboman/mason-lspconfig.nvim', opts={} },
+        { 'hrsh7th/nvim-cmp'},
+        { 'hrsh7th/cmp-nvim-lsp'},
+        { 'hrsh7th/cmp-buffer' },
+        { 'hrsh7th/cmp-path' },
+        { 'hrsh7th/cmp-cmdline' },
+        { 'hrsh7th/cmp-emoji' },
         {
             'folke/trouble.nvim',
             opts = {},
@@ -398,7 +400,14 @@ M.setup = function()
                 signs = false,
             },
         },
-    }, {
+        {
+            "olimorris/codecompanion.nvim",
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                "nvim-treesitter/nvim-treesitter"
+            },
+            opts = {}
+        }}, {
         ui = {
             -- If you are using a Nerd Font: set icons to an empty table which will use the
             -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
