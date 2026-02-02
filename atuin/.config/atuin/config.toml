@@ -1,3 +1,4 @@
 update_check = false
 style="compact"
 inline_height=20
+auto_sync = false
