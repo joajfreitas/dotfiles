@@ -147,7 +147,7 @@ export PATH=/home/joaj/.local/bin:$PATH
 export PATH=$PATH:"$XDG_DATA_HOME"/cargo/bin
 export PATH=$PATH:"$XDG_CONFIG_HOME"/emacs/bin
 export PATH=$PATH:"$XDG_DATA_HOME"/gem/ruby/2.7.0/bin
-export PATH=$PATH:"$XDG_CONFIG_HOME"/emacs/bin
+export PATH=$PATH:"$XDG_DATA_HOME"/bob/nvim-bin
 export MANPAGER='vim -R -M +MANPAGER -'
 
 source ~/.secrets
