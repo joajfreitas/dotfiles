@@ -1,303 +1,348 @@
 local M = {}
 
 M.setup = function()
-    local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-    if not (vim.uv or vim.loop).fs_stat(lazypath) then
-      local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-      local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-      if vim.v.shell_error ~= 0 then
-        vim.api.nvim_echo({
-          { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-          { out, "WarningMsg" },
-          { "\nPress any key to exit..." },
-        }, true, {})
-        vim.fn.getchar()
-        os.exit(1)
-      end
+    local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+    local uv = vim.uv or vim.loop
+
+    -- Auto-install lazy.nvim if not present
+    if not uv.fs_stat(lazypath) then
+        print 'Installing lazy.nvim....'
+        vim.fn.system {
+            'git',
+            'clone',
+            '--filter=blob:none',
+            'https://github.com/folke/lazy.nvim.git',
+            '--branch=stable',
+            lazypath,
+        }
+        print 'Done.'
     end
+
     vim.opt.rtp:prepend(lazypath)
 
-    require("lazy").setup({
+    require('lazy').setup({
         {
-            "folke/lazydev.nvim",
-            ft = 'lua',
+            'NMAC427/guess-indent.nvim',
             opts = {
-                library = {
-                    -- Load luvit types when the `vim.uv` word is found
-                    { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+                on_tab_options = {
+                    ['expandtab'] = true,
                 },
             },
         },
         {
-		    'NMAC427/guess-indent.nvim',
-		    opts = {
-                on_tab_options = {
-        		    ["expandtab"] = true,
-		        }
-            }
-        },
-        {
-            "johnfrankmorgan/whitespace.nvim",
+            'folke/lazydev.nvim',
+            ft = 'lua',
             opts = {
-                highlight = "DiffDelete",
-                ignored_filetypes = { "TelescopePrompt", "Trouble", "help", "dashboard" },
-                ignore_terminal = true,
-                return_cursor = true,
+                library = {
+                    { path = '${3rd}/luv/library', word = { 'vim%.uv' } },
+                },
             },
         },
-        "tpope/vim-fugitive",
         {
-            "tpope/vim-rhubarb",
+            'johnfrankmorgan/whitespace.nvim',
             config = function()
-                vim.g.github_enterprise_urls = { 'cc-github.bmwgroup.net' }
-            end
+                require('whitespace-nvim').setup {
+                    highlight = 'DiffDelete',
+                    ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help', 'dashboard' },
+                    ignore_terminal = true,
+                    return_cursor = true,
+                }
+            end,
         },
+        { 'tpope/vim-fugitive' },
+        { 'tpope/vim-rhubarb' },
+        { 'shumphrey/fugitive-gitlab.vim' },
         {
-            "NeogitOrg/neogit",
+            'NeogitOrg/neogit',
+            opts = {
+                graph_style = 'unicode',
+            },
             dependencies = {
-                "nvim-lua/plenary.nvim",
-                "sindrets/diffview.nvim",
-                "nvim-telescope/telescope.nvim",
+                'nvim-lua/plenary.nvim',
+                'sindrets/diffview.nvim',
+                'nvim-telescope/telescope.nvim',
             },
-            config = true
+            config = true,
+        },
+        { 'lewis6991/gitsigns.nvim' },
+
+        --- LSP ---
+        { 'neovim/nvim-lspconfig' },
+        { 'mason-org/mason.nvim', opts = {} },
+        { 'williamboman/mason-lspconfig.nvim', opts = {} },
+        { 'hrsh7th/nvim-cmp' },
+        { 'hrsh7th/cmp-nvim-lsp' },
+        { 'hrsh7th/cmp-buffer' },
+        { 'hrsh7th/cmp-path' },
+        { 'hrsh7th/cmp-cmdline' },
+        { 'hrsh7th/cmp-emoji' },
+        {
+            'folke/trouble.nvim',
+            opts = {},
+            cmd = 'Trouble',
         },
         {
-        "lewis6991/gitsigns.nvim",
-        opts = {
-            current_line_blame = false,
-            current_line_blame_opts = {
-                virt_text = true,
-                virt_text_pos = 'eol',
-                delay = 300,
-                ignore_whitespace = false,
-                virt_text_priority = 100,
-                use_focus = true,
-            },
-        }},
-        { "VonHeikemen/lsp-zero.nvim",        branch = "v3.x" },
+            'zbirenbaum/copilot-cmp',
+            opts = {},
+        },
         {
-            "neovim/nvim-lspconfig",
+            'L3MON4D3/LuaSnip',
+            run = 'make install_jsregexp',
+            dependencies = { 'rafamadriz/friendly-snippets' },
+        },
+        --- Follow system wide theme (dark/light)
+        { 'vimpostor/vim-lumen' },
+        --- Gruvbox! ---
+        {
+            'ellisonleao/gruvbox.nvim',
+            opts = { transparent_mode = not vim.g.neovide },
+        },
+        {
+            'nvim-tree/nvim-tree.lua',
             dependencies = {
-                { "williamboman/mason.nvim", opts={} },
-                "williamboman/mason-lspconfig.nvim",
-                'WhoIsSethDaniel/mason-tool-installer.nvim',
-                { "j-hui/fidget.nvim",       opts = {} },
-                'saghen/blink.cmp'
+                'nvim-lua/plenary.nvim',
+                'nvim-tree/nvim-web-devicons',
+                'MunifTanjim/nui.nvim',
             },
-        },
-        { "hrsh7th/cmp-nvim-lsp" },
-        { "hrsh7th/nvim-cmp" },
-        {
-            "nvimtools/none-ls.nvim",
             config = function()
-                local null_ls = require("null-ls")
-                null_ls.setup({ null_ls.builtins.formatting.black })
-            end
-        },
-        {
-            "ellisonleao/gruvbox.nvim",
-            lazy = false,
-            priority = 1000,
-        },
-        "nvim-telescope/telescope-project.nvim",
-        {
-            "nvim-tree/nvim-tree.lua",
-            config = function()
-                require("nvim-tree").setup({
+                vim.g.loaded_netrw = 1
+                vim.g.loaded_netrwPlugin = 1
+                vim.opt.termguicolors = true
+
+                require('nvim-tree').setup {
                     sync_root_with_cwd = true,
                     respect_buf_cwd = true,
                     update_focused_file = {
                         enable = true,
-                        update_root = true
+                        update_root = true,
+                    },
+                    sort = {
+                        sorter = 'case_sensitive',
                     },
                     view = {
-                        width = 80,
-                    }
-                })
-            end
-        },
-        {
-            "nvim-telescope/telescope.nvim",
-            dependencies = {
-                "nvim-lua/plenary.nvim",
-                {
-                    "nvim-telescope/telescope-fzf-native.nvim",
-                    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release"
-                },
-                {
-                    "nvim-telescope/telescope-ui-select.nvim",
-                    dependencies = { "nvim-telescope/telescope.nvim" },
-                    config = function()
-                        require("telescope").load_extension("ui-select")
-                    end
-                },
-                { 'nvim-tree/nvim-web-devicons', enabled = true },
-            },
-        },
-        {
-            "folke/which-key.nvim",
-            event = "VeryLazy",
-            init = function()
-                vim.o.timeout = true
-                vim.o.timeoutlen = 300
-            end,
-            dependencies = { "echasnovski/mini.icons" }
-        },
-        {
-            "L3MON4D3/LuaSnip",
-            dependencies = { "rafamadriz/friendly-snippets" }
-        },
-        { "saadparwaiz1/cmp_luasnip" },
-        { "pocco81/true-zen.nvim" },
-        { "junegunn/limelight.vim" },
-        {
-            "FabijanZulj/blame.nvim",
-            config = function() require("blame").setup() end
-        },
-        { "ledger/vim-ledger" },
-        { "piero-vic/cmp-ledger" },
-        {
-            "lewis6991/gitsigns.nvim",
-            config = function() require("gitsigns").setup() end
-        },
-        { "github/copilot.vim" },
-        {
-            "nvim-treesitter/nvim-treesitter",
-            config = function()
-                local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-                parser_config.fcp = {
-                    install_info = {
-                        url = "~/sources/fcp-core/tree-sitter-fcp",
-                        files = { "src/parser.c" },
-                        generate_requires_npm = false,
-                        requires_generate_from_grammar = false,
+                        width = 50,
                     },
-                    filetype = "fcp",
-                }
-                require 'nvim-treesitter.configs'.setup {
-                    highlight = {
-                        enable = true,
-                    }
+                    renderer = {
+                        group_empty = true,
+                    },
+                    filters = {
+                        dotfiles = true,
+                    },
                 }
             end,
         },
         {
-            "f-person/auto-dark-mode.nvim",
-
-            opts = {
-                fallback = "light"
-            }
-        },
-        { "mfussenegger/nvim-dap" },
-        {
-            "rcarriga/nvim-dap-ui",
-            dependencies = {
-                "mfussenegger/nvim-dap",
-                "nvim-neotest/nvim-nio"
-            }
-        },
-        {
-            "https://cc-github.bmwgroup.net/shaharklinger/acronymviewer.nvim",
+            'stevearc/oil.nvim',
+            dependencies = { { 'echasnovski/mini.icons', opts = {} } },
             opts = {},
             lazy = false,
         },
         {
-            "CopilotC-Nvim/CopilotChat.nvim",
+            'nvim-telescope/telescope.nvim',
+            event = 'VimEnter',
             dependencies = {
-                { "nvim-lua/plenary.nvim", branch = "master" },
+                'nvim-lua/plenary.nvim',
+                {
+                    'nvim-telescope/telescope-fzf-native.nvim',
+                    build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
+                },
+                { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+                'nvim-telescope/telescope-ui-select.nvim',
             },
-            build = "make tiktoken",
-            opts = {
-            },
+            config = function()
+                require('telescope').setup {
+                    extensions = {
+                        ['ui-select'] = {
+                            require('telescope.themes').get_dropdown {},
+                        },
+                        ['fzf'] = {
+                            fuzzy = true,
+                            override_generic_sorter = true,
+                            override_file_sorter = true,
+                            case_mode = 'smart_case',
+                        },
+                    },
+                }
+
+                pcall(require('telescope').load_extension, 'fzf')
+                pcall(require('telescope').load_extension, 'ui-select')
+            end,
         },
         {
-            "obsidian-nvim/obsidian.nvim",
-            version = "*",
+            'folke/which-key.nvim',
+            event = 'VimEnter',
+            opts = {
+                delay = 0,
+                icon = {
+                    mappings = vim.g.have_nerd_font,
+                },
+            },
+        },
+        { 'saadparwaiz1/cmp_luasnip' },
+        { 'pocco81/true-zen.nvim' },
+        { 'junegunn/limelight.vim' },
+        {
+            'FabijanZulj/blame.nvim',
+            config = function()
+                require('blame').setup()
+            end,
+        },
+        { 'ledger/vim-ledger' },
+        { 'piero-vic/cmp-ledger' },
+        {
+            'DrKJeff16/project.nvim',
+            dependencies = {
+                'nvim-lua/plenary.nvim',
+                'nvim-telescope/telescope.nvim',
+            },
+            opts = {},
+        },
+        {
+            'nvim-treesitter/nvim-treesitter',
+            build = ':TSUpdate',
+            branch = "master",
+            opts = {
+                ensure_installed = {
+                    'bash',
+                    'c',
+                    'diff',
+                    'html',
+                    'lua',
+                    'luadoc',
+                    'markdown',
+                    'markdown_inline',
+                    'query',
+                    'vimdoc',
+                    'rust',
+                    'toml',
+                    'yaml',
+                    'cpp',
+                },
+                auto_install = true,
+                highlight = { enable = true },
+                incremental_selection = { enable = true },
+                indent = { enable = true },
+            },
+        },
+        { 'github/copilot.vim' },
+        --{ 'ActivityWatch/aw-watcher-vim' },
+        {
+            'epwalsh/obsidian.nvim',
+            version = '*',
             lazy = true,
             event = {
-                "BufReadPre " .. vim.fn.expand("~") .. "/sources/wiki/*.md",
-                "BufNewFile " .. vim.fn.expand("~") .. "/sources/wiki/*.md",
+                'BufReadPre ' .. vim.fn.expand '~' .. '/Sync/wiki/*.md',
+                'BufNewFile ' .. vim.fn.expand '~' .. '/Sync/wiki/*.md',
             },
             dependencies = {
-                "nvim-lua/plenary.nvim",
+                'nvim-lua/plenary.nvim',
             },
             opts = {
                 workspaces = {
                     {
-                        name = "wiki",
-                        path = "~/sources/wiki",
+                        name = 'wiki',
+                        path = '~/Sync/wiki',
                     },
                 },
                 attachments = {
-                    img_folder = "assets/imgs",
-                }
-
+                    img_folder = 'assets',
+                },
             },
         },
-        { "rcarriga/nvim-notify", opts = { stages = "static" } },
+        { 'mfussenegger/nvim-dap' },
         {
-            "nvim-neotest/neotest",
+            'rcarriga/nvim-dap-ui',
             dependencies = {
-                "nvim-neotest/nvim-nio",
-                "nvim-lua/plenary.nvim",
-                "antoinemadec/FixCursorHold.nvim",
-                "nvim-treesitter/nvim-treesitter",
-                "alfaix/neotest-gtest"
+                'mfussenegger/nvim-dap',
+                'nvim-neotest/nvim-nio',
+                'jbyuki/one-small-step-for-vimkind',
+            },
+            lazy = true,
+        },
+        {
+            'mrcjkb/rustaceanvim',
+            version = '^6', -- Recommended
+            lazy = false, -- This plugin is already lazy
+            config = function()
+                vim.g.rustaceanvim = function()
+                    -- Update this path
+                    local extension_path = vim.env.HOME .. '/home/joaj/.vscode/extensions/vadimcn.vscode-lldb-1.10.0/'
+                    local codelldb_path = extension_path .. 'adapter/codelldb'
+                    local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
+                    local cfg = require 'rustaceanvim.config'
+                    return {
+                        dap = {
+                            adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
+                        },
+                    }
+                end
+            end,
+        },
+        {
+            'nvim-neotest/neotest',
+            dependencies = {
+                'nvim-neotest/nvim-nio',
+                'nvim-lua/plenary.nvim',
+                'antoinemadec/FixCursorHold.nvim',
+                'nvim-treesitter/nvim-treesitter',
+                'alfaix/neotest-gtest',
             },
             config = function()
-                require("neotest").setup({
+                local utils = require 'neotest-gtest.utils'
+                local lib = require 'neotest.lib'
+                require('neotest').setup {
                     adapters = {
-                        require("neotest-gtest").setup({
+                        require('neotest-gtest').setup {
                             -- which debug adater to use? dap.adapters.<this debug_adapter> must be defined.
-                            debug_adapter = "gdb",
-                        })
+                            debug_adapter = 'gdb',
+                        },
+                        require 'rustaceanvim.neotest',
                     },
-                    discovery =
-                    {
+                    discovery = {
                         enabled = false,
-                        concurrent = 1
+                        concurrent = 1,
                     },
-                })
+                }
             end,
+        },
+        {
+            'folke/todo-comments.nvim',
+            event = 'VimEnter',
+            dependencies = { 'nvim-lua/plenary.nvim' },
+            opts = {
+                signs = false,
+            },
+        },
+	{
+	  "olimorris/codecompanion.nvim",
+	  version = "^18.0.0",
+	  dependencies = {
+	    "PrimaMateria/codecompanion-copilot-enterprise.nvim",
+	    "nvim-lua/plenary.nvim",
+	    "nvim-treesitter/nvim-treesitter",
+	  },
+	},
+    }, {
+        ui = {
+            -- If you are using a Nerd Font: set icons to an empty table which will use the
+            -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+            icons = vim.g.have_nerd_font and {} or {
+                cmd = '⌘',
+                config = '🛠',
+                event = '📅',
+                ft = '📂',
+                init = '⚙',
+                keys = '🗝',
+                plugin = '🔌',
+                runtime = '💻',
+                require = '🌙',
+                source = '📄',
+                start = '🚀',
+                task = '📌',
+                lazy = '💤 ',
+            },
         },
     })
-
-    local dap = require("dap")
-    dap.adapters.gdb = {
-        type = "executable",
-        command = "gdb",
-        args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
-    }
-
-    dap.adapters.codelldb = {
-        type = "server",
-        port = "${port}",
-        executable = {
-            command = "/home/joaj/.local/share/nvim/mason/bin/codelldb",   -- I installed codelldb through mason.nvim
-            args = { "--port", "${port}" }
-        },
-    }
-
-
-    dap.configurations.c = {
-        {
-            name = 'Attach to gdbserver :1234',
-            type = 'gdb',
-            request = 'attach',
-            target = 'localhost:1234',
-            program = function()
-                return vim.fn.input('Path to executable: ',
-                    '/home/joaj/bmw/orion2/bazel-bin/test/planning/motion_planning/behavior/lane_change/lane_segment_sequence_test')
-            end,
-            cwd = '${workspaceFolder}'
-        },
-    }
-
-
-    dap.configurations.cpp = dap.configurations.c
-    dap.configurations.rust = dap.configurations.c
-
-    vim.notify = require("notify")
 end
 
 return M

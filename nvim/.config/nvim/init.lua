@@ -1,57 +1,63 @@
--- disable netrw at the very start of your init.lua
-vim.g.loaded_netrwPlugin = 1
-vim.o.autochdir = false
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+vim.g.have_nerd_font = true
+
 vim.wo.number = true
-vim.g.mapleader = " "
+vim.o.mouse = 'a'
 
 vim.schedule(function()
-    vim.o.clipboard = "unnamedplus"
+    vim.o.clipboard = 'unnamedplus'
 end)
 
-vim.o.mouse = 'a'
-vim.o.breakindent = true
 vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
-vim.o.signcolumn = "yes"
-vim.o.updatetime = 300
-vim.o.cursorline = true
+vim.o.signcolumn = 'yes'
+vim.o.updatetime = 250
+
+vim.opt.swapfile = false
+
+vim.o.inccommand = 'split'
 vim.o.scrolloff = 10
 vim.o.confirm = true
 
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>', { desc = "Clear search highlighting" })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.o.splitright = true
+vim.o.splitbelow = true
+
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
-  end,
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+    callback = function()
+        vim.hl.on_yank()
+    end,
+})
+
+-- Set conceallevel to 1 for markdown files, needed for obsidian.nvim
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
+    pattern = { '*.md' },
+    command = 'lua vim.opt.conceallevel = 1',
+})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+    desc = 'Format on save',
+    pattern = { '*.lua', '*.rs', '*.py', '*.ts', '*.js', '*.cpp', '*.h', '*.c' },
+    group = vim.api.nvim_create_augroup('format-on-save', { clear = true }),
+    callback = function()
+        vim.lsp.buf.format()
+    end,
 })
 
 require('plugins').setup()
-require('lsp').setup()
-require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/luasnippets"})
-require("telescope").setup({
-    extensions = {
-        fzf = {
-            fuzzy = true,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = "smart_case"
-        }
-    }
-})
-pcall(require("telescope").load_extension, 'fzf')
-pcall(require("telescope").load_extension, 'ui-select')
-
+require('luasnip.loaders.from_lua').load { paths = '~/.config/nvim/luasnippets' }
 require('keybindings').setup()
 require('colorscheme').setup()
+require('neovide').setup()
+require('completion').setup()
+require('dap_config').setup()
+require('gitsigns_config').setup()
+require(vim.uv.os_gethostname()).setup()
 
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = { '*.md' },
-    callback = function()
-        vim.o.conceallevel = 2
-    end,
-})
+
