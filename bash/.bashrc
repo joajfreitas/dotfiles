@@ -3,7 +3,14 @@
 
 PS1='[\u@\h \W]\$ '
 
-source .profile
-source .aliases
+source /home/joaj/.profile
+source /home/joaj/.aliases
 
 # vim: set ft=sh:
+
+#. "$HOME/.atuin/bin/env"
+
+[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+#eval "$(atuin init bash)"
+
+. "$HOME/.local/share/../bin/env"

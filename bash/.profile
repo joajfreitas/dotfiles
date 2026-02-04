@@ -10,3 +10,7 @@ export HOSTNAME=$(hostname)
 TZ='Europe/Lisbon'; export TZ
 
 # vim: set ft=sh:
+
+. "$HOME/.atuin/bin/env"
+
+. "$HOME/.local/share/../bin/env"
