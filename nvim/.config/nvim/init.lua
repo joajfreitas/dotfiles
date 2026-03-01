@@ -6,9 +6,7 @@ vim.g.have_nerd_font = true
 vim.wo.number = true
 vim.o.mouse = 'a'
 
-vim.schedule(function()
-    vim.o.clipboard = 'unnamedplus'
-end)
+vim.o.clipboard = 'unnamedplus'
 
 vim.o.undofile = true
 vim.o.ignorecase = true
@@ -41,14 +39,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
     command = 'lua vim.opt.conceallevel = 1',
 })
 
-vim.api.nvim_create_autocmd('BufWritePre', {
-    desc = 'Format on save',
-    pattern = { '*.lua', '*.rs', '*.py', '*.ts', '*.js', '*.cpp', '*.h', '*.c' },
-    group = vim.api.nvim_create_augroup('format-on-save', { clear = true }),
-    callback = function()
-        vim.lsp.buf.format()
-    end,
-})
+vim.opt.termsync = false
 
 require('plugins').setup()
 require('luasnip.loaders.from_lua').load { paths = '~/.config/nvim/luasnippets' }

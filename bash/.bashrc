@@ -3,7 +3,7 @@
 
 PS1='[\u@\h \W]\$ '
 
-source .profile
-source .aliases
+source /home/joaj/.profile
+source /home/joaj/.aliases
 
 # vim: set ft=sh:

@@ -4,7 +4,12 @@ M.setup = function()
     cmp = require 'cmp'
     lvim = require 'lvim'
 
+    vim.g.cmptoggle = true
+
     cmp.setup {
+        enabled = function()
+            return vim.g.cmptoggle
+        end,
         mapping = cmp.mapping.preset.insert {
             ['<C-b>'] = cmp.mapping.scroll_docs(-4),
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -34,7 +39,7 @@ M.setup = function()
                     vim_item.abbr = string.sub(vim_item.abbr, 1, max_width - 1) .. lvim.icons.ui.Ellipsis
                 end
                 if lvim.use_icons then
-                    vim_item.kind = lvim.icons.kind[vim_item.kind] --lvim.builtin.cmp.formatting.kind_icons[vim_item.kind]
+                    vim_item.kind = lvim.icons.kind[vim_item.kind]
 
                     if entry.source.name == 'copilot' then
                         vim_item.kind = lvim.icons.git.Octoface
@@ -68,6 +73,12 @@ M.setup = function()
             end,
         },
     }
+
+    -- define custom user command to toggle cmp
+    vim.api.nvim_create_user_command('CmpToggle', function()
+        vim.g.cmptoggle = not vim.g.cmptoggle
+    end, {})
+
 end
 
 return M

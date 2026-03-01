@@ -24,6 +24,7 @@ M.setup = function()
         {
             'NMAC427/guess-indent.nvim',
             opts = {
+                filetype_exclude  = { 'make' },
                 on_tab_options = {
                     ['expandtab'] = true,
                 },
@@ -68,7 +69,7 @@ M.setup = function()
 
         --- LSP ---
         { 'neovim/nvim-lspconfig' },
-        { 'mason-org/mason.nvim', opts = {} },
+        { 'mason-org/mason.nvim',              opts = {} },
         { 'williamboman/mason-lspconfig.nvim', opts = {} },
         { 'hrsh7th/nvim-cmp' },
         { 'hrsh7th/cmp-nvim-lsp' },
@@ -76,6 +77,7 @@ M.setup = function()
         { 'hrsh7th/cmp-path' },
         { 'hrsh7th/cmp-cmdline' },
         { 'hrsh7th/cmp-emoji' },
+        { "j-hui/fidget.nvim",                 opts = {} },
         {
             'folke/trouble.nvim',
             opts = {},
@@ -187,7 +189,8 @@ M.setup = function()
                     build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
                 },
                 { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
-                'nvim-telescope/telescope-ui-select.nvim',
+                { 'nvim-telescope/telescope-ui-select.nvim' },
+                { 'ahmedkhalf/project.nvim', opts={} }
             },
             config = function()
                 require('telescope').setup {
@@ -206,6 +209,7 @@ M.setup = function()
 
                 pcall(require('telescope').load_extension, 'fzf')
                 pcall(require('telescope').load_extension, 'ui-select')
+                pcall(require('telescope').load_extension, 'project')
             end,
         },
         {
@@ -230,14 +234,6 @@ M.setup = function()
         { 'ledger/vim-ledger' },
         { 'piero-vic/cmp-ledger' },
         { 'lewis6991/gitsigns.nvim' },
-        {
-            'DrKJeff16/project.nvim',
-            dependencies = {
-                'nvim-lua/plenary.nvim',
-                'nvim-telescope/telescope.nvim',
-            },
-            opts = {},
-        },
         {
             'nvim-treesitter/nvim-treesitter',
             build = ':TSUpdate',
@@ -280,7 +276,7 @@ M.setup = function()
             --    })
             --end,
         },
-        { 'github/copilot.vim', lazy = true },
+        { 'github/copilot.vim',          lazy = false },
         {
             'CopilotC-Nvim/CopilotChat.nvim',
             dependencies = {
@@ -326,7 +322,7 @@ M.setup = function()
         {
             'mrcjkb/rustaceanvim',
             version = '^6', -- Recommended
-            lazy = false, -- This plugin is already lazy
+            lazy = false,   -- This plugin is already lazy
             config = function()
                 vim.g.rustaceanvim = function()
                     -- Update this path
@@ -385,6 +381,24 @@ M.setup = function()
             },
             opts = {},
         },
+        {
+            "AckslD/nvim-neoclip.lua",
+            config = function()
+                require('neoclip').setup()
+            end
+        },
+        { "akinsho/git-conflict.nvim", opts = {} },
+        {
+            'yorickpeterse/nvim-pqf',
+            opts = {
+                signs = {
+                    error = { text = 'E', hl = 'DiagnosticSignError' },
+                    warning = { text = 'W', hl = 'DiagnosticSignWarn' },
+                    info = { text = 'I', hl = 'DiagnosticSignInfo' },
+                    hint = { text = 'H', hl = 'DiagnosticSignHint' },
+                },
+            }
+        }
     }, {
         ui = {
             -- If you are using a Nerd Font: set icons to an empty table which will use the

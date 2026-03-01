@@ -210,12 +210,13 @@ bar {
 # Applications
 
 #autostart
-exec --no-startup-id aw-qt
+exec --no-startup-id aw-qt --no-gui
 exec --no-startup-id discord
 exec --no-startup-id Telegram
 exec --no-startup-id spotify
 exec --no-startup-id nasa-wallpaper -a
 exec --no-startup-id thunderbird
+exec --no-startup-id swayidle -w timeout 300 'swaylock -f' timeout 600 'swaymsg output \* power off' resume 'swaymsg output \* power on'
 
 
 # terminal
@@ -244,12 +245,11 @@ for_window [app_id="mpv"] opacity 1.0
 for_window [class="^.*"]  border pixel 3
 
 assign [class = "^Chromium$"]                $workspace10
-assign [class = "^firefox$"]                 $workspace10
+assign [app_id = "firefox"]                  $workspace10
 assign [class = "qutebrowser"]               $workspace10
 assign [class = "^discord"]                  $workspace9
 assign [class = "^Telegram"]                 $workspace9
-assign [class = "^Thunderbird$"]             $workspace8
-assign [class = "^thunderbird"]              $workspace8
+assign [app_id = "thunderbird"]              $workspace8
 assign [class = "Transmission"]              $workspace7
 assign [class = "mpv"]                       $workspace7
 
