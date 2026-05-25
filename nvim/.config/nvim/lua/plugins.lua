@@ -117,7 +117,7 @@ M.setup = function()
                         resolve_image_path = function(document_path, image_path, fallback)
                             local working_dir = vim.fn.getcwd()
                             -- Format image path for Obsidian notes
-                            if working_dir:find '/home/joaj/Sync/wiki' then
+                            if working_dir:find '/home/joaj/sync/wiki' then
                                 return working_dir .. '/' .. 'assets/' .. image_path
                             end
                             -- Fallback to the default behavior
@@ -190,7 +190,7 @@ M.setup = function()
                 },
                 { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
                 { 'nvim-telescope/telescope-ui-select.nvim' },
-                { 'ahmedkhalf/project.nvim', opts={} }
+                { 'ahmedkhalf/project.nvim' }
             },
             config = function()
                 require('telescope').setup {
@@ -209,7 +209,7 @@ M.setup = function()
 
                 pcall(require('telescope').load_extension, 'fzf')
                 pcall(require('telescope').load_extension, 'ui-select')
-                pcall(require('telescope').load_extension, 'project')
+                --pcall(require('telescope').load_extension, 'project')
             end,
         },
         {
@@ -287,12 +287,12 @@ M.setup = function()
         },
         { 'ActivityWatch/aw-watcher-vim' },
         {
-            'epwalsh/obsidian.nvim',
+            'obsidian-nvim/obsidian.nvim',
             version = '*',
             lazy = true,
             event = {
-                'BufReadPre ' .. vim.fn.expand '~' .. '/Sync/wiki/*.md',
-                'BufNewFile ' .. vim.fn.expand '~' .. '/Sync/wiki/*.md',
+                'BufReadPre ' .. vim.fn.expand '~' .. '/sync/wiki/*.md',
+                'BufNewFile ' .. vim.fn.expand '~' .. '/sync/wiki/*.md',
             },
             dependencies = {
                 'nvim-lua/plenary.nvim',
@@ -301,14 +301,22 @@ M.setup = function()
                 workspaces = {
                     {
                         name = 'wiki',
-                        path = '~/Sync/wiki',
+                        path = '~/sync/wiki',
                     },
                 },
                 attachments = {
-                    img_folder = 'assets',
+                    folder = 'assets',
                 },
+                daily_notes = {
+                    enabled = true,
+                    folder = "journal/daily",
+                    date_format = "YYYY-MM-DD",
+                    default_tags = { "journal", "daily" },
+                },
+                legacy_commands=false,
             },
         },
+        { 'jbyuki/nabla.nvim' },
         { 'mfussenegger/nvim-dap' },
         {
             'rcarriga/nvim-dap-ui',
@@ -398,7 +406,7 @@ M.setup = function()
                     hint = { text = 'H', hl = 'DiagnosticSignHint' },
                 },
             }
-        }
+        },
     }, {
         ui = {
             -- If you are using a Nerd Font: set icons to an empty table which will use the

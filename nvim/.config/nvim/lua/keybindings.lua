@@ -294,6 +294,10 @@ M.setup = function()
     M.neogit_keymaps(wk)
 
     wk.add {
+        {'<leader>p', function() require("nabla").popup() end, desc = 'Show math' }
+    }
+
+    wk.add {
         { 'gl', vim.diagnostic.open_float, desc = 'Show diagnostics' },
         { '[d', vim.diagnostic.get_prev,   desc = 'Previous diagnostic' },
         { ']d', vim.diagnostic.get_next,   desc = 'Next diagnostic' },
