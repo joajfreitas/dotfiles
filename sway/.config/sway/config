@@ -217,10 +217,11 @@ exec --no-startup-id spotify
 exec --no-startup-id nasa-wallpaper -a
 exec --no-startup-id thunderbird
 exec --no-startup-id swayidle -w timeout 300 'swaylock -f' timeout 600 'swaymsg output \* power off' resume 'swaymsg output \* power on'
+exec_always --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 
 # terminal
-bindsym $mod+Return exec --no-startup-id wezterm
+bindsym $mod+Return exec --no-startup-id ghostty
 
 # launch rofi launcher
 bindsym $mod+d exec rofi -modi drun -show drun
@@ -229,7 +230,7 @@ bindsym $mod+d exec rofi -modi drun -show drun
 bindsym $mod+p exec rofi-pass
 
 # launch window switcher
-bindsym $mod+y exec /home/joaj/bin/window_switcher
+bindsym $mod+y exec /home/joaj/bin/window_switcher.sh
 
 bindsym $mod+f exec thunar
 bindsym $mod+b exec firefox
@@ -263,3 +264,4 @@ input * repeat_rate 60
 input * xkb_options compose:ralt
 
 include ~/.config/sway/saturn/*
+include /etc/sway/config.d/*
